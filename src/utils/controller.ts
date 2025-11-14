@@ -45,20 +45,53 @@ export const joyConMappings = {
   "SR-RIGHT": 21,
 };
 
-const agnosticController = {
-  DPAD_DOWN: 0,
-  DPAD_LEFT: 1,
-  DPAD_UP: 2,
-  DPAD_RIGHT: 3,
-  BUTTON_BOTTOM: 4,
-  BUTTON_LEFT: 5,
-  BUTTON_TOP: 6,
-  BUTTON_RIGHT: 7,
-  LEFT_BUMPER: 8,
-  RIGHT_BUMPER: 9,
-  LEFT_TRIGGER: 10,
-  RIGHT_TRIGGER: 11,
+const agnosticControllerSpiral = {
+  LEFT_STICK_DOWN: 0,
+  LEFT_STICK_LEFT: 1,
+  LEFT_STICK_UP: 2,
+  LEFT_STICK_RIGHT: 3,
+  DPAD_DOWN: 4,
+  DPAD_LEFT: 5,
+  DPAD_UP: 6,
+  DPAD_RIGHT: 7,
+  BUTTON_BOTTOM: 8,
+  BUTTON_LEFT: 9,
+  BUTTON_TOP: 10,
+  BUTTON_RIGHT: 11,
+  LEFT_BUMPER: 12,
+  LEFT_TRIGGER: 13,
+  RIGHT_BUMPER: 14,
+  RIGHT_TRIGGER: 15,
+  RIGHT_STICK_DOWN: 16,
+  RIGHT_STICK_LEFT: 17,
+  RIGHT_STICK_UP: 18,
+  RIGHT_STICK_RIGHT: 19,
 };
+
+const agnosticControllerInterlacedSpiral = {
+  LEFT_STICK_DOWN: 0,
+  LEFT_STICK_LEFT: 2,
+  LEFT_STICK_UP: 4,
+  LEFT_STICK_RIGHT: 6,
+  DPAD_DOWN: 8,
+  DPAD_LEFT: 10,
+  DPAD_UP: 12,
+  DPAD_RIGHT: 14,
+  BUTTON_BOTTOM: 9,
+  BUTTON_LEFT: 11,
+  BUTTON_TOP: 13,
+  BUTTON_RIGHT: 15,
+  LEFT_BUMPER: 16,
+  LEFT_TRIGGER: 18,
+  RIGHT_BUMPER: 17,
+  RIGHT_TRIGGER: 19,
+  RIGHT_STICK_DOWN: 1,
+  RIGHT_STICK_LEFT: 3,
+  RIGHT_STICK_UP: 5,
+  RIGHT_STICK_RIGHT: 7,
+};
+
+const agnosticController = agnosticControllerSpiral;
 
 export const joyConToAgnosticMappings = {
   b: agnosticController.BUTTON_BOTTOM,
@@ -69,6 +102,10 @@ export const joyConToAgnosticMappings = {
   LEFT: agnosticController.DPAD_LEFT,
   RIGHT: agnosticController.DPAD_RIGHT,
   UP: agnosticController.DPAD_UP,
+  L: agnosticController.LEFT_BUMPER,
+  zl: agnosticController.LEFT_TRIGGER,
+  zr: agnosticController.RIGHT_TRIGGER,
+  R: agnosticController.RIGHT_BUMPER,
 };
 
 export const xboxControllerMappings = {

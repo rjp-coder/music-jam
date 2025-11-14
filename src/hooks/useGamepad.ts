@@ -5,14 +5,26 @@ import { useGamepadData, type GamepadData } from "./useGamepadData";
 
 //TODO map this to the current key
 const notesToPlay = {
-  0: "C4",
-  1: "D4",
-  2: "E4",
-  3: "F4",
-  4: "G4",
-  5: "A4",
-  6: "B4",
-  7: "C5",
+  0: "F3",
+  1: "G3",
+  2: "A3",
+  3: "B3",
+  4: "C4",
+  5: "D4",
+  6: "E4",
+  7: "F4",
+  8: "G4",
+  9: "A4",
+  10: "B4",
+  11: "C5",
+  12: "D5",
+  13: "E5",
+  14: "F5",
+  15: "G5",
+  16: "A5",
+  17: "B5",
+  18: "C6",
+  19: "D6",
 };
 
 export function useGamepad() {
@@ -68,17 +80,17 @@ export function useGamepad() {
     function interactWithButtons() {
       const gamepads = navigator.getGamepads();
       if (!gamepads || !gamepads.length) {
-        console.log("polling failed");
+        // console.log("polling failed");
         return;
       } else {
-        console.log("polling succeeded");
+        // console.log("polling succeeded");
       }
       for (let i = 0; i < gamepads.length; i++) {
         const gp = gamepads[i];
 
         if (!gp) continue;
 
-        console.log("gamepad connected: ", gp.id);
+        // console.log("gamepad connected: ", gp.id);
 
         const buttons = gp?.buttons;
         const pressed = [];
@@ -97,7 +109,7 @@ export function useGamepad() {
           const btn = joyConToAgnosticMappings[buttonPressed];
           console.log("mapped to agnostic button: ", btn);
           console.assert(
-            btn >= 0 && btn < 13,
+            btn >= 0 && btn < 20,
             "button mapping out of range",
             btn
           );
