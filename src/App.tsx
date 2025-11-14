@@ -4,46 +4,15 @@ import { MusicButton } from "./MusicButton";
 import { getValidNotesInKey, hello } from "./notes";
 import { GamePad } from "./GamePad";
 import { useGamepad } from "./hooks/useGamepad";
+import { useKeyInputs } from "./hooks/useKeyInput";
 
 function App() {
   const [toneStarted, _] = useState(false);
-  const [activeKeys, setActiveKeys] = useState([]);
   const [musicKey, setMusicKey] = useState("C");
   const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
     useGamepad();
+  const activeKeys = useKeyInputs();
 
-  useEffect(() => {
-    document.addEventListener("keydown", detectKeyDown);
-    document.addEventListener("keyup", detectKeyUp);
-
-    return () => {
-      document.removeEventListener("keydown", detectKeyDown);
-      document.removeEventListener("keyup", detectKeyUp);
-    };
-  });
-
-  const detectKeyDown = (e: KeyboardEvent) => {
-    if (e.repeat) return;
-    const ak = [...activeKeys];
-    ak.push(e.key);
-    console.log(ak);
-    setActiveKeys(ak);
-    // console.log("clicked key: ", e.key);
-  };
-
-  const detectKeyUp = (e: KeyboardEvent) => {
-    // console.log("released key: ", e.key);
-    const ak = [...activeKeys];
-
-    ak.splice(
-      ak.findIndex((ak) => ak === e.key),
-      1
-    );
-    console.log(ak);
-    setActiveKeys(ak);
-
-    // console.log(activeKeys);
-  };
   return (
     <div className="flex items-center flex-col">
       <h1 className="bg-gradient-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
