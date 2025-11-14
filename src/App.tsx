@@ -4,7 +4,7 @@ import { MusicButton } from "./MusicButton";
 import { getValidNotesInKey, hello } from "./notes";
 
 function App() {
-  const [toneStarted, setToneStarted] = useState(false);
+  const [toneStarted, _] = useState(false);
   const activeKeys = useRef([]);
   const [musicKey, setMusicKey] = useState("C");
   useEffect(() => {
@@ -68,6 +68,7 @@ function App() {
           );
         })}
       </div>
+      <footer>tone started {toneStarted}</footer>
     </div>
   );
 }

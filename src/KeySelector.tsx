@@ -1,4 +1,4 @@
-import { getAllMusicalKeys, getAllNotes } from "./utils";
+import { getAllMusicalKeys } from "./utils";
 
 export const KeySelector = ({ musicKey, setMusicKey }) => {
   return (
