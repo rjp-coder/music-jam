@@ -54,7 +54,7 @@ function App() {
             <MusicButton
               key={n + "(i:" + i + ")"}
               note={n.toUpperCase()}
-              active={activeKeys.includes("" + (i - 1))}
+              active={activeKeys.includes("" + (i + 1))}
               index={i}
             ></MusicButton>
           );
