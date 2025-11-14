@@ -73,7 +73,7 @@ export const getValidNotesInKey = (
 };
 
 const addSemitone = (initialNote: string, number: number = 1) => {
-  console.log("converting note to number " + initialNote);
+  //   console.log("converting note to number " + initialNote);
   const noteNoRegister = initialNote.replaceAll(/[0-9]+/g, "");
   let noteRegister = initialNote.match(/[0-9]+/g)?.[0] || "4";
   const n = convertNoteToNumber(noteNoRegister);
@@ -109,7 +109,7 @@ const indicies = [
 const convertNoteToNumber = (note: string) => {
   note = note.toLowerCase();
   const i = indicies.findIndex((n) => n === note);
-  console.log("converted ", note, "to", i);
+  //   console.log("converted ", note, "to", i);
   return i + 1;
 };
 

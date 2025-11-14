@@ -35,7 +35,7 @@ function App() {
   return (
     <div className="flex items-center flex-col text-red-600">
       <h1>Music Jam</h1>
-      <button
+      {/* <button
         onClick={async () => {
           await Tone.start();
           setToneStarted(true);
@@ -43,7 +43,7 @@ function App() {
         }}
       >
         Start
-      </button>
+      </button> */}
       {toneStarted && <span>🎶🎵🎵</span>}
       {toneStarted && (
         <button
