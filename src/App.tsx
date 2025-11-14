@@ -21,20 +21,22 @@ function App() {
   const detectKeyDown = (e: KeyboardEvent) => {
     if (e.repeat) return;
     activeKeys.current.push(e.key);
-    console.log("clicked key: ", e.key);
+    // console.log("clicked key: ", e.key);
   };
 
   const detectKeyUp = (e: KeyboardEvent) => {
-    console.log("released key: ", e.key);
+    // console.log("released key: ", e.key);
     activeKeys.current.splice(
       activeKeys.current.findIndex((ak) => ak === e.key),
       1
     );
-    console.log(activeKeys.current);
+    // console.log(activeKeys.current);
   };
   return (
-    <div className="flex items-center flex-col text-red-600">
-      <h1>Music Jam</h1>
+    <div className="flex items-center flex-col">
+      <h1 className="bg-gradient-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+        Music Jam
+      </h1>
       {/* <button
         onClick={async () => {
           await Tone.start();
@@ -55,7 +57,7 @@ function App() {
         </button>
       )}
       <KeySelector musicKey={musicKey} setMusicKey={setMusicKey}></KeySelector>
-      <div className="flex flex-row overflow-scroll flex-wrap w-160 m-auto ">
+      <div className="flex flex-row  flex-wrap  m-auto ">
         {getValidNotesInKey(musicKey, "natural").map((n, i) => {
           return (
             <MusicButton
