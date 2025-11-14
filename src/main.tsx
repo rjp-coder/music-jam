@@ -3,8 +3,11 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import "./App.css";
 import App from "./App.tsx";
-import { joyConMappings, joyConToAgnosticMappings } from "./controller.ts";
-import { playNote } from "./notes.ts";
+import {
+  joyConMappings,
+  joyConToAgnosticMappings,
+} from "./utils/controller.ts";
+import { playNote } from "./utils/notes.ts";
 
 const gamepads = {};
 globalThis.gamepads = gamepads;

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { KeySelector } from "./KeySelector";
-import { MusicButton } from "./MusicButton";
-import { getValidNotesInKey, hello } from "./notes";
-import { GamePad } from "./GamePad";
+import { KeySelector } from "./components/KeySelector";
+import { MusicButton } from "./components/MusicButton";
+import { getValidNotesInKey, hello } from "./utils/notes";
+import { GamePad } from "./components/GamePad";
 import { useGamepad } from "./hooks/useGamepad";
 import { useKeyInputs } from "./hooks/useKeyInput";
 
