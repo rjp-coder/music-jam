@@ -23,42 +23,72 @@ export const hello = () => {
 
 export const playNote = (note: string) => {
   note = note.toUpperCase();
-  if (!/0-9/.test(note)) {
+  if (!/[0-9]/.test(note)) {
     note = note + "4";
   }
   piano.triggerAttackRelease(note, 4);
 };
 
-export const getValidNotesInKey = (key: string) => {
+export const getValidNotesInKey = (
+  key: string,
+  minorType: "natural" | "harmonic" | "melodic" = "natural"
+) => {
   console.log("getting notes for key: " + key);
   key = key.toLowerCase();
   const isMinor = key.includes("m");
-  const baseNote = key.replace("m", "");
+  const register = 4;
+  const baseNote = key.replace("m", "") + register;
   const notes = [baseNote];
-  let intervals = [2, 2, 1, 2, 2, 2];
+  let intervals = [2, 2, 1, 2, 2, 2, 1];
   if (isMinor) {
-    intervals = [2, 1, 2, 2, 1, 2];
+    if (minorType == "natural") {
+      intervals = [2, 1, 2, 2, 1, 2, 2];
+    } else if (minorType == "harmonic") {
+      intervals = [2, 1, 2, 2, 1, 3, 1];
+    } else if (minorType == "melodic") {
+      intervals = [2, 1, 2, 2, 2, 2, 1];
+    }
   }
   let currentNote = baseNote;
   for (const val of intervals) {
-    const nextTone = addSemitone(currentNote, val);
-    if (!nextTone) throw "Failed adding " + val + " to " + currentNote;
-    notes.push(nextTone);
-    currentNote = nextTone;
+    let reg = currentNote.match(/[0-9]+/)?.[0];
+    if (!reg) {
+      console.warn(
+        "expected to be able to extract the register (octave) from the given note. Note was ",
+        currentNote,
+        " ... will default to register of ",
+        register
+      );
+      reg = "4";
+    }
+    const regNum = parseInt(reg);
+    if (isNaN(regNum)) throw new Error("reg is NaN");
+    const nextNote = addSemitone(currentNote, val);
+    if (!nextNote) throw new Error("No note found from adding semitones");
+
+    notes.push(nextNote);
+    currentNote = nextNote;
   }
   return notes;
 };
 
 const addSemitone = (initialNote: string, number: number = 1) => {
   console.log("converting note to number " + initialNote);
-  const n = convertNoteToNumber(initialNote);
+  const noteNoRegister = initialNote.replaceAll(/[0-9]+/g, "");
+  let noteRegister = initialNote.match(/[0-9]+/g)?.[0] || "4";
+  const n = convertNoteToNumber(noteNoRegister);
   const m = n + number;
-  if (m > 12)
-    console.warn(
-      "adding semitone(s) resulted in a number too high, so wrapping round"
-    );
-  const safeM = m % 12;
-  return convertNumberToNote(safeM);
+  let note = convertNumberToNote(m % 12);
+  //if the initial note is before c and the note after is after c
+  //it is crossing the c threshold and the register should increment.
+  const crossingOverCThreshold = (n <= 3 && m >= 4) || (n > 4 && m >= 16); //"a,"a#","b"
+  if (crossingOverCThreshold) {
+    noteRegister = +noteRegister + 1 + "";
+  } else if (m < 1) {
+    noteRegister = +noteRegister - 1 + "";
+  }
+
+  return note + "" + noteRegister;
 };
 
 const indicies = [

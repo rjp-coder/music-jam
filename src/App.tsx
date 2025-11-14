@@ -56,7 +56,7 @@ function App() {
       )}
       <KeySelector musicKey={musicKey} setMusicKey={setMusicKey}></KeySelector>
       <div className="flex flex-row overflow-scroll flex-wrap w-160 m-auto ">
-        {getValidNotesInKey(musicKey).map((n, i) => {
+        {getValidNotesInKey(musicKey, "natural").map((n, i) => {
           return (
             <MusicButton
               key={n + "(i:" + i + ")"}
