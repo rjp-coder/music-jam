@@ -3,15 +3,17 @@ import { KeySelector } from "./components/KeySelector";
 import { MusicButton } from "./components/MusicButton";
 import { getValidNotesInKey, hello } from "./utils/notes";
 import { GamePad } from "./components/GamePad";
-import { useGamepad } from "./hooks/useGamepad";
+import { useGamepadData } from "./hooks/useGamepadData";
 import { useKeyInputs } from "./hooks/useKeyInput";
+import { useGamepad } from "./hooks/useGamepad";
 
 function App() {
   const [toneStarted, _] = useState(false);
   const [musicKey, setMusicKey] = useState("C");
   const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
-    useGamepad();
+    useGamepadData();
   const activeKeys = useKeyInputs();
+  useGamepad();
 
   return (
     <div className="flex items-center flex-col">
