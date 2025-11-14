@@ -1,22 +1,28 @@
 import { useState } from "react";
 
+export type GamepadData = {
+  id: number;
+  type: "joycon" | "xbox" | "playstation" | "unknown";
+  col: keyof typeof colMap;
+};
+
+const colMap = {
+  red: "bg-red-600",
+  blue: "bg-blue-600",
+  yellow: "bg-yellow-500",
+  green: "bg-green-500",
+  purple: "bg-purple-500",
+  orange: "bg-orange-500",
+  pink: "bg-pink-400",
+  cyan: "bg-cyan-400",
+  lime: "bg-lime-500",
+};
+
 export function useGamepadData() {
   const [connectedGamePads, setConnectedGamePads] = useState([
-    { id: 0, type: "joycon", col: "red" },
-    { id: 1, type: "xbox", col: "blue" },
+    // { id: 0, type: "joycon", col: "red" },
+    // { id: 1, type: "xbox", col: "blue" },
   ]);
-
-  const colMap = {
-    red: "bg-red-500",
-    blue: "bg-blue-600",
-    yellow: "bg-yellow-500",
-    green: "bg-green-500",
-    purple: "bg-purple-500",
-    orange: "bg-orange-600",
-    pink: "bg-pink-400",
-    cyan: "bg-cyan-400",
-    lime: "bg-lime-500",
-  };
 
   const incrementCol = (gamepadId: number) => {
     const gamepadColorsInUse = connectedGamePads.map((c) => c.col);

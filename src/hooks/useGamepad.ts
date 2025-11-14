@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { joyConMappings, joyConToAgnosticMappings } from "../utils/controller";
 import { playNote } from "../utils/notes";
+import { useGamepadData, type GamepadData } from "./useGamepadData";
 
 //TODO map this to the current key
 const notesToPlay = {
@@ -15,26 +16,8 @@ const notesToPlay = {
 };
 
 export function useGamepad() {
-  function gamepadHandler(event, connected) {
-    console.log(
-      "Gamepad " + !connected
-        ? "dis"
-        : "" + "connected at index %d: %s. %d buttons, %d axes.",
-      event.gamepad.index,
-      event.gamepad.id,
-      event.gamepad.buttons?.length,
-      event.gamepad.axes?.length
-    );
-    const gamepad = event.gamepad;
-    // Note:
-    // gamepad === navigator.getGamepads()[gamepad.index]
-
-    if (connected) {
-      gamepads[gamepad.index] = gamepad;
-    } else {
-      delete gamepads[gamepad.index];
-    }
-  }
+  const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
+    useGamepadData();
 
   useEffect(() => {
     window.addEventListener("gamepadconnected", (e) => {
@@ -44,48 +27,90 @@ export function useGamepad() {
       gamepadHandler(e, false);
     });
 
-    const gamepads = {};
-    globalThis.gamepads = gamepads;
+    function gamepadHandler(event, connected) {
+      console.log(
+        "Gamepad connection at index %d: %s. %d buttons, %d axes. %s",
+        event.gamepad.index,
+        event.gamepad.id,
+        event.gamepad.buttons?.length,
+        event.gamepad.axes?.length,
+        connected
+      );
+      const eventGamepad = event.gamepad;
+      // Note:
+      // gamepad === navigator.getGamepads()[gamepad.index]
+
+      const newState: Array<GamepadData> = JSON.parse(
+        JSON.stringify(connectedGamePads)
+      );
+
+      let t: GamepadData["type"] = "unknown";
+      if (eventGamepad.id.toLowerCase().includes("joy")) {
+        t = "joycon";
+      } else if (eventGamepad.id.toLowerCase().includes("xbox")) {
+        t = "xbox";
+      } else if (eventGamepad.id.toLowerCase().includes("playstation")) {
+        t = "playstation";
+      }
+
+      if (connected) {
+        newState.push({ id: eventGamepad.index, type: t, col: "red" });
+      } else {
+        newState.splice(
+          newState.findIndex((ns) => ns.id == eventGamepad.index),
+          1
+        );
+      }
+      setConnectedGamePads(newState);
+      globalThis.connectedGamepads = newState;
+    }
 
     function interactWithButtons() {
       const gamepads = navigator.getGamepads();
-      if (!gamepads) {
+      if (!gamepads || !gamepads.length) {
+        console.log("polling failed");
         return;
+      } else {
+        console.log("polling succeeded");
       }
-      const gp = gamepads[1];
+      for (let i = 0; i < gamepads.length; i++) {
+        const gp = gamepads[i];
 
-      if (!gp) return;
+        if (!gp) continue;
 
-      console.log("gamepad connected: ", gp.id);
+        console.log("gamepad connected: ", gp.id);
 
-      const buttons = gp?.buttons;
-      const pressed = [];
+        const buttons = gp?.buttons;
+        const pressed = [];
 
-      for (let i = 0; i < buttons.length; i++) {
-        const btn = buttons[i];
-        if (btn.pressed) {
-          pressed.push(i);
+        for (let j = 0; j < buttons.length; j++) {
+          const btn = buttons[j];
+          if (btn.pressed) {
+            pressed.push(j);
+          }
         }
-      }
 
-      for (let index of pressed) {
-        console.log(index, " button is pressed");
-        const buttonPressed = joyConMappings[index];
-        console.log("button pressed: ", buttonPressed);
-        const btn = joyConToAgnosticMappings[buttonPressed];
-        console.log("mapped to agnostic button: ", btn);
-        console.assert(
-          btn >= 0 && btn < 13,
-          "button mapping out of range",
-          btn
-        );
-        const noteToPlay = notesToPlay[btn];
-        if (noteToPlay) {
-          playNote(noteToPlay);
+        for (let index of pressed) {
+          console.log(index, " button is pressed");
+          const buttonPressed = joyConMappings[index];
+          console.log("button pressed: ", buttonPressed);
+          const btn = joyConToAgnosticMappings[buttonPressed];
+          console.log("mapped to agnostic button: ", btn);
+          console.assert(
+            btn >= 0 && btn < 13,
+            "button mapping out of range",
+            btn
+          );
+          const noteToPlay = notesToPlay[btn];
+          if (noteToPlay) {
+            playNote(noteToPlay);
+          }
         }
       }
     }
 
     setInterval(interactWithButtons, 100);
-  });
+  }, []);
+
+  return { connectedGamePads, setConnectedGamePads, incrementCol, colMap };
 }

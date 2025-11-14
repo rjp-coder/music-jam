@@ -26,7 +26,7 @@ export const GamePad = ({
       {type}
       <div
         onClick={() => incrementCol()}
-        className={`m-1 float-right h-4 w-4 bg-pink border rounded-full  border-white ${colClass}`}
+        className={`m-1 float-right h-4 w-4 border rounded-full  border-white ${colClass}`}
       ></div>
     </div>
   );

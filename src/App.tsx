@@ -10,10 +10,9 @@ import { useGamepad } from "./hooks/useGamepad";
 function App() {
   const [toneStarted, _] = useState(false);
   const [musicKey, setMusicKey] = useState("C");
-  const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
-    useGamepadData();
   const activeKeys = useKeyInputs();
-  useGamepad();
+  const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
+    useGamepad();
 
   return (
     <div className="flex items-center flex-col">
