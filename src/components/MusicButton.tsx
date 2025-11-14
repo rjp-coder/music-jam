@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { playNote } from "../utils/notes";
+import { playNote } from "../utils/audio";
 
 export const MusicButton = ({
   note,

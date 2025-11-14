@@ -1,42 +1,57 @@
-import * as Tone from "tone";
-export const hello = () => {
-  //create a synth and connect it to the main output (your speakers)
-  //   const synth = new Tone.Synth().toDestination();
-
-  //play a middle 'C' for the duration of an 8th note
-  //synth.triggerAttackRelease("C4", "8n");
-
-  console.log("clicked play note");
-  const musicalKey = "F#m";
-  const notes = getValidNotesInKey(musicalKey);
-  console.log("Valid notes in key " + musicalKey + ": " + notes);
-
-  piano.triggerAttackRelease(
-    [
-      notes[1].toUpperCase() + "4",
-      notes[3].toUpperCase() + "4",
-      notes[5].toUpperCase() + "4",
-    ],
-    4
-  );
-};
-
-export const playNote = (note: string) => {
-  note = note.toUpperCase();
-  if (!/[0-9]/.test(note)) {
-    note = note + "4";
+export const getAllValidNotesInKey = (
+  key: string,
+  minorType: "natural" | "harmonic" | "melodic" = "natural"
+) => {
+  const allNotes = [];
+  for (let reg = 1; reg <= 8; reg++) {
+    const notes = getValidNotesInKeySingleOctave(key, minorType, reg);
+    for (const n of notes) {
+      const formattedNote = n.toLocaleUpperCase();
+      if (!allNotes.includes(formattedNote)) {
+        allNotes.push(formattedNote);
+      }
+    }
   }
-  piano.triggerAttackRelease(note, 4);
+  return allNotes;
 };
 
 export const getValidNotesInKey = (
   key: string,
-  minorType: "natural" | "harmonic" | "melodic" = "natural"
+  minorType: "natural" | "harmonic" | "melodic" = "natural",
+  offset: number = 0,
+  numNotes: number = 8,
+  register?: number
+) => {
+  const allNotes = getAllValidNotesInKey(key, minorType);
+  const fk = getBaseNoteFromKey(key, register);
+  const basenoteIndex = allNotes.findIndex((note) => note === fk);
+  const offsetIndex = basenoteIndex + offset;
+  const validNotesInKey = allNotes.slice(offsetIndex, offsetIndex + numNotes);
+  return validNotesInKey;
+};
+
+export const formatKey = (key: string, register?: number) => {
+  const defaultReg = 4;
+  const regInKey = key.match(/[0-9]+/)?.[0];
+  const reg = register || regInKey;
+  const reglessKey = key.replace(/[0-9]+/, "");
+  const formattedKey = reglessKey + (reg || defaultReg);
+  return formattedKey.toUpperCase().replace("M", "m");
+};
+
+export const getBaseNoteFromKey = (key: string, register: number) => {
+  const fk = formatKey(key, register);
+  return fk.replace(/[mM]+/, ""); //.toLowerCase();
+};
+
+export const getValidNotesInKeySingleOctave = (
+  key: string,
+  minorType: "natural" | "harmonic" | "melodic" = "natural",
+  register: number = 4
 ) => {
   console.log("getting notes for key: " + key);
   key = key.toLowerCase();
   const isMinor = key.includes("m");
-  const register = 4;
   const baseNote = key.replace("m", "") + register;
   const notes = [baseNote];
   let intervals = [2, 2, 1, 2, 2, 2, 1];
@@ -116,14 +131,3 @@ const convertNoteToNumber = (note: string) => {
 const convertNumberToNote = (number: number) => {
   return indicies.at(number - 1);
 };
-
-const piano = new Tone.Sampler({
-  urls: {
-    C4: "C4.mp3",
-    "D#4": "Ds4.mp3",
-    "F#4": "Fs4.mp3",
-    A4: "A4.mp3",
-  },
-  release: 1,
-  baseUrl: "https://tonejs.github.io/audio/salamander/",
-}).toDestination();

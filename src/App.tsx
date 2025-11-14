@@ -50,16 +50,18 @@ function App() {
       )}
       <KeySelector musicKey={musicKey} setMusicKey={setMusicKey}></KeySelector>
       <div className="flex flex-row  flex-wrap  m-auto ">
-        {getValidNotesInKey(musicKey, "natural").map((n, i) => {
-          return (
-            <MusicButton
-              key={n + "(i:" + i + ")"}
-              note={n.toUpperCase()}
-              active={activeKeys.includes("" + (i + 1))}
-              index={i}
-            ></MusicButton>
-          );
-        })}
+        {getValidNotesInKey(musicKey, "natural", numNotes, offset).map(
+          (n, i) => {
+            return (
+              <MusicButton
+                key={n + "(i:" + i + ")"}
+                note={n.toUpperCase()}
+                active={activeKeys.includes("" + (i + 1))}
+                index={i}
+              ></MusicButton>
+            );
+          }
+        )}
       </div>
       <footer>tone started {toneStarted}</footer>
     </div>
