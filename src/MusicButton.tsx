@@ -55,7 +55,7 @@ export const MusicButton = ({
   return (
     <div
       className={` p-1 border-white border-2 rounded-2xl min-w-16 max-w-16 max-h-10 m-2 cursor-pointer hover:bg-yellow-300 hover:text-black active:bg-yellow-500 ${
-        active ? "bg-yellow-500 text-red-500" : "text-blue-500"
+        active ? "bg-yellow-500 text-black" : "text-blue-500"
       }`}
       onClick={() => playNote(note)}
     >

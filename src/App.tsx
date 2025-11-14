@@ -7,7 +7,7 @@ import { useGamepad } from "./hooks/useGamepad";
 
 function App() {
   const [toneStarted, _] = useState(false);
-  const activeKeys = useRef([]);
+  const [activeKeys, setActiveKeys] = useState([]);
   const [musicKey, setMusicKey] = useState("C");
   const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
     useGamepad();
@@ -24,17 +24,25 @@ function App() {
 
   const detectKeyDown = (e: KeyboardEvent) => {
     if (e.repeat) return;
-    activeKeys.current.push(e.key);
+    const ak = [...activeKeys];
+    ak.push(e.key);
+    console.log(ak);
+    setActiveKeys(ak);
     // console.log("clicked key: ", e.key);
   };
 
   const detectKeyUp = (e: KeyboardEvent) => {
     // console.log("released key: ", e.key);
-    activeKeys.current.splice(
-      activeKeys.current.findIndex((ak) => ak === e.key),
+    const ak = [...activeKeys];
+
+    ak.splice(
+      ak.findIndex((ak) => ak === e.key),
       1
     );
-    // console.log(activeKeys.current);
+    console.log(ak);
+    setActiveKeys(ak);
+
+    // console.log(activeKeys);
   };
   return (
     <div className="flex items-center flex-col">
@@ -77,7 +85,7 @@ function App() {
             <MusicButton
               key={n + "(i:" + i + ")"}
               note={n.toUpperCase()}
-              active={activeKeys.current.includes(i)}
+              active={activeKeys.includes("" + (i - 1))}
               index={i}
             ></MusicButton>
           );
