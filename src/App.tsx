@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import * as Tone from "tone";
-import { getValidNotesInKey, hello, playNote } from "./notes";
-import { MusicButton } from "./MusicButton";
 import { KeySelector } from "./KeySelector";
+import { MusicButton } from "./MusicButton";
+import { getValidNotesInKey, hello } from "./notes";
 
 function App() {
   const [toneStarted, setToneStarted] = useState(false);
@@ -75,7 +74,19 @@ function App() {
 
 export default App;
 
+//TODOS
+//TODO display connected controllers
+//TODO conditionally map to the agnostic controller based on the type of the connected controller
+//TODO add option to disable controller
+//TODO move event listeners into app as useEffect
+//TODO run some sort of event loop for controller inputs (100ms set interval is not acceptable)
+//TODO ensure there isn't duplicate inputs on the controller when a button is being held. (holding button should feel like holding piano key)
+
 //OPTIONAL TODOS
 //TODO add music note animation when key pressed
 //TODO flash button when key pressed
 //TODO expand the octave a bit?
+
+//TODO show the controller button pressed
+
+//TODO have other instruments
