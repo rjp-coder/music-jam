@@ -72,3 +72,8 @@ function App() {
 }
 
 export default App;
+
+//OPTIONAL TODOS
+//TODO add music note animation when key pressed
+//TODO flash button when key pressed
+//TODO expand the octave a bit?
