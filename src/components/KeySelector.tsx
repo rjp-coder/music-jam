@@ -19,7 +19,11 @@ export const KeySelector = ({ musicKey, setMusicKey }) => {
       <select
         value={musicKey}
         name="Key"
-        onChange={(e) => setMusicKey(e.target?.value)}
+        onChange={(e) => {
+          //prevent a situation where playing a note via keyboard changes the key!
+          e.target.blur();
+          setMusicKey(e.target?.value);
+        }}
         className="bg-transparent absolute text-center rounded-full z-2 w-12 h-12 ml-2.5 -mt-1 border-2 border-white capitalize text-transparent "
       >
         {getAllMusicalKeys().map((note) => (
