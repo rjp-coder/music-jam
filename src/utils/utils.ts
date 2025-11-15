@@ -7,3 +7,7 @@ export const getAllMusicalKeys = () => {
     " "
   );
 };
+
+export const chooseRandom = <T>(arr: T[]): T => {
+  return arr[Math.floor(Math.random() * arr.length)];
+};

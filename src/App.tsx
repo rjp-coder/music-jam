@@ -5,6 +5,8 @@ import { MusicKeyDisplay } from "./components/MusicKeyDisplay";
 import { useGamepad } from "./hooks/useGamepad";
 import { useKeyInputs } from "./hooks/useKeyInput";
 import { hello } from "./utils/audio";
+import { MusicNoteSvg } from "./components/MusicNoteSvg";
+import { chooseRandom } from "./utils/utils";
 
 function App() {
   const [toneStarted, _] = useState(false);
@@ -47,6 +49,14 @@ function App() {
           Play Note
         </button>
       )}
+      <MusicNoteSvg
+        height="200px"
+        width="200px"
+        fill="#ff3355"
+        stroke="#000000"
+        className="absolute opacity-80 overflow-visible"
+        type={chooseRandom(["oneSemitone", "twoSemitones", "threeSemitones"])}
+      ></MusicNoteSvg>
       <KeySelector musicKey={musicKey} setMusicKey={setMusicKey}></KeySelector>
       <MusicKeyDisplay musicKey={musicKey} activeKeys={activeKeys} />
       <footer className=" max-md:text-red-700 text-yellow-400 w-auto">
