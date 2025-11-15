@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { KeySelector } from "./components/KeySelector";
-import { MusicButton } from "./components/MusicButton";
-import { getValidNotesInKey, hello } from "./utils/notes";
+import { useState } from "react";
 import { GamePad } from "./components/GamePad";
-import { useGamepadData } from "./hooks/useGamepadData";
-import { useKeyInputs } from "./hooks/useKeyInput";
+import { KeySelector } from "./components/KeySelector";
+import { MusicKeyDisplay } from "./components/MusicKeyDisplay";
 import { useGamepad } from "./hooks/useGamepad";
+import { useKeyInputs } from "./hooks/useKeyInput";
+import { hello } from "./utils/audio";
 
 function App() {
   const [toneStarted, _] = useState(false);
@@ -49,21 +48,10 @@ function App() {
         </button>
       )}
       <KeySelector musicKey={musicKey} setMusicKey={setMusicKey}></KeySelector>
-      <div className="flex flex-row  flex-wrap  m-auto ">
-        {getValidNotesInKey(musicKey, "natural", numNotes, offset).map(
-          (n, i) => {
-            return (
-              <MusicButton
-                key={n + "(i:" + i + ")"}
-                note={n.toUpperCase()}
-                active={activeKeys.includes("" + (i + 1))}
-                index={i}
-              ></MusicButton>
-            );
-          }
-        )}
-      </div>
-      <footer>tone started {toneStarted}</footer>
+      <MusicKeyDisplay musicKey={musicKey} activeKeys={activeKeys} />
+      <footer className=" max-md:text-red-700 text-yellow-400 w-auto">
+        tone started {toneStarted}
+      </footer>
     </div>
   );
 }

@@ -49,7 +49,6 @@ export const getValidNotesInKeySingleOctave = (
   minorType: "natural" | "harmonic" | "melodic" = "natural",
   register: number = 4
 ) => {
-  console.log("getting notes for key: " + key);
   key = key.toLowerCase();
   const isMinor = key.includes("m");
   const baseNote = key.replace("m", "") + register;

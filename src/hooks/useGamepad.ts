@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { joyConMappings, joyConToAgnosticMappings } from "../utils/controller";
-import { playNote } from "../utils/notes";
+import { playNote } from "../utils/audio";
 import { useGamepadData, type GamepadData } from "./useGamepadData";
 
 //TODO map this to the current key
