@@ -1,3 +1,4 @@
+import { useGamepadInputs } from "../hooks/useGamepadButtons";
 import { keyIndexMap } from "../hooks/useKeyInput";
 import { getValidNotesInKeySingleOctave } from "../utils/notes";
 import { MusicButton } from "./MusicButton";
@@ -17,6 +18,10 @@ and each row could easily then get its own css.
 */
 
 export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
+  const gamepadInputs = useGamepadInputs();
+  if (gamepadInputs.length) {
+    console.log({ gamepadInputs });
+  }
   //make something that looks roughly like a keyboard
   //but where each row contains an octave
 
@@ -77,7 +82,10 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
         <MusicButton
           key={note.toUpperCase() + ":" + i}
           note={note.toUpperCase()}
-          active={activeKeysTransformed.includes(+i)}
+          active={
+            activeKeysTransformed.includes(+i) ||
+            gamepadInputs.map((gpi) => gpi.btn).includes(+i)
+          }
           //rotate the top and bottom rows for a 3d effect
           transformRow={
             i < 9 ? "top" : i < 18 ? "high" : i < 27 ? "low" : "bottom"

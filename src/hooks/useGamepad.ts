@@ -1,15 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { playNote } from "../utils/audio";
 import { joyConMappings, joyConToAgnosticMappings } from "../utils/controller";
 import { getValidNotesInKey } from "../utils/notes";
 import { useGamepadData, type GamepadData } from "./useGamepadData";
 
-export function useGamepad({ musicKey }) {
+export function useGamepad() {
   const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
     useGamepadData();
 
-  console.log({ musicKey });
-  const notesToPlay = getValidNotesInKey(musicKey, "natural", -8, 20);
+  // console.log({ musicKey });
+  // const notesToPlay = getValidNotesInKey(musicKey, "natural", -8, 20);
 
   useEffect(() => {
     window.addEventListener("gamepadconnected", (e) => {
@@ -57,54 +57,64 @@ export function useGamepad({ musicKey }) {
       globalThis.connectedGamepads = newState;
     }
 
-    // console.log({ notesToPlay });
-    function interactWithButtons() {
-      const gamepads = navigator.getGamepads();
-      if (!gamepads || !gamepads.length) {
-        // console.log("polling failed");
-        return;
-      } else {
-        // console.log("polling succeeded");
-      }
-      for (let i = 0; i < gamepads.length; i++) {
-        const gp = gamepads[i];
+    // // console.log({ notesToPlay });
+    // function interactWithButtons() {
+    //   const gamepads = navigator.getGamepads();
+    //   if (!gamepads || !gamepads.length) {
+    //     // console.log("polling failed");
+    //     return;
+    //   } else {
+    //     // console.log("polling succeeded");
+    //   }
+    //   for (let i = 0; i < gamepads.length; i++) {
+    //     const gp = gamepads[i];
 
-        if (!gp) continue;
+    //     if (!gp) continue;
 
-        // console.log("gamepad connected: ", gp.id);
+    //     // console.log("gamepad connected: ", gp.id);
 
-        const buttons = gp?.buttons;
-        const pressed = [];
+    //     const buttons = gp?.buttons;
+    //     const pressed = [];
 
-        for (let j = 0; j < buttons.length; j++) {
-          const btn = buttons[j];
-          if (btn.pressed) {
-            pressed.push(j);
-          }
-        }
+    //     for (let j = 0; j < buttons.length; j++) {
+    //       const btn = buttons[j];
+    //       if (btn.pressed) {
+    //         pressed.push(j);
+    //       }
+    //     }
 
-        for (let index of pressed) {
-          console.log(index, " button is pressed");
-          const buttonPressed = joyConMappings[index];
-          console.log("button pressed: ", buttonPressed);
-          const btn = joyConToAgnosticMappings[buttonPressed];
-          console.log("mapped to agnostic button: ", btn);
-          console.assert(
-            btn >= 0 && btn < 20,
-            "button mapping out of range",
-            btn
-          );
-          const noteToPlay = notesToPlay[btn];
-          if (noteToPlay) {
-            playNote(noteToPlay);
-          }
-        }
-      }
-    }
+    //     const newGamepadNotes = JSON.parse(JSON.stringify(gamepadNotes));
 
-    const interval = setInterval(interactWithButtons, 100);
-    return () => clearInterval(interval);
-  }, [musicKey]);
+    //     for (let index of pressed) {
+    //       console.log(index, " button is pressed");
+    //       const buttonPressed = joyConMappings[index];
+    //       console.log("button pressed: ", buttonPressed);
+    //       const btn = joyConToAgnosticMappings[buttonPressed];
+    //       console.log("mapped to agnostic button: ", btn);
+    //       console.assert(
+    //         btn >= 0 && btn < 20,
+    //         "button mapping out of range",
+    //         btn
+    //       );
+    //       const noteToPlay = notesToPlay[btn];
+    //       if (noteToPlay) {
+    //         playNote(noteToPlay);
+    //         newGamepadNotes.push({ btn, gamepad: i });
+    //       }
+    //     }
+    //     //setGamepadNotes(newGamepadNotes);
+    //   }
+    // }
 
-  return { connectedGamePads, setConnectedGamePads, incrementCol, colMap };
+    // const interval = setInterval(interactWithButtons, 100);
+    // return () => clearInterval(interval);
+  });
+
+  return {
+    connectedGamePads,
+    setConnectedGamePads,
+    incrementCol,
+    colMap,
+    // gamepadNotes,
+  };
 }

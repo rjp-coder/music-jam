@@ -3,12 +3,12 @@ import { GamePad } from "./GamePad";
 
 export const Gamepads = ({ musicKey }) => {
   const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
-    useGamepad({ musicKey });
+    useGamepad();
   return (
     <div className="flex flex-row gap-2 mt-2">
       {connectedGamePads.map((cgp, i) => (
         <GamePad
-          key={cgp.id}
+          key={cgp.id + `(${cgp.index})`}
           type={cgp.type}
           colClass={colMap[cgp.col]}
           incrementCol={() => incrementCol(cgp.id)}

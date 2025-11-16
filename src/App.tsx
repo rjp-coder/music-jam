@@ -15,7 +15,6 @@ function App() {
   const activeKeys = useKeyInputs();
   const [musicNoteAnimations, setMusicNoteAnimations] = useState([]);
   const [musicKey, setMusicKey] = useState("C");
-
   useEffect(() => {
     if (musicNoteAnimations.length >= 5) {
       setMusicNoteAnimations([]);
