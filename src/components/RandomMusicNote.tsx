@@ -1,3 +1,4 @@
+import useWindowDimensions from "../hooks/useWindowDimensions";
 import { chooseRandom } from "../utils/utils";
 import { MusicNoteSvg } from "./MusicNoteSvg";
 
@@ -16,6 +17,7 @@ The notes sort of animate in. Which looks terrible for what I need.
 */
 
 export const RandomMusicNote = ({ className }) => {
+  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
   const type = chooseRandom(["oneSemitone", "twoSemitones", "threeSemitones"]);
 
   const fill = chooseRandom([
@@ -34,13 +36,12 @@ export const RandomMusicNote = ({ className }) => {
 
   const size = chooseRandom([80, 100, 120, 140, 160, 180, 200]) + "px";
 
-  const x = Math.round(Math.random() * 700 - 500);
-  const y = Math.round(Math.random() * 500 - 60);
+  const x = Math.round(Math.random() * windowWidth * 0.9 - 500);
+  const y = Math.round(Math.random() * windowHeight * 0.9 - 60);
 
   return (
     <MusicNoteSvg
       className={className}
-      a
       type={type}
       fill={fill}
       height={size}
