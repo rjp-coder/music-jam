@@ -1,35 +1,15 @@
 import { useEffect } from "react";
-import { joyConMappings, joyConToAgnosticMappings } from "../utils/controller";
 import { playNote } from "../utils/audio";
+import { joyConMappings, joyConToAgnosticMappings } from "../utils/controller";
+import { getValidNotesInKey } from "../utils/notes";
 import { useGamepadData, type GamepadData } from "./useGamepadData";
 
-//TODO map this to the current key
-const notesToPlay = {
-  0: "F3",
-  1: "G3",
-  2: "A3",
-  3: "B3",
-  4: "C4",
-  5: "D4",
-  6: "E4",
-  7: "F4",
-  8: "G4",
-  9: "A4",
-  10: "B4",
-  11: "C5",
-  12: "D5",
-  13: "E5",
-  14: "F5",
-  15: "G5",
-  16: "A5",
-  17: "B5",
-  18: "C6",
-  19: "D6",
-};
-
-export function useGamepad() {
+export function useGamepad({ musicKey }) {
   const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
     useGamepadData();
+
+  console.log({ musicKey });
+  const notesToPlay = getValidNotesInKey(musicKey, "natural", -8, 20);
 
   useEffect(() => {
     window.addEventListener("gamepadconnected", (e) => {
@@ -77,6 +57,7 @@ export function useGamepad() {
       globalThis.connectedGamepads = newState;
     }
 
+    // console.log({ notesToPlay });
     function interactWithButtons() {
       const gamepads = navigator.getGamepads();
       if (!gamepads || !gamepads.length) {
@@ -121,8 +102,9 @@ export function useGamepad() {
       }
     }
 
-    setInterval(interactWithButtons, 100);
-  }, []);
+    const interval = setInterval(interactWithButtons, 100);
+    return () => clearInterval(interval);
+  }, [musicKey]);
 
   return { connectedGamePads, setConnectedGamePads, incrementCol, colMap };
 }

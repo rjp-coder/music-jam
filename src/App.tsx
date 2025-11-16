@@ -1,22 +1,20 @@
 import { AnimatePresence } from "motion/react";
 import { createContext, useEffect, useState } from "react";
-import { GamePad } from "./components/GamePad";
+import { Gamepads } from "./components/GamePads";
 import { KeySelector } from "./components/KeySelector";
 import { MusicKeyboardDisplay } from "./components/MusicKeyDisplay";
 import { RandomMusicNote } from "./components/RandomMusicNote";
-import { useGamepad } from "./hooks/useGamepad";
 import { useKeyInputs } from "./hooks/useKeyInput";
 import { hello } from "./utils/audio";
 
 export const MusicNoteAnimationsContext = createContext([]);
+export const MusicalKeyContext = createContext([]);
 
 function App() {
   const [toneStarted, _] = useState(false);
-  const [musicKey, setMusicKey] = useState("C");
   const activeKeys = useKeyInputs();
   const [musicNoteAnimations, setMusicNoteAnimations] = useState([]);
-  const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
-    useGamepad();
+  const [musicKey, setMusicKey] = useState("C");
 
   useEffect(() => {
     if (musicNoteAnimations.length >= 5) {
@@ -29,20 +27,12 @@ function App() {
       value={[musicNoteAnimations, setMusicNoteAnimations]}
     >
       <div className="flex items-center flex-col">
-        <h1 className="bg-gradient-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
-          Music Jam
-        </h1>
-        <div className="flex flex-row gap-2 mt-2">
-          {connectedGamePads.map((cgp, i) => (
-            <GamePad
-              key={cgp.id}
-              type={cgp.type}
-              colClass={colMap[cgp.col]}
-              incrementCol={() => incrementCol(cgp.id)}
-            />
-          ))}
-        </div>
-        {/* <button
+        <MusicalKeyContext value={[musicKey, setMusicKey]}>
+          <h1 className="bg-gradient-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+            Music Jam
+          </h1>
+          <Gamepads musicKey={musicKey} />
+          {/* <button
         onClick={async () => {
           await Tone.start();
           setToneStarted(true);
@@ -51,31 +41,32 @@ function App() {
           >
           Start
           </button> */}
-        {toneStarted && <span>🎶🎵🎵</span>}
-        {toneStarted && (
-          <button
-            onClick={() => {
-              hello();
-            }}
-          >
-            Play Note
-          </button>
-        )}
+          {toneStarted && <span>🎶🎵🎵</span>}
+          {toneStarted && (
+            <button
+              onClick={() => {
+                hello();
+              }}
+            >
+              Play Note
+            </button>
+          )}
 
-        <AnimatePresence>
-          {musicNoteAnimations.map((mna, i) => (
-            <RandomMusicNote
-              key={i}
-              className="absolute overflow-visible"
-            ></RandomMusicNote>
-          ))}
-        </AnimatePresence>
+          <AnimatePresence>
+            {musicNoteAnimations.map((mna, i) => (
+              <RandomMusicNote
+                key={i}
+                className="absolute overflow-visible"
+              ></RandomMusicNote>
+            ))}
+          </AnimatePresence>
 
-        <KeySelector
-          musicKey={musicKey}
-          setMusicKey={setMusicKey}
-        ></KeySelector>
-        <MusicKeyboardDisplay musicKey={musicKey} activeKeys={activeKeys} />
+          <KeySelector
+            musicKey={musicKey}
+            setMusicKey={setMusicKey}
+          ></KeySelector>
+          <MusicKeyboardDisplay musicKey={musicKey} activeKeys={activeKeys} />
+        </MusicalKeyContext>
         <footer className=" max-md:text-red-700 text-yellow-400 w-auto">
           tone started {toneStarted}
         </footer>
