@@ -11,7 +11,9 @@ export const MusicButton = ({
   transformRow?: string;
 }) => {
   useEffect(() => {
-    if (active) playNote(note);
+    if (active) {
+      playNote(note);
+    }
   });
 
   const transformationClass = {
