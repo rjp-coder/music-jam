@@ -42,6 +42,7 @@ export const RandomMusicNote = ({ className }) => {
   return (
     <MusicNoteSvg
       className={className}
+      //@ts-ignore
       type={type}
       fill={fill}
       height={size}

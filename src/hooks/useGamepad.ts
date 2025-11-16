@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-import { playNote } from "../utils/audio";
-import { joyConMappings, joyConToAgnosticMappings } from "../utils/controller";
-import { getValidNotesInKey } from "../utils/notes";
+import { useEffect } from "react";
 import { useGamepadData, type GamepadData } from "./useGamepadData";
 
 export function useGamepad() {

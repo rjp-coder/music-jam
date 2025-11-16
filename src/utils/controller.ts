@@ -68,6 +68,7 @@ const agnosticControllerSpiral = {
   RIGHT_STICK_RIGHT: 19,
 };
 
+//@ts-ignore
 const agnosticControllerInterlacedSpiral = {
   LEFT_STICK_DOWN: 0,
   LEFT_STICK_LEFT: 2,
