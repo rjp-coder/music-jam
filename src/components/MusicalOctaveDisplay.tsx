@@ -48,6 +48,7 @@ export const MusicalOctaveDisplay = ({
 
         return (
           <MusicButton
+            className={className}
             key={`o${octave}-${note.toUpperCase()}(${i})`}
             note={note.toUpperCase()}
             active={isActive}
