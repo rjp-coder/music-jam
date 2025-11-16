@@ -16,7 +16,7 @@ and each row could easily then get its own css.
 
 */
 
-export const MusicKeyDisplay = ({ musicKey, activeKeys }) => {
+export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
   //make something that looks roughly like a keyboard
   //but where each row contains an octave
 
@@ -72,7 +72,7 @@ export const MusicKeyDisplay = ({ musicKey, activeKeys }) => {
   );
 
   return (
-    <div className="flex flex-row flex-wrap md:flex-none md:flex-nowrap md:grid md:grid-rows-4 md:grid-cols-9 -mt-18 mb-auto">
+    <div className="flex flex-row flex-wrap md:flex-none md:flex-nowrap md:grid md:grid-rows-4 md:grid-cols-9 md:-mt-18 mb-auto">
       {musicNotesFlat.map((note, i) => (
         <MusicButton
           key={note.toUpperCase() + ":" + i}

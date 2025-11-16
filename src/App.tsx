@@ -2,7 +2,7 @@ import { AnimatePresence } from "motion/react";
 import { createContext, useEffect, useState } from "react";
 import { GamePad } from "./components/GamePad";
 import { KeySelector } from "./components/KeySelector";
-import { MusicKeyDisplay } from "./components/MusicKeyDisplay";
+import { MusicKeyboardDisplay } from "./components/MusicKeyDisplay";
 import { RandomMusicNote } from "./components/RandomMusicNote";
 import { useGamepad } from "./hooks/useGamepad";
 import { useKeyInputs } from "./hooks/useKeyInput";
@@ -75,7 +75,7 @@ function App() {
           musicKey={musicKey}
           setMusicKey={setMusicKey}
         ></KeySelector>
-        <MusicKeyDisplay musicKey={musicKey} activeKeys={activeKeys} />
+        <MusicKeyboardDisplay musicKey={musicKey} activeKeys={activeKeys} />
         <footer className=" max-md:text-red-700 text-yellow-400 w-auto">
           tone started {toneStarted}
         </footer>
