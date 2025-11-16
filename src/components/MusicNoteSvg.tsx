@@ -7,13 +7,17 @@ interface MusicNoteProps {
   stroke?: string;
   strokeWidth?: string;
   className?: string;
+  x: number;
+  y: number;
   type: "threeSemitones" | "oneSemitone" | "twoSemitones";
 }
 
 export const MusicNoteSvg = ({
-  fill = "#000000",
-  width = "20px",
-  height = "20px",
+  fill,
+  width = "200",
+  height = "200",
+  x,
+  y,
   stroke = "#000000",
   strokeWidth = "12",
   className,
@@ -23,6 +27,8 @@ export const MusicNoteSvg = ({
     <motion.svg
       initial={{
         opacity: 1,
+        x: x,
+        y: y,
         transition: {
           ease: "linear",
           duration: 0,
@@ -39,7 +45,7 @@ export const MusicNoteSvg = ({
           duration: 2,
           delay: 0,
           opacity: { duration: 1 },
-          scale: { ease: "linear", duration: 5 },
+          scale: { ease: "linear", duration: 2 },
         },
       }}
       fill={fill}

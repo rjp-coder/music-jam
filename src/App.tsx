@@ -1,96 +1,86 @@
 import { AnimatePresence } from "motion/react";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { GamePad } from "./components/GamePad";
 import { KeySelector } from "./components/KeySelector";
 import { MusicKeyDisplay } from "./components/MusicKeyDisplay";
-import { MusicNoteSvg } from "./components/MusicNoteSvg";
+import { RandomMusicNote } from "./components/RandomMusicNote";
 import { useGamepad } from "./hooks/useGamepad";
 import { useKeyInputs } from "./hooks/useKeyInput";
 import { hello } from "./utils/audio";
-import { chooseRandom } from "./utils/utils";
+
+export const MusicNoteAnimationsContext = createContext([]);
 
 function App() {
   const [toneStarted, _] = useState(false);
   const [musicKey, setMusicKey] = useState("C");
-  const [musicNoteAnimations, setMusicNoteAnimations] = useState([1]);
   const activeKeys = useKeyInputs();
+  const [musicNoteAnimations, setMusicNoteAnimations] = useState([]);
   const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
     useGamepad();
 
   useEffect(() => {
-    setTimeout(() => {
-      if (musicNoteAnimations.length) {
-        setMusicNoteAnimations([]);
-      }
-    }, 1000);
-
-    setTimeout(() => {
-      if (!musicNoteAnimations.length) {
-        setMusicNoteAnimations([1]);
-      }
-    }, 1200);
+    if (musicNoteAnimations.length >= 5) {
+      setMusicNoteAnimations([]);
+    }
   });
 
   return (
-    <div className="flex items-center flex-col">
-      <h1 className="bg-gradient-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
-        Music Jam
-      </h1>
-      <div className="flex flex-row gap-2 mt-2">
-        {connectedGamePads.map((cgp, i) => (
-          <GamePad
-            key={cgp.id}
-            type={cgp.type}
-            colClass={colMap[cgp.col]}
-            incrementCol={() => incrementCol(cgp.id)}
-          />
-        ))}
-      </div>
-      {/* <button
+    <MusicNoteAnimationsContext
+      value={[musicNoteAnimations, setMusicNoteAnimations]}
+    >
+      <div className="flex items-center flex-col">
+        <h1 className="bg-gradient-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+          Music Jam
+        </h1>
+        <div className="flex flex-row gap-2 mt-2">
+          {connectedGamePads.map((cgp, i) => (
+            <GamePad
+              key={cgp.id}
+              type={cgp.type}
+              colClass={colMap[cgp.col]}
+              incrementCol={() => incrementCol(cgp.id)}
+            />
+          ))}
+        </div>
+        {/* <button
         onClick={async () => {
           await Tone.start();
           setToneStarted(true);
           console.log("audio is ready");
-        }}
-      >
-        Start
-      </button> */}
-      {toneStarted && <span>🎶🎵🎵</span>}
-      {toneStarted && (
-        <button
-          onClick={() => {
-            hello();
           }}
-        >
-          Play Note
-        </button>
-      )}
+          >
+          Start
+          </button> */}
+        {toneStarted && <span>🎶🎵🎵</span>}
+        {toneStarted && (
+          <button
+            onClick={() => {
+              hello();
+            }}
+          >
+            Play Note
+          </button>
+        )}
 
-      <AnimatePresence>
-        {musicNoteAnimations.map((mna, i) => (
-          <MusicNoteSvg
-            key={i}
-            height="200px"
-            width="200px"
-            fill="#ff3355"
-            stroke="#000000"
-            className="absolute overflow-visible"
-            type={chooseRandom([
-              "oneSemitone",
-              "twoSemitones",
-              "threeSemitones",
-            ])}
-          ></MusicNoteSvg>
-        ))}
-      </AnimatePresence>
-      {musicNoteAnimations.length}
+        <AnimatePresence>
+          {musicNoteAnimations.map((mna, i) => (
+            <RandomMusicNote
+              key={i}
+              className="absolute overflow-visible"
+            ></RandomMusicNote>
+          ))}
+        </AnimatePresence>
 
-      <KeySelector musicKey={musicKey} setMusicKey={setMusicKey}></KeySelector>
-      <MusicKeyDisplay musicKey={musicKey} activeKeys={activeKeys} />
-      <footer className=" max-md:text-red-700 text-yellow-400 w-auto">
-        tone started {toneStarted}
-      </footer>
-    </div>
+        <KeySelector
+          musicKey={musicKey}
+          setMusicKey={setMusicKey}
+        ></KeySelector>
+        <MusicKeyDisplay musicKey={musicKey} activeKeys={activeKeys} />
+        <footer className=" max-md:text-red-700 text-yellow-400 w-auto">
+          tone started {toneStarted}
+        </footer>
+      </div>
+    </MusicNoteAnimationsContext>
   );
 }
 
