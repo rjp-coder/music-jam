@@ -2,14 +2,14 @@ import { useContext, useEffect } from "react";
 import { MusicNoteAnimationsContext } from "../App";
 import { playNote } from "../utils/audio";
 
-export const MusicButton = ({
+export const MusicButtonOld = ({
   note,
   active,
-  activatedByController,
+  transformRow,
 }: {
   note: string;
   active: boolean;
-  activatedByController: boolean;
+  transformRow?: string;
 }) => {
   const [musicNoteAnimations, setMusicNoteAnimations] = useContext(
     MusicNoteAnimationsContext
@@ -38,18 +38,25 @@ export const MusicButton = ({
     );
   }
 
+  const transformationClass = {
+    top: " md:rotate-x-60 md:mt-20 md:mb-1 md:opacity-10 hover:opacity-100 active:opacity-100",
+    bottom:
+      " md:-rotate-x-60 md:-mt-40 md:mb-1 md:opacity-10 hover:opacity-100 active:opacity-100",
+    high: "md:-mb-20",
+    low: "md:-mt-20",
+  };
   return (
     <div
-      className={` p-1 border-white border-2 rounded-2xl min-w-16 max-w-16 max-h-10 cursor-pointer hover:bg-yellow-300 hover:text-black  active:bg-yellow-500 ${
-        active
-          ? activatedByController
-            ? "bg-red-500 text-black"
-            : "bg-yellow-500 text-black md:opacity-100"
-          : "text-blue-500"
-      } `}
-      onClick={() => playNote(note)}
+      className={`${transformRow ? "md:perspective-50px" : "md:h-0 md:-mb-5"}`}
     >
-      {note}
+      <div
+        className={` p-1 border-white border-2 rounded-2xl min-w-16 max-w-16 max-h-10 cursor-pointer hover:bg-yellow-300 hover:text-black  active:bg-yellow-500 ${
+          active ? "bg-yellow-500 text-black md:opacity-100" : "text-blue-500"
+        } ${transformRow ? transformationClass[transformRow] : ""}`}
+        onClick={() => playNote(note)}
+      >
+        {note}
+      </div>
     </div>
   );
 };

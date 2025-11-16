@@ -1,7 +1,7 @@
 import { useGamepadInputs } from "../hooks/useGamepadButtons";
 import { keyIndexMap } from "../hooks/useKeyInput";
 import { getValidNotesInKeySingleOctave } from "../utils/notes";
-import { MusicButton } from "./MusicButton";
+import { MusicButtonOld } from "./MusicButtonOld";
 
 /*
 This works but is horribly complex. This is because the screen wants
@@ -79,7 +79,7 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
   return (
     <div className="flex flex-row flex-wrap md:flex-none md:flex-nowrap md:grid md:grid-rows-4 md:grid-cols-9 md:-mt-18 mb-auto">
       {musicNotesFlat.map((note, i) => (
-        <MusicButton
+        <MusicButtonOld
           key={note.toUpperCase() + ":" + i}
           note={note.toUpperCase()}
           active={

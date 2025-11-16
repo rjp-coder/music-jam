@@ -47,7 +47,8 @@ export const getBaseNoteFromKey = (key: string, register: number) => {
 export const getValidNotesInKeySingleOctave = (
   key: string,
   minorType: "natural" | "harmonic" | "melodic" = "natural",
-  register: number = 4
+  register: number = 4,
+  includeFirstKeyOfNextOctave: boolean = true
 ) => {
   key = key.toLowerCase();
   const isMinor = key.includes("m");
@@ -83,7 +84,11 @@ export const getValidNotesInKeySingleOctave = (
     notes.push(nextNote);
     currentNote = nextNote;
   }
-  return notes;
+  if (includeFirstKeyOfNextOctave) {
+    return notes;
+  } else {
+    return notes.slice(0, -1);
+  }
 };
 
 const addSemitone = (initialNote: string, number: number = 1) => {
