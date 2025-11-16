@@ -1,8 +1,5 @@
 import { useGamepadInputs } from "../hooks/useGamepadButtons";
-import { keyIndexMap } from "../hooks/useKeyInput";
-import { getValidNotesInKeySingleOctave } from "../utils/notes";
 import { MusicalOctaveDisplay } from "./MusicalOctaveDisplay";
-import { MusicButtonOld } from "./MusicButtonOld";
 
 export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
   const gamepadInputs = useGamepadInputs();
