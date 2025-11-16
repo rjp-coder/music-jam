@@ -45,7 +45,7 @@ export function useGamepadInputs() {
         const btn = joyConToAgnosticMappings[buttonPressed];
         console.log("mapped to agnostic button: ", btn);
         console.assert(
-          btn >= 0 && btn < 20,
+          btn >= 0 && btn < 32,
           "button mapping out of range",
           btn
         );

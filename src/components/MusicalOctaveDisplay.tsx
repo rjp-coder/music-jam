@@ -26,30 +26,32 @@ export const MusicalOctaveDisplay = ({
     1: getValidNotesInKeySingleOctave(musicKey, minorType, 1, false),
   };
 
-  const prevOctave = [musicNotes[octave - 1]];
-  const thisOctave = [musicNotes[octave]];
-  const nextOctave = [musicNotes[octave + 1]];
+  const prevOctave = musicNotes[octave - 1];
+  const thisOctave = musicNotes[octave];
+  const nextOctave = musicNotes[octave + 1];
 
   const expandedOctave = [
     ...prevOctave.slice(-leftPad),
     ...thisOctave,
     ...nextOctave.slice(0, rightPad),
   ];
+
+  console.log({ expandedOctave });
   return (
     <div className="flex flex-row flex-wrap md:flex-none md:flex-nowrap">
       {expandedOctave.map((note, i) => {
         const keyboardActivation = keyboardMappings[i];
         const controllerActivation = controllerMappings[i];
         const isActive =
-          activeKeys.incudes(keyboardActivation) ||
-          controllerActivation.includes(controllerActivation);
+          activeKeys.includes(keyboardActivation) ||
+          activeControllerKeys.includes(controllerActivation);
 
         return (
           <MusicButton
             key={`o${octave}-${note.toUpperCase()}(${i})`}
             note={note.toUpperCase()}
             active={isActive}
-            activatedByController={controllerActivation.includes(
+            activatedByController={activeControllerKeys.includes(
               controllerActivation
             )}
             //activeColor={activeColor}
