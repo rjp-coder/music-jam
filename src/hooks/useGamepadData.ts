@@ -29,10 +29,29 @@ export function useGamepadData() {
     });
   };
 
+  const incrementInstrument = (gamepadIndex: number) => {
+    setConnectedGamePads((prevState) => {
+      const gp = prevState.find((gp) => gp.index === gamepadIndex);
+      if (!gp)
+        throw new Error(
+          "Trying to increment instrument. This function is only intended for already connected devices, but could not find the device"
+        );
+      const currentInstrumentIndex = Object.keys(instruments).indexOf(
+        gp.instrument
+      );
+      const newInstrument = getNextInstrumentAfterIndex(currentInstrumentIndex);
+      const deepCopy = JSON.parse(JSON.stringify(prevState));
+      const gp2 = deepCopy.find((cgp) => cgp.index === gamepadIndex);
+      gp2.instrument = newInstrument;
+      return deepCopy;
+    });
+  };
+
   return {
     connectedGamePads,
     setConnectedGamePads,
     incrementCol,
+    incrementInstrument,
     colMap,
   };
 }
@@ -125,4 +144,11 @@ export function getNextAvailableInstrument(
   const newInstrument = instrumentKeys[instrumentIndex];
   console.log("newInstrument is ", newInstrument);
   return newInstrument;
+}
+
+export function getNextInstrumentAfterIndex(instrumentIndex: number) {
+  const instrumentKeys = Object.keys(
+    instruments
+  ) as (keyof typeof instruments)[];
+  return instrumentKeys[(instrumentIndex + 1) % instrumentKeys.length];
 }

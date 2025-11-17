@@ -2,7 +2,8 @@ import { useGamepadData } from "../hooks/useGamepadData";
 import { GamePad } from "./GamePad";
 
 export const Gamepads = ({ musicKey }) => {
-  const { connectedGamePads, incrementCol, colMap } = useGamepadData();
+  const { connectedGamePads, incrementCol, incrementInstrument, colMap } =
+    useGamepadData();
   //filter unknown gamepads if they share an id
   const legitimateGamePads = connectedGamePads;
   //filterUnknownGamepadDataIfIdSame(connectedGamePads);
@@ -19,6 +20,7 @@ export const Gamepads = ({ musicKey }) => {
             type={cgp.type}
             colClass={colMap[cgp.col]}
             incrementCol={() => incrementCol(cgp.index)}
+            incrementInstrument={() => incrementInstrument(cgp.index)}
           />
         ))}
     </div>

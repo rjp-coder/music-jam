@@ -6,6 +6,7 @@ export const GamePad = ({
   colClass,
   instrument,
   incrementCol,
+  incrementInstrument,
 }: {
   id: string;
   index: number;
@@ -13,6 +14,7 @@ export const GamePad = ({
   colClass: string;
   instrument: keyof Instruments;
   incrementCol: Function;
+  incrementInstrument: Function;
 }) => {
   //   const borderColMap = {
   //     red: "border-red-500",
@@ -34,7 +36,7 @@ export const GamePad = ({
         className={`m-1 float-right h-4 w-4 border rounded-full  border-white ${colClass}`}
       ></div>
       <div className={`m-1 float-left h-4 w-4 text-xs`}>{index}</div>
-      <p>{instrument}</p>
+      <p onClick={() => incrementInstrument()}>{instrument}</p>
     </div>
   );
 };
