@@ -1,3 +1,5 @@
+import { ReactComponent as Joycon } from "../../../public/joycon.svg";
+
 export const GamePad = ({
   type,
   colClass,
@@ -25,7 +27,9 @@ export const GamePad = ({
       <div
         onClick={() => incrementCol()}
         className={`m-1 float-right h-4 w-4 border rounded-full  border-white ${colClass}`}
-      ></div>
+      >
+        <Joycon />
+      </div>
     </div>
   );
 };

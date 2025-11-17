@@ -12,6 +12,67 @@ const piano = new Tone.Sampler({
   baseUrl: "https://tonejs.github.io/audio/salamander/",
 }).toDestination();
 
+const baseUrl = "https://rjp-coder.github.io/music-jam/noteSamples/";
+
+const saxophone = new Tone.Sampler({
+  urls: {
+    E2: "SaxE2.mp4",
+    E3: "SaxE4.mp4",
+    E4: "SaxE3.mp4",
+  },
+  release: 1,
+  baseUrl: baseUrl,
+}).toDestination();
+
+const xylophone = new Tone.Sampler({
+  urls: {
+    F4: "XylophoneF4.mp4",
+  },
+  release: 1,
+  baseUrl: baseUrl,
+}).toDestination();
+
+const harp = new Tone.Sampler({
+  urls: {
+    F4: "HarpF4.mp4",
+  },
+  release: 1,
+  baseUrl: baseUrl,
+}).toDestination();
+
+const guitar = new Tone.Sampler({
+  urls: {
+    C5: "GuitarC5.mp4",
+  },
+  release: 1,
+  baseUrl: baseUrl,
+}).toDestination();
+
+const flute = new Tone.Sampler({
+  urls: {
+    C4: "FluteC4.mp4",
+  },
+  release: 1,
+  baseUrl: baseUrl,
+}).toDestination();
+
+const instruments = {
+  piano,
+  saxophone,
+  xylophone,
+  harp,
+  guitar,
+  flute,
+};
+const instrumentDurations = {
+  piano: 4,
+  saxophone: 1,
+  xylophone: 2,
+  harp: 2,
+  guitar: 2,
+  flute: 2,
+};
+
 export const hello = () => {
   //create a synth and connect it to the main output (your speakers)
   //   const synth = new Tone.Synth().toDestination();
@@ -34,10 +95,15 @@ export const hello = () => {
   );
 };
 
-export const playNote = (note: string) => {
+export const playNote = (
+  note: string,
+  instrumentName: keyof typeof instruments
+) => {
   note = note.toUpperCase();
   if (!/[0-9]/.test(note)) {
     note = note + "4";
   }
-  piano.triggerAttackRelease(note, 4);
+  const instrument = instruments[instrumentName];
+  if (!instrument) console.error(instrumentName);
+  instrument.triggerAttackRelease(note, instrumentDurations[instrumentName]);
 };

@@ -17,11 +17,12 @@ export const MusicButton = ({
     MusicNoteAnimationsContext
   );
 
+  const instrumentName = "saxophone";
   // const debouncedAnim = useDebounce(doMusicNoteAnimation, 200);
   useEffect(() => {
     if (active) {
       doMusicNoteAnimation();
-      playNote(note);
+      playNote(note, instrumentName);
     }
   }, [active]);
 
@@ -49,7 +50,7 @@ export const MusicButton = ({
             : "bg-yellow-500 text-black md:opacity-100"
           : "text-blue-500"
       } `}
-      onClick={() => playNote(note)}
+      onClick={() => playNote(note, instrumentName)}
     >
       {note}
     </div>
