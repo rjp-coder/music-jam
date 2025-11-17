@@ -5,8 +5,8 @@ export function useGamepadInputs() {
   const [gamepadInputs, setGamepadInputs] = useState([]);
 
   useEffect(() => {
-    const interval = setInterval(handleInputs, 100);
-    return () => clearInterval(interval);
+    // const interval = setInterval(handleInputs, 100);
+    // return () => clearInterval(interval);
   });
 
   function handleInputs() {

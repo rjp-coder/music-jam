@@ -23,7 +23,7 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
   const bottomClass = `md:-rotate-x-60 md:mb-1 md:opacity-10 hover:opacity-100 active:opacity-100`;
 
   return (
-    <div className="-mt-20">
+    <div className="md:-mt-20">
       {/* "flex flex-row flex-wrap md:flex-none md:flex-nowrap md:grid md:grid-rows-4 md:grid-cols-9 md:-mt-18 mb-auto" */}
       <MusicalOctaveDisplay
         className={standardClass + " " + topClass}

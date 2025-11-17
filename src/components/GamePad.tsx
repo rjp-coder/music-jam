@@ -1,9 +1,13 @@
 export const GamePad = ({
+  id,
+  index,
   type,
   colClass,
   incrementCol,
 }: {
-  type: "xbox" | "joycon";
+  id: string;
+  index: number;
+  type: "xbox" | "joycon" | "playstation";
   colClass: string;
   incrementCol: Function;
 }) => {
@@ -26,6 +30,7 @@ export const GamePad = ({
         onClick={() => incrementCol()}
         className={`m-1 float-right h-4 w-4 border rounded-full  border-white ${colClass}`}
       ></div>
+      <div className={`m-1 float-left h-4 w-4 text-xs`}>{index}</div>
     </div>
   );
 };

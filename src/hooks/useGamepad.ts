@@ -1,20 +1,21 @@
 import { useEffect } from "react";
 import { useGamepadData, type GamepadData } from "./useGamepadData";
+import { getValidNotesInKey } from "../utils/notes";
 
 export function useGamepad() {
   const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
     useGamepadData();
 
-  // console.log({ musicKey });
-  // const notesToPlay = getValidNotesInKey(musicKey, "natural", -8, 20);
-
   useEffect(() => {
-    window.addEventListener("gamepadconnected", (e) => {
+    window.addEventListener("gamepadconnected", handleGamepadConnected);
+    window.addEventListener("gamepaddisconnected", handleGamepadDisconnected);
+
+    function handleGamepadConnected(e) {
       gamepadHandler(e, true);
-    });
-    window.addEventListener("gamepaddisconnected", (e) => {
+    }
+    function handleGamepadDisconnected(e) {
       gamepadHandler(e, false);
-    });
+    }
 
     function gamepadHandler(event, connected) {
       console.log(
@@ -42,14 +43,22 @@ export function useGamepad() {
         t = "playstation";
       }
 
+      console.log("num pads before" + newState.length);
+
       if (connected) {
-        newState.push({ id: eventGamepad.index, type: t, col: "red" });
+        newState.push({
+          index: eventGamepad.index,
+          type: t,
+          col: "red",
+          id: eventGamepad.id,
+        }); //TODO specify no  colour here and have the gamepad grab the first available one on render
       } else {
         newState.splice(
           newState.findIndex((ns) => ns.id == eventGamepad.index),
           1
         );
       }
+      console.log("num pads after" + newState.length);
       setConnectedGamePads(newState);
       globalThis.connectedGamepads = newState;
     }
@@ -104,7 +113,14 @@ export function useGamepad() {
     // }
 
     // const interval = setInterval(interactWithButtons, 100);
-    // return () => clearInterval(interval);
+    return () => {
+      //clearInterval(interval);
+      window.removeEventListener("gamepadconnected", handleGamepadConnected);
+      window.removeEventListener(
+        "gamepaddisconnected",
+        handleGamepadDisconnected
+      );
+    };
   });
 
   return {

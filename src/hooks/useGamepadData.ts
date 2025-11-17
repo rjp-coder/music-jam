@@ -1,9 +1,10 @@
 import { useState } from "react";
 
 export type GamepadData = {
-  id: number;
+  index: number;
   type: "joycon" | "xbox" | "playstation" | "unknown";
   col: keyof typeof colMap;
+  id: "string";
 };
 
 const colMap = {
