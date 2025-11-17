@@ -1,14 +1,17 @@
+import type { Instruments } from "../utils/audio.ts";
+
 export const GamePad = ({
-  id,
   index,
   type,
   colClass,
+  instrument,
   incrementCol,
 }: {
   id: string;
   index: number;
   type: "xbox" | "joycon" | "playstation";
   colClass: string;
+  instrument: keyof Instruments;
   incrementCol: Function;
 }) => {
   //   const borderColMap = {
@@ -31,6 +34,7 @@ export const GamePad = ({
         className={`m-1 float-right h-4 w-4 border rounded-full  border-white ${colClass}`}
       ></div>
       <div className={`m-1 float-left h-4 w-4 text-xs`}>{index}</div>
+      <p>{instrument}</p>
     </div>
   );
 };

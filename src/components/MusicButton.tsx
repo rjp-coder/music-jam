@@ -1,28 +1,30 @@
 import { useContext, useEffect } from "react";
 import { MusicNoteAnimationsContext } from "../App";
-import { playNote } from "../utils/audio";
+import { colMap } from "../hooks/useGamepadData";
+import { playNote, type Instruments } from "../utils/audio";
 
 export const MusicButton = ({
   note,
   active,
-  activatedByController,
   className,
+  activationColor,
+  instrument,
 }: {
   note: string;
   active: boolean;
-  activatedByController: boolean;
   className: string;
+  activationColor: string;
+  instrument: keyof Instruments;
 }) => {
   const [musicNoteAnimations, setMusicNoteAnimations] = useContext(
     MusicNoteAnimationsContext
   );
 
-  const instrumentName = "saxophone";
   // const debouncedAnim = useDebounce(doMusicNoteAnimation, 200);
   useEffect(() => {
     if (active) {
       doMusicNoteAnimation();
-      playNote(note, instrumentName);
+      playNote(note, instrument);
     }
   }, [active]);
 
@@ -41,16 +43,14 @@ export const MusicButton = ({
     );
   }
 
+  const colClass = colMap[activationColor];
+
   return (
     <div
       className={`${className} ${
-        active
-          ? activatedByController
-            ? "bg-red-500 text-black"
-            : "bg-yellow-500 text-black md:opacity-100"
-          : "text-blue-500"
+        active ? `${colClass} text-black md:opacity-100` : "text-blue-500"
       } `}
-      onClick={() => playNote(note, instrumentName)}
+      onClick={() => playNote(note, "piano")}
     >
       {note}
     </div>

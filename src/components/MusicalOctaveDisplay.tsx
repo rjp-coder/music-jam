@@ -1,5 +1,20 @@
+import { useGamepad } from "../hooks/useGamepad";
+import type { GamepadInput } from "../hooks/useGamepadButtons";
 import { getValidNotesInKeySingleOctave } from "../utils/notes";
 import { MusicButton } from "./MusicButton";
+
+type MusicalOctaveDisplayProps = {
+  className;
+  octave;
+  musicKey;
+  minorType;
+  leftPad;
+  rightPad;
+  keyboardMappings;
+  controllerMappings;
+  activeKeys;
+  activeControllerKeys: GamepadInput[];
+};
 
 export const MusicalOctaveDisplay = ({
   className,
@@ -12,7 +27,9 @@ export const MusicalOctaveDisplay = ({
   controllerMappings,
   activeKeys,
   activeControllerKeys,
-}) => {
+}: MusicalOctaveDisplayProps) => {
+  const { connectedGamePads } = useGamepad();
+
   if (!minorType) minorType = "natural";
   if (octave < 2 || octave > 6) throw "Octave " + octave + " is too extreme";
   if (leftPad > 7 || rightPad > 7) throw "padding too extreme";
@@ -44,7 +61,28 @@ export const MusicalOctaveDisplay = ({
         const controllerActivation = controllerMappings[i];
         const isActive =
           activeKeys.includes(keyboardActivation) ||
-          activeControllerKeys.includes(controllerActivation);
+          activeControllerKeys
+            .map((ack) => ack.btn)
+            .includes(controllerActivation);
+
+        //there might be more than one controller hitting the button but for now
+        //just have an array with only the first controller.
+
+        const controllerPressingButton = activeControllerKeys.find(
+          (ack) => controllerActivation == ack.btn
+        );
+
+        const controllersPressingButton = controllerPressingButton
+          ? [controllerPressingButton]
+          : [];
+
+        const controllerIndicies = controllersPressingButton.map(
+          (cpb) => cpb.gamepadIndex
+        );
+
+        const gp = connectedGamePads.find((gp) =>
+          controllerIndicies.includes(gp.index)
+        );
 
         return (
           <MusicButton
@@ -52,9 +90,8 @@ export const MusicalOctaveDisplay = ({
             key={`o${octave}-${note.toUpperCase()}(${i})`}
             note={note.toUpperCase()}
             active={isActive}
-            activatedByController={activeControllerKeys.includes(
-              controllerActivation
-            )}
+            activationColor={gp?.col || "yellow"}
+            instrument={gp?.instrument || "piano"}
             //activeColor={activeColor}
           />
         );

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { joyConMappings, joyConToAgnosticMappings } from "../utils/controller";
 
-export function useGamepadInputs() {
-  const [gamepadInputs, setGamepadInputs] = useState([]);
+export type GamepadInput = { btn: number; gamepadIndex: number };
+
+export function useGamepadInputs(): GamepadInput[] {
+  const initialGamepadInputs: GamepadInput[] = [];
+  const [gamepadInputs, setGamepadInputs] = useState(initialGamepadInputs);
 
   useEffect(() => {
     const interval = setInterval(handleInputs, 100);
@@ -19,13 +22,15 @@ export function useGamepadInputs() {
     }
 
     console.log(gamepads.length);
-    const newGamepadInputs = []; //TODO don't make this empty, but
+    const newGamepadInputs: GamepadInput[] = []; //TODO don't make this empty, but
     //do filter it so that pre-existing inputs from this controller are
     //removed .
     for (let i = 0; i < gamepads.length; i++) {
       const gp = gamepads[i];
 
       if (!gp) continue;
+
+      const index = gp.index;
 
       // console.log("gamepad connected: ", gp.id);
 
@@ -53,7 +58,8 @@ export function useGamepadInputs() {
         //const noteToPlay = notesToPlay[btn];
         //if (noteToPlay) {
         //playNote(noteToPlay);
-        newGamepadInputs.push({ btn, gamepad: i });
+        const gpInput = { btn, gamepadIndex: gp.index } as GamepadInput;
+        newGamepadInputs.push(gpInput);
         //}
       }
     }

@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
-import { colMap, getNextAvailableColor } from "./useGamepadData";
+import {
+  getNextAvailableInstrument,
+  getNextAvailableColor,
+  type ColMap,
+} from "./useGamepadData";
+import type { Instruments } from "../utils/audio";
 
 globalThis.connectedGamepadsCache = [];
 
 export type GamepadData = {
   index: number;
   type: "joycon" | "xbox" | "playstation" | "unknown";
-  col: keyof typeof colMap;
+  col: keyof ColMap;
+  instrument: keyof Instruments;
   id: "string";
 };
 
@@ -51,6 +57,7 @@ export function useGamepad() {
         index: eventGamepad.index,
         type: t,
         col: "red",
+        instrument: "piano",
         id: eventGamepad.id,
       };
 
@@ -58,6 +65,10 @@ export function useGamepad() {
         const deepCopy = JSON.parse(JSON.stringify(prevState));
         if (connected) {
           gamepad.col = getNextAvailableColor(prevState, eventGamepad.index);
+          gamepad.instrument = getNextAvailableInstrument(
+            prevState,
+            eventGamepad.index
+          );
           deepCopy.push(gamepad);
         } else {
           deepCopy.splice(

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { instruments } from "../utils/audio";
 import { useGamepad, type GamepadData } from "./useGamepad";
 
 export const colMap = {
@@ -14,6 +14,8 @@ export const colMap = {
   lime: "bg-lime-500",
 };
 
+export type ColMap = typeof colMap;
+
 export function useGamepadData() {
   const { connectedGamePads, setConnectedGamePads } = useGamepad();
 
@@ -27,7 +29,12 @@ export function useGamepadData() {
     });
   };
 
-  return { connectedGamePads, setConnectedGamePads, incrementCol, colMap };
+  return {
+    connectedGamePads,
+    setConnectedGamePads,
+    incrementCol,
+    colMap,
+  };
 }
 
 /**
@@ -70,4 +77,52 @@ export function getNextAvailableColor(
   const newCol = colorKeys[colIndex];
   console.log("newColor is ", newCol);
   return newCol;
+}
+
+/**
+ * Each gamepad can have an assigned instrument but there are limited
+ * colours available.
+ *
+ * This function finds the next "free" instrument to use: that is to
+ * say the next instrument that is not occupied by another gamepad.
+ *
+ * @param connectedGamePads All connected gamepads
+ * @param gamepadIndex The id of the gamepad whose instrument we want to alter
+ * @returns
+ */
+export function getNextAvailableInstrument(
+  connectedGamePads: GamepadData[],
+  gamepadIndex: number
+): keyof typeof instruments {
+  if (!connectedGamePads.length) return "piano";
+  const gamepadInstrumentsInUse = connectedGamePads.map((c) => c.instrument);
+  const usedIndicies = gamepadInstrumentsInUse.map((instrument) =>
+    Object.keys(instruments).findIndex(
+      (instrumentKey) => instrumentKey === instrument
+    )
+  );
+  console.log(usedIndicies);
+  const instrumentKeys = Object.keys(
+    instruments
+  ) as (keyof typeof instruments)[];
+  if (instrumentKeys.length === gamepadInstrumentsInUse.length) {
+    console.warn("no instruments to choose from! Choosing piano");
+    return "piano";
+  }
+  const newState = JSON.parse(JSON.stringify(connectedGamePads));
+  const gp = newState.find((cgp) => cgp.index === gamepadIndex);
+  if (!gp) console.log("Setting instrumnet for gamepad before initialisation");
+  const oldInstrumentIndex = gp
+    ? Object.keys(instruments).findIndex(
+        (instrumentKey) => instrumentKey === gp.col
+      )
+    : 0; //if this gamepad is not initialised, there is no currentInstrument to index. So give it the index of -1 (i.e. non-existant but will increment to 0) and grab the next one
+  let instrumentIndex = oldInstrumentIndex;
+  while (usedIndicies.includes(instrumentIndex)) {
+    instrumentIndex = (instrumentIndex + 1) % instrumentKeys.length;
+  }
+  console.log(instrumentIndex);
+  const newInstrument = instrumentKeys[instrumentIndex];
+  console.log("newInstrument is ", newInstrument);
+  return newInstrument;
 }

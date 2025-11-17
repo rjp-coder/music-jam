@@ -1,4 +1,7 @@
-import { useGamepadInputs } from "../hooks/useGamepadButtons";
+import {
+  useGamepadInputs,
+  type GamepadInput,
+} from "../hooks/useGamepadButtons";
 import { MusicalOctaveDisplay } from "./MusicalOctaveDisplay";
 
 export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
@@ -15,7 +18,13 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
     rightPad: 1,
     activeKeys: activeKeys || [],
     //The plus 4 here is kind of a hack -- saves messing with the agnostic button mapping and helps centre the octave for nintendo switch at least . . .
-    activeControllerKeys: gamepadInputs.map((gi) => +gi.btn + 4) || [],
+    activeControllerKeys:
+      gamepadInputs.map((gi) => {
+        return {
+          btn: +gi.btn + 4,
+          gamepadIndex: gi.gamepadIndex,
+        } as GamepadInput;
+      }) || [],
   };
 
   const topClass = `" md:rotate-x-60 md:mt-20 md:mb-1 md:opacity-10 hover:opacity-100 active:opacity-100"`;

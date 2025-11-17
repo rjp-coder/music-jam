@@ -56,7 +56,7 @@ const flute = new Tone.Sampler({
   baseUrl: baseUrl,
 }).toDestination();
 
-const instruments = {
+export const instruments = {
   piano,
   saxophone,
   xylophone,
@@ -64,6 +64,8 @@ const instruments = {
   guitar,
   flute,
 };
+
+export type Instruments = typeof instruments;
 const instrumentDurations = {
   piano: 4,
   saxophone: 1,
@@ -88,8 +90,8 @@ export const hello = () => {
   piano.triggerAttackRelease(
     [
       notes[1].toUpperCase() + "4",
-      notes[3].toUpperCase() + "4",
       notes[5].toUpperCase() + "4",
+      notes[3].toUpperCase() + "4",
     ],
     4
   );

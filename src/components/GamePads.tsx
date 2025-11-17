@@ -15,6 +15,7 @@ export const Gamepads = ({ musicKey }) => {
             id={cgp.id}
             index={cgp.index}
             key={cgp.id + `(${cgp.index})`}
+            instrument={cgp.instrument}
             type={cgp.type}
             colClass={colMap[cgp.col]}
             incrementCol={() => incrementCol(cgp.index)}
