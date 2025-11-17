@@ -68,7 +68,7 @@ export const instruments = {
 export type Instruments = typeof instruments;
 const instrumentDurations = {
   piano: 4,
-  saxophone: 1,
+  saxophone: 0.3,
   xylophone: 2,
   harp: 2,
   guitar: 2,

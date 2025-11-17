@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import { useGamepad } from "../hooks/useGamepad";
 import type { GamepadInput } from "../hooks/useGamepadButtons";
 import { getValidNotesInKeySingleOctave } from "../utils/notes";
 import { MusicButton } from "./MusicButton";
+import { ConnectedGamepadsContext } from "../App";
 
 type MusicalOctaveDisplayProps = {
   className;
@@ -53,7 +55,7 @@ export const MusicalOctaveDisplay = ({
     ...nextOctave.slice(0, rightPad),
   ];
 
-  console.log({ expandedOctave });
+  // console.log({ expandedOctave });
   return (
     <div className="flex flex-row flex-wrap md:flex-none md:flex-nowrap">
       {expandedOctave.map((note, i) => {
@@ -92,7 +94,6 @@ export const MusicalOctaveDisplay = ({
             active={isActive}
             activationColor={gp?.col || "yellow"}
             instrument={gp?.instrument || "piano"}
-            //activeColor={activeColor}
           />
         );
       })}

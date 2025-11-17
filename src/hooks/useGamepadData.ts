@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { instruments } from "../utils/audio";
 import { useGamepad, type GamepadData } from "./useGamepad";
+import { ConnectedGamepadsContext } from "../App";
 
 export const colMap = {
   red: "bg-red-600",
@@ -16,7 +18,25 @@ export const colMap = {
 
 export type ColMap = typeof colMap;
 
-export function useGamepadData() {
+export type GamepadHookData = {
+  connectedGamePads: GamepadData[];
+  setConnectedGamePads: React.Dispatch<React.SetStateAction<GamepadData[]>>;
+  incrementCol: (gamepadIndex: number) => void;
+  incrementInstrument: (gamepadIndex: number) => void;
+  colMap: {
+    red: string;
+    blue: string;
+    yellow: string;
+    green: string;
+    purple: string;
+    orange: string;
+    pink: string;
+    cyan: string;
+    lime: string;
+  };
+};
+
+export function useGamepadData(): GamepadHookData {
   const { connectedGamePads, setConnectedGamePads } = useGamepad();
 
   const incrementCol = (gamepadIndex: number) => {

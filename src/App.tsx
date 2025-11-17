@@ -6,15 +6,19 @@ import { MusicKeyboardDisplay } from "./components/MusicKeyDisplay";
 import { RandomMusicNote } from "./components/RandomMusicNote";
 import { useKeyInputs } from "./hooks/useKeyInput";
 import { hello } from "./utils/audio";
+import { useGamepadData, type GamepadHookData } from "./hooks/useGamepadData";
 
 export const MusicNoteAnimationsContext = createContext([]);
 export const MusicalKeyContext = createContext([]);
+export const ConnectedGamepadsContext: React.Context<GamepadHookData> =
+  createContext({});
 
 function App() {
   const [toneStarted, _] = useState(false);
   const activeKeys = useKeyInputs();
   const [musicNoteAnimations, setMusicNoteAnimations] = useState([]);
   const [musicKey, setMusicKey] = useState("C");
+  const gamepadContextVal = useGamepadData();
   useEffect(() => {
     if (musicNoteAnimations.length >= 5) {
       setMusicNoteAnimations([]);
@@ -27,11 +31,12 @@ function App() {
     >
       <div className="flex items-center flex-col">
         <MusicalKeyContext value={[musicKey, setMusicKey]}>
-          <h1 className="bg-gradient-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
-            Music Jam
-          </h1>
-          <Gamepads musicKey={musicKey} />
-          {/* <button
+          <ConnectedGamepadsContext value={gamepadContextVal}>
+            <h1 className="bg-gradient-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+              Music Jam
+            </h1>
+            <Gamepads musicKey={musicKey} />
+            {/* <button
         onClick={async () => {
           await Tone.start();
           setToneStarted(true);
@@ -40,31 +45,32 @@ function App() {
           >
           Start
           </button> */}
-          {toneStarted && <span>🎶🎵🎵</span>}
-          {toneStarted && (
-            <button
-              onClick={() => {
-                hello();
-              }}
-            >
-              Play Note
-            </button>
-          )}
+            {toneStarted && <span>🎶🎵🎵</span>}
+            {toneStarted && (
+              <button
+                onClick={() => {
+                  hello();
+                }}
+              >
+                Play Note
+              </button>
+            )}
 
-          <AnimatePresence>
-            {musicNoteAnimations.map((mna, i) => (
-              <RandomMusicNote
-                key={i}
-                className="absolute overflow-visible"
-              ></RandomMusicNote>
-            ))}
-          </AnimatePresence>
+            <AnimatePresence>
+              {musicNoteAnimations.map((mna, i) => (
+                <RandomMusicNote
+                  key={i}
+                  className="absolute overflow-visible"
+                ></RandomMusicNote>
+              ))}
+            </AnimatePresence>
 
-          <KeySelector
-            musicKey={musicKey}
-            setMusicKey={setMusicKey}
-          ></KeySelector>
-          <MusicKeyboardDisplay musicKey={musicKey} activeKeys={activeKeys} />
+            <KeySelector
+              musicKey={musicKey}
+              setMusicKey={setMusicKey}
+            ></KeySelector>
+            <MusicKeyboardDisplay musicKey={musicKey} activeKeys={activeKeys} />
+          </ConnectedGamepadsContext>
         </MusicalKeyContext>
         <footer className=" max-md:text-red-700 text-yellow-400 w-auto">
           tone started {toneStarted}
