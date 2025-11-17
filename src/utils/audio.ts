@@ -107,6 +107,6 @@ export const playNote = (
   }
   const instrument = instruments[instrumentName];
   if (!instrument) console.error(instrumentName);
-  const [duration, clip, volume] = instrumentOptions[instrumentName];
+  const [duration, _clip, volume] = instrumentOptions[instrumentName];
   instrument.triggerAttackRelease(note, duration, undefined, volume);
 };

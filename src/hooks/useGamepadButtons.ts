@@ -30,8 +30,6 @@ export function useGamepadInputs(): GamepadInput[] {
 
       if (!gp) continue;
 
-      const index = gp.index;
-
       // console.log("gamepad connected: ", gp.id);
 
       const buttons = gp?.buttons;

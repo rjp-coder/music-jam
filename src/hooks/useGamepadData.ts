@@ -1,7 +1,5 @@
-import { useContext } from "react";
 import { instruments } from "../utils/audio";
 import { useGamepad, type GamepadData } from "./useGamepad";
-import { ConnectedGamepadsContext } from "../App";
 
 export const colMap = {
   red: "bg-red-600",
