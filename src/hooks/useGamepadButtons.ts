@@ -5,8 +5,8 @@ export function useGamepadInputs() {
   const [gamepadInputs, setGamepadInputs] = useState([]);
 
   useEffect(() => {
-    // const interval = setInterval(handleInputs, 100);
-    // return () => clearInterval(interval);
+    const interval = setInterval(handleInputs, 100);
+    return () => clearInterval(interval);
   });
 
   function handleInputs() {
@@ -17,6 +17,11 @@ export function useGamepadInputs() {
     } else {
       //   console.log("polling succeeded");
     }
+
+    console.log(gamepads.length);
+    const newGamepadInputs = []; //TODO don't make this empty, but
+    //do filter it so that pre-existing inputs from this controller are
+    //removed .
     for (let i = 0; i < gamepads.length; i++) {
       const gp = gamepads[i];
 
@@ -33,10 +38,6 @@ export function useGamepadInputs() {
           pressed.push(j);
         }
       }
-
-      const newGamepadInputs = []; //TODO don't make this empty, but
-      //do filter it so that pre-existing inputs from this controller are
-      //removed .
 
       for (let index of pressed) {
         console.log(index, " button is pressed");
@@ -55,8 +56,8 @@ export function useGamepadInputs() {
         newGamepadInputs.push({ btn, gamepad: i });
         //}
       }
-      setGamepadInputs(newGamepadInputs);
     }
+    setGamepadInputs(newGamepadInputs);
   }
 
   return gamepadInputs;
