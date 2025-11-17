@@ -66,13 +66,13 @@ export const instruments = {
 };
 
 export type Instruments = typeof instruments;
-const instrumentDurations = {
-  piano: 4,
-  saxophone: 0.3,
-  xylophone: 2,
-  harp: 2,
-  guitar: 2,
-  flute: 2,
+const instrumentOptions = {
+  piano: [4, 0, 0.4],
+  saxophone: [0.4, 0, 0.4],
+  xylophone: [2, 1, 4],
+  harp: [2, 0.4, 1],
+  guitar: [2, 0, 0.5],
+  flute: [1, 0, 1],
 };
 
 export const hello = () => {
@@ -107,5 +107,6 @@ export const playNote = (
   }
   const instrument = instruments[instrumentName];
   if (!instrument) console.error(instrumentName);
-  instrument.triggerAttackRelease(note, instrumentDurations[instrumentName]);
+  const [duration, clip, volume] = instrumentOptions[instrumentName];
+  instrument.triggerAttackRelease(note, duration, undefined, volume);
 };
