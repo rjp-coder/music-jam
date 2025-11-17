@@ -1,10 +1,18 @@
-import { useEffect } from "react";
-import { useGamepadData, type GamepadData } from "./useGamepadData";
-import { getValidNotesInKey } from "../utils/notes";
+import { useEffect, useState } from "react";
+import { colMap, getNextAvailableColor } from "./useGamepadData";
+
+globalThis.connectedGamepadsCache = [];
+
+export type GamepadData = {
+  index: number;
+  type: "joycon" | "xbox" | "playstation" | "unknown";
+  col: keyof typeof colMap;
+  id: "string";
+};
 
 export function useGamepad() {
-  const { connectedGamePads, setConnectedGamePads, incrementCol, colMap } =
-    useGamepadData();
+  const initialData: GamepadData[] = [];
+  const [connectedGamePads, setConnectedGamePads] = useState(initialData);
 
   useEffect(() => {
     window.addEventListener("gamepadconnected", handleGamepadConnected);
@@ -30,10 +38,6 @@ export function useGamepad() {
       // Note:
       // gamepad === navigator.getGamepads()[gamepad.index]
 
-      const newState: Array<GamepadData> = JSON.parse(
-        JSON.stringify(connectedGamePads)
-      );
-
       let t: GamepadData["type"] = "unknown";
       if (eventGamepad.id.toLowerCase().includes("joy")) {
         t = "joycon";
@@ -43,24 +47,26 @@ export function useGamepad() {
         t = "playstation";
       }
 
-      console.log("num pads before" + newState.length);
+      const gamepad = {
+        index: eventGamepad.index,
+        type: t,
+        col: "red",
+        id: eventGamepad.id,
+      };
 
-      if (connected) {
-        newState.push({
-          index: eventGamepad.index,
-          type: t,
-          col: "red",
-          id: eventGamepad.id,
-        }); //TODO specify no  colour here and have the gamepad grab the first available one on render
-      } else {
-        newState.splice(
-          newState.findIndex((ns) => ns.id == eventGamepad.index),
-          1
-        );
-      }
-      console.log("num pads after" + newState.length);
-      setConnectedGamePads(newState);
-      globalThis.connectedGamepads = newState;
+      setConnectedGamePads((prevState) => {
+        const deepCopy = JSON.parse(JSON.stringify(prevState));
+        if (connected) {
+          gamepad.col = getNextAvailableColor(prevState, eventGamepad.index);
+          deepCopy.push(gamepad);
+        } else {
+          deepCopy.splice(
+            deepCopy.findIndex((ns) => ns.id == eventGamepad.index),
+            1
+          );
+        }
+        return deepCopy;
+      });
     }
 
     // // console.log({ notesToPlay });
@@ -126,8 +132,6 @@ export function useGamepad() {
   return {
     connectedGamePads,
     setConnectedGamePads,
-    incrementCol,
-    colMap,
     // gamepadNotes,
   };
 }

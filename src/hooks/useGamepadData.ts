@@ -1,14 +1,9 @@
 import { useState } from "react";
+import { useGamepad, type GamepadData } from "./useGamepad";
 
-export type GamepadData = {
-  index: number;
-  type: "joycon" | "xbox" | "playstation" | "unknown";
-  col: keyof typeof colMap;
-  id: "string";
-};
-
-const colMap = {
+export const colMap = {
   red: "bg-red-600",
+
   blue: "bg-blue-600",
   yellow: "bg-yellow-500",
   green: "bg-green-500",
@@ -20,38 +15,59 @@ const colMap = {
 };
 
 export function useGamepadData() {
-  const [connectedGamePads, setConnectedGamePads] = useState([
-    // { id: 0, type: "joycon", col: "red" },
-    // { id: 1, type: "xbox", col: "blue" },
-  ]);
+  const { connectedGamePads, setConnectedGamePads } = useGamepad();
 
-  const incrementCol = (gamepadId: number) => {
-    const gamepadColorsInUse = connectedGamePads.map((c) => c.col);
-    const usedIndicies = gamepadColorsInUse.map((col) =>
-      Object.keys(colMap).findIndex((colMapKey) => colMapKey === col)
-    );
-    console.log(usedIndicies);
-    const colorKeys = Object.keys(colMap);
-    if (colorKeys.length === gamepadColorsInUse.length) {
-      console.warn("no colours to choose from!");
-      return;
-    }
-    const newState = JSON.parse(JSON.stringify(connectedGamePads));
-    const gp = newState.find((cgp) => cgp.id === gamepadId);
-    if (!gp) throw new Error("Could not find gamepad");
-    const oldColIndex = Object.keys(colMap).findIndex(
-      (colMapKey) => colMapKey === gp.col
-    );
-    let colIndex = oldColIndex;
-    while (usedIndicies.includes(colIndex)) {
-      colIndex = (colIndex + 1) % colorKeys.length;
-    }
-    console.log(colIndex);
-    const newCol = colorKeys[colIndex];
-    console.log("newColor is ", newCol);
-    gp.col = newCol;
-    setConnectedGamePads(newState);
+  const incrementCol = (gamepadIndex: number) => {
+    const newCol = getNextAvailableColor(connectedGamePads, gamepadIndex);
+    setConnectedGamePads((prevState) => {
+      const deepCopy = JSON.parse(JSON.stringify(prevState));
+      const gp = deepCopy.find((cgp) => cgp.index === gamepadIndex);
+      gp.col = newCol;
+      return deepCopy;
+    });
   };
 
   return { connectedGamePads, setConnectedGamePads, incrementCol, colMap };
+}
+
+/**
+ * Each gamepad can have an assigned colour but there are limited
+ * colours available.
+ *
+ * This function finds the next "free" colour to use: that is to
+ * say the next colour that is not occupied by another gamepad.
+ *
+ * @param connectedGamePads All connected gamepads
+ * @param gamepadIndex The id of the gamepad whose colour we want to alter
+ * @returns
+ */
+export function getNextAvailableColor(
+  connectedGamePads: GamepadData[],
+  gamepadIndex: number
+): keyof typeof colMap {
+  if (!connectedGamePads.length) return "red";
+  const gamepadColorsInUse = connectedGamePads.map((c) => c.col);
+  const usedIndicies = gamepadColorsInUse.map((col) =>
+    Object.keys(colMap).findIndex((colMapKey) => colMapKey === col)
+  );
+  console.log(usedIndicies);
+  const colorKeys = Object.keys(colMap) as (keyof typeof colMap)[];
+  if (colorKeys.length === gamepadColorsInUse.length) {
+    console.warn("no colours to choose from!");
+    return;
+  }
+  const newState = JSON.parse(JSON.stringify(connectedGamePads));
+  const gp = newState.find((cgp) => cgp.index === gamepadIndex);
+  if (!gp) console.log("Setting colour for gamepad before initialisation");
+  const oldColIndex = gp
+    ? Object.keys(colMap).findIndex((colMapKey) => colMapKey === gp.col)
+    : 0; //if this gamepad is not initialised, there is no currentColor to index. So give it the index of -1 (i.e. non-existant but will increment to 0) and grab the next one
+  let colIndex = oldColIndex;
+  while (usedIndicies.includes(colIndex)) {
+    colIndex = (colIndex + 1) % colorKeys.length;
+  }
+  console.log(colIndex);
+  const newCol = colorKeys[colIndex];
+  console.log("newColor is ", newCol);
+  return newCol;
 }
