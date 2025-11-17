@@ -1,9 +1,8 @@
 import { useContext } from "react";
-import { useGamepad } from "../hooks/useGamepad";
+import { ConnectedGamepadsContext } from "../App";
 import type { GamepadInput } from "../hooks/useGamepadButtons";
 import { getValidNotesInKeySingleOctave } from "../utils/notes";
 import { MusicButton } from "./MusicButton";
-import { ConnectedGamepadsContext } from "../App";
 
 type MusicalOctaveDisplayProps = {
   className;
@@ -30,7 +29,7 @@ export const MusicalOctaveDisplay = ({
   activeKeys,
   activeControllerKeys,
 }: MusicalOctaveDisplayProps) => {
-  const { connectedGamePads } = useGamepad();
+  const { connectedGamePads } = useContext(ConnectedGamepadsContext);
 
   if (!minorType) minorType = "natural";
   if (octave < 2 || octave > 6) throw "Octave " + octave + " is too extreme";

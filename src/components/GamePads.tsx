@@ -1,9 +1,10 @@
-import { useGamepadData } from "../hooks/useGamepadData";
+import { useContext } from "react";
+import { ConnectedGamepadsContext } from "../App";
 import { GamePad } from "./GamePad";
 
 export const Gamepads = ({ musicKey }) => {
   const { connectedGamePads, incrementCol, incrementInstrument, colMap } =
-    useGamepadData();
+    useContext(ConnectedGamepadsContext);
   //filter unknown gamepads if they share an id
   const legitimateGamePads = connectedGamePads;
   //filterUnknownGamepadDataIfIdSame(connectedGamePads);
