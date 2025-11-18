@@ -61,6 +61,7 @@ function App() {
                 <RandomMusicNote
                   key={i}
                   className="absolute overflow-visible"
+                  color={mna}
                 ></RandomMusicNote>
               ))}
             </AnimatePresence>

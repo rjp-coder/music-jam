@@ -30,7 +30,7 @@ export const MusicButton = ({
 
   function doMusicNoteAnimation() {
     //generate a unique id
-    const id = Math.random().toString(36).substring(2, 9);
+    const id = activationColor;
     //add to music notes queue
     setMusicNoteAnimations([...musicNoteAnimations, id]);
     //remove from music notes queue(triggered immediately but takes some time to animate fade)

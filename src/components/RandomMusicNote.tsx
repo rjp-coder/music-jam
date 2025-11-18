@@ -1,3 +1,4 @@
+import { colMap } from "../hooks/useGamepadData";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { chooseRandom } from "../utils/utils";
 import { MusicNoteSvg } from "./MusicNoteSvg";
@@ -16,10 +17,11 @@ But if I do that then the initial state logic breaks completely and
 The notes sort of animate in. Which looks terrible for what I need.  
 */
 
-export const RandomMusicNote = ({ className }) => {
+export const RandomMusicNote = ({ className, color }) => {
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
   const type = chooseRandom(["oneSemitone", "twoSemitones", "threeSemitones"]);
 
+  //@ts-ignore
   const fill = chooseRandom([
     "#ff3355",
     "#e91e63",
@@ -34,6 +36,12 @@ export const RandomMusicNote = ({ className }) => {
     "#ff9800",
   ]);
 
+  const gamepadColor = ("var(--color-" + colMap[color] + ")").replace(
+    "bg-",
+    ""
+  );
+  console.log("color in RandomMusicNote:", color, ",", gamepadColor);
+
   const size = chooseRandom([80, 100, 120, 140, 160, 180, 200]) + "px";
 
   const x = Math.round(Math.random() * windowWidth * 0.9 - 500);
@@ -44,7 +52,7 @@ export const RandomMusicNote = ({ className }) => {
       className={className}
       //@ts-ignore
       type={type}
-      fill={fill}
+      fill={gamepadColor}
       height={size}
       width={size}
       x={x}
