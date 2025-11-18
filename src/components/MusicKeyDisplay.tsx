@@ -2,6 +2,7 @@ import {
   useGamepadInputs,
   type GamepadInput,
 } from "../hooks/useGamepadButtons";
+import { agnosticController } from "../utils/controller";
 import { MusicalOctaveDisplay } from "./MusicalOctaveDisplay";
 
 export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
@@ -21,7 +22,7 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
     activeControllerKeys:
       gamepadInputs.map((gi) => {
         return {
-          btn: +gi.btn + 4,
+          btn: +gi.btn,
           gamepadIndex: gi.gamepadIndex,
         } as GamepadInput;
       }) || [],
@@ -31,6 +32,8 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
   const standardClass = ` p-1 border-white border-2 rounded-2xl min-w-16 max-w-16 max-h-10 cursor-pointer hover:bg-yellow-300 hover:text-black  active:bg-yellow-500`;
   const bottomClass = `md:-rotate-x-60 md:mb-1 md:opacity-10 hover:opacity-100 active:opacity-100`;
 
+  const ag = agnosticController;
+
   return (
     <div className="md:-mt-20">
       {/* "flex flex-row flex-wrap md:flex-none md:flex-nowrap md:grid md:grid-rows-4 md:grid-cols-9 md:-mt-18 mb-auto" */}
@@ -39,28 +42,68 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
         octave={5}
         {...commonProps}
         keyboardMappings={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
-        controllerMappings={[null, 22, 23, 24, 25, 26, 27, 28, null]}
+        controllerMappings={[
+          null,
+          ag.LEFT_STICK_DOWN,
+          ag.LEFT_STICK_LEFT,
+          ag.LEFT_STICK_UP,
+          ag.RIGHT_STICK_UP,
+          null,
+          null,
+          null,
+          null,
+        ]}
       />
       <MusicalOctaveDisplay
         className={standardClass}
         octave={4}
         {...commonProps}
         keyboardMappings={["q", "w", "e", "r", "t", "y", "u", "i", "o"]}
-        controllerMappings={[null, 15, 16, 17, 18, 19, 20, 21, null]}
+        controllerMappings={[
+          null,
+          ag.BUTTON_RIGHT,
+          ag.LEFT_BUMPER,
+          ag.LEFT_TRIGGER,
+          ag.RIGHT_BUMPER,
+          ag.RIGHT_TRIGGER,
+          ag.SELECT,
+          ag.START,
+          null,
+        ]}
       />
       <MusicalOctaveDisplay
         className={standardClass}
         octave={3}
         {...commonProps}
         keyboardMappings={["a", "s", "d", "f", "g", "h", "j", "k", "l"]}
-        controllerMappings={[null, 8, 9, 10, 11, 12, 13, 14, null]}
+        controllerMappings={[
+          null,
+          ag.DPAD_DOWN,
+          ag.DPAD_LEFT,
+          ag.DPAD_UP,
+          ag.DPAD_RIGHT,
+          ag.BUTTON_BOTTOM,
+          ag.BUTTON_LEFT,
+          ag.BUTTON_TOP,
+          null,
+        ]}
       />
       <MusicalOctaveDisplay
         className={standardClass + " " + bottomClass}
         octave={2}
         {...commonProps}
         keyboardMappings={["z", "x", "c", "v", "b", "n", "m", ",", "."]}
-        controllerMappings={[null, 1, 2, 3, 4, 5, 6, 7, null]}
+        controllerMappings={[
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+        ]}
       />
     </div>
   );

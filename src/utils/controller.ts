@@ -66,6 +66,8 @@ const agnosticControllerSpiral = {
   RIGHT_STICK_LEFT: 17,
   RIGHT_STICK_UP: 18,
   RIGHT_STICK_RIGHT: 19,
+  SELECT: 20,
+  START: 21,
 };
 
 //@ts-ignore
@@ -90,9 +92,11 @@ const agnosticControllerInterlacedSpiral = {
   RIGHT_STICK_LEFT: 3,
   RIGHT_STICK_UP: 5,
   RIGHT_STICK_RIGHT: 7,
+  SELECT: 20,
+  START: 21,
 };
 
-const agnosticController = agnosticControllerSpiral;
+export const agnosticController = agnosticControllerSpiral;
 
 export const joyConToAgnosticMappings = {
   b: agnosticController.BUTTON_BOTTOM,
@@ -107,6 +111,8 @@ export const joyConToAgnosticMappings = {
   zl: agnosticController.LEFT_TRIGGER,
   zr: agnosticController.RIGHT_TRIGGER,
   R: agnosticController.RIGHT_BUMPER,
+  MINUS: agnosticController.SELECT,
+  PLUS: agnosticController.START,
 };
 
 export const xboxControllerMappings = {
