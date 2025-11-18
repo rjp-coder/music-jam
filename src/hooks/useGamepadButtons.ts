@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { joyConMappings, joyConToAgnosticMappings } from "../utils/controller";
+import {
+  agnosticController,
+  joyConMappings,
+  joyConToAgnosticMappings,
+} from "../utils/controller";
 
 export type GamepadInput = { btn: number; gamepadIndex: number };
 
@@ -8,7 +12,7 @@ export function useGamepadInputs(): GamepadInput[] {
   const [gamepadInputs, setGamepadInputs] = useState(initialGamepadInputs);
 
   useEffect(() => {
-    const interval = setInterval(handleInputs, 100);
+    const interval = setInterval(handleInputs, 50);
     return () => clearInterval(interval);
   });
 
@@ -42,6 +46,36 @@ export function useGamepadInputs(): GamepadInput[] {
         }
       }
 
+      const axisButtonsPressed = [];
+      const axes = gp.axes;
+      const threshold = 0.6; //threshold along the axis after which we would consider the stick to be pointing in a direction deliberately
+      const wobbleFactor = 0.3; //threshold after which it is impossible to tell along which axis the sticks are being pressed (so don't process)
+      const [leftX, leftY, rightX, rightY] = axes;
+      if (leftX < -threshold && Math.abs(leftY) < wobbleFactor) {
+        axisButtonsPressed.push(agnosticController.LEFT_STICK_LEFT);
+      }
+      if (leftX > threshold && Math.abs(leftY) < wobbleFactor) {
+        axisButtonsPressed.push(agnosticController.LEFT_STICK_RIGHT);
+      }
+      if (leftY < -threshold && Math.abs(leftX) < wobbleFactor) {
+        axisButtonsPressed.push(agnosticController.LEFT_STICK_UP);
+      }
+      if (leftY > threshold && Math.abs(leftX) < wobbleFactor) {
+        axisButtonsPressed.push(agnosticController.LEFT_STICK_DOWN);
+      }
+      if (rightX < -threshold && Math.abs(rightY) < wobbleFactor) {
+        axisButtonsPressed.push(agnosticController.RIGHT_STICK_LEFT);
+      }
+      if (rightX > threshold && Math.abs(rightY) < wobbleFactor) {
+        axisButtonsPressed.push(agnosticController.RIGHT_STICK_RIGHT);
+      }
+      if (rightY < -threshold && Math.abs(rightX) < wobbleFactor) {
+        axisButtonsPressed.push(agnosticController.RIGHT_STICK_UP);
+      }
+      if (rightY > threshold && Math.abs(rightX) < wobbleFactor) {
+        axisButtonsPressed.push(agnosticController.RIGHT_STICK_DOWN);
+      }
+
       for (let index of pressed) {
         console.log(index, " button is pressed");
         const buttonPressed = joyConMappings[index];
@@ -59,6 +93,14 @@ export function useGamepadInputs(): GamepadInput[] {
         const gpInput = { btn, gamepadIndex: gp.index } as GamepadInput;
         newGamepadInputs.push(gpInput);
         //}
+      }
+
+      for (let axisBtn of axisButtonsPressed) {
+        const gpInput = {
+          btn: axisBtn,
+          gamepadIndex: gp.index,
+        } as GamepadInput;
+        newGamepadInputs.push(gpInput);
       }
     }
     setGamepadInputs(newGamepadInputs);

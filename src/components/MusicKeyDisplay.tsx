@@ -28,9 +28,9 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
       }) || [],
   };
 
-  const topClass = `" md:rotate-x-60 md:mt-20 md:mb-1 md:opacity-10 hover:opacity-100 active:opacity-100"`;
+  const topClass = `" max-sm:rotate-y-60 max-sm:-mr-4 md:rotate-x-60 md:mt-20 md:mb-1 opacity-10 hover:opacity-100 active:opacity-100"`;
   const standardClass = ` p-1 border-white border-2 rounded-2xl min-w-16 max-w-16 max-h-10 cursor-pointer hover:bg-yellow-300 hover:text-black  active:bg-yellow-500`;
-  const bottomClass = `md:-rotate-x-60 md:mb-1 md:opacity-10 hover:opacity-100 active:opacity-100`;
+  const bottomClass = `max-sm:-rotate-y-60 max-sm:-ml-4 md:-rotate-x-60 md:mb-1 opacity-10 hover:opacity-100 active:opacity-100`;
 
   const ag = agnosticController;
 
@@ -44,10 +44,10 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
         keyboardMappings={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
         controllerMappings={[
           null,
-          ag.LEFT_STICK_DOWN,
-          ag.LEFT_STICK_LEFT,
           ag.LEFT_STICK_UP,
-          ag.RIGHT_STICK_UP,
+          ag.LEFT_STICK_RIGHT,
+          ag.SELECT,
+          ag.START,
           null,
           null,
           null,
@@ -66,8 +66,8 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
           ag.LEFT_TRIGGER,
           ag.RIGHT_BUMPER,
           ag.RIGHT_TRIGGER,
-          ag.SELECT,
-          ag.START,
+          ag.LEFT_STICK_DOWN,
+          ag.LEFT_STICK_LEFT,
           null,
         ]}
       />

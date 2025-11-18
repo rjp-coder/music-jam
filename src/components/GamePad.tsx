@@ -33,9 +33,11 @@ export const GamePad = ({
       {type}
       <div
         onClick={() => incrementCol()}
-        className={`m-1 float-right h-4 w-4 border rounded-full  border-white ${colClass}`}
+        className={`cursor-pointer m-1 float-right h-4 w-4 border rounded-full  border-white ${colClass}`}
       ></div>
-      <div className={`m-1 float-left h-4 w-4 text-xs`}>{index}</div>
+      <div className={`cursor-pointer m-1 float-left h-4 w-4 text-xs`}>
+        {index}
+      </div>
       <p onClick={() => incrementInstrument()}>{instrument}</p>
     </div>
   );

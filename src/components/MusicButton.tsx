@@ -48,7 +48,7 @@ export const MusicButton = ({
   return (
     <div
       className={`${className} ${
-        active ? `${colClass} text-black md:opacity-100` : "text-blue-500"
+        active ? `${colClass} text-black sm:opacity-100` : "text-blue-500"
       } `}
       onClick={() => playNote(note, "piano")}
     >
