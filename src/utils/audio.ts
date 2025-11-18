@@ -97,10 +97,7 @@ export const hello = () => {
   );
 };
 
-export const playNote = (
-  note: string,
-  instrumentName: keyof typeof instruments
-) => {
+export const playNote = (note: string, instrumentName: keyof Instruments) => {
   note = note.toUpperCase();
   if (!/[0-9]/.test(note)) {
     note = note + "4";

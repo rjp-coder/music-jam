@@ -1,3 +1,4 @@
+//@ts-ignore-file
 import { useContext, useEffect } from "react";
 import { MusicNoteAnimationsContext } from "../App";
 import { playNote } from "../utils/audio";
@@ -19,7 +20,7 @@ export const MusicButtonOld = ({
   useEffect(() => {
     if (active) {
       doMusicNoteAnimation();
-      playNote(note);
+      playNote(note, "piano");
     }
   }, [active]);
 
@@ -53,7 +54,7 @@ export const MusicButtonOld = ({
         className={` p-1 border-white border-2 rounded-2xl min-w-16 max-w-16 max-h-10 cursor-pointer hover:bg-yellow-300 hover:text-black  active:bg-yellow-500 ${
           active ? "bg-yellow-500 text-black md:opacity-100" : "text-blue-500"
         } ${transformRow ? transformationClass[transformRow] : ""}`}
-        onClick={() => playNote(note)}
+        onClick={() => playNote(note, "piano")}
       >
         {note}
       </div>

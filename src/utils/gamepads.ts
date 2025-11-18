@@ -1,4 +1,4 @@
-import type { GamepadData } from "../hooks/useGamepadData";
+import { type GamepadData } from "../hooks/useGamepad";
 
 export function filterUnknownGamepadDataIfIdSame(gamepads: GamepadData[]) {
   const withoutUnknowns = gamepads.filter((gp) => gp.type != "unknown");
