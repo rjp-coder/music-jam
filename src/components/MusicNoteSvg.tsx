@@ -38,14 +38,14 @@ export const MusicNoteSvg = ({
         opacity: 0,
         scale: 0,
         rotate: 30,
-        translateX: 150,
+        translateX: 80,
         translateY: 30,
         transition: {
           ease: "linear",
-          duration: 2,
+          duration: 1,
           delay: 0,
           opacity: { duration: 1 },
-          scale: { ease: "linear", duration: 2 },
+          scale: { ease: "linear", duration: 1 },
         },
       }}
       fill={fill}

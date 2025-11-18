@@ -42,10 +42,21 @@ export const RandomMusicNote = ({ className, color }) => {
   );
   console.log("color in RandomMusicNote:", color, ",", gamepadColor);
 
-  const size = chooseRandom([80, 100, 120, 140, 160, 180, 200]) + "px";
+  const left = 80;
+  const top = 80;
+  const rightPad = 120;
+  const bottomPad = 120;
 
-  const x = Math.round(Math.random() * windowWidth * 0.9 - 500);
-  const y = Math.round(Math.random() * windowHeight * 0.9 - 60);
+  const windowFactor = 1;
+
+  const size = chooseRandom([80, 100, 120, 140, 160, 180, 200]);
+
+  const x = Math.round(
+    Math.random() * (windowWidth - left - rightPad) * windowFactor - left
+  );
+  const y = Math.round(
+    Math.random() * (windowHeight - top - bottomPad) * windowFactor - top
+  );
 
   return (
     <MusicNoteSvg
@@ -53,8 +64,8 @@ export const RandomMusicNote = ({ className, color }) => {
       //@ts-ignore
       type={type}
       fill={gamepadColor}
-      height={size}
-      width={size}
+      height={size + "px"}
+      width={size + "px"}
       x={x}
       y={y}
     />
