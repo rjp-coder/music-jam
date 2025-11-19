@@ -28,14 +28,14 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
       }) || [],
   };
 
-  const topClass = `" max-sm:rotate-y-60 max-sm:-mr-4 md:rotate-x-60 md:mt-20 md:mb-1 opacity-10 hover:opacity-100 active:opacity-100"`;
-  const standardClass = ` p-1 border-white border-2 rounded-2xl min-w-16 max-w-16 max-h-10 cursor-pointer hover:bg-yellow-300 hover:text-black  active:bg-yellow-500`;
-  const bottomClass = `max-sm:-rotate-y-60 max-sm:-ml-4 md:-rotate-x-60 md:mb-1 opacity-10 hover:opacity-100 active:opacity-100`;
+  const topClass = `" max-sm:rotate-y-60 max-sm:-ml-4 sm:rotate-x-60 sm:mt-2 sm:-mb-2 opacity-10 hover:opacity-100 active:opacity-100"`;
+  const standardClass = ` p-1 border-white border-2 rounded-2xl min-w-16 max-w-16 max-h-10 cursor-pointer hover:bg-yellow-300 hover:text-black active:bg-yellow-500`;
+  const bottomClass = `max-sm:-rotate-y-60 max-sm:-mr-4 sm:-rotate-x-60 sm:-mt-2 sm:mb-2 opacity-10 hover:opacity-100 active:opacity-100`;
 
   const ag = agnosticController;
 
   return (
-    <div className="md:-mt-20">
+    <div className="max-sm:flex max-sm:flex-row-reverse max-sm:flex-nowrap max-sm:mt-6 ">
       {/* "flex flex-row flex-wrap md:flex-none md:flex-nowrap md:grid md:grid-rows-4 md:grid-cols-9 md:-mt-18 mb-auto" */}
       <MusicalOctaveDisplay
         className={standardClass + " " + topClass}

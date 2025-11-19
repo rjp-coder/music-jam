@@ -47,10 +47,14 @@ export const MusicButton = ({
 
   return (
     <div
-      className={`${className} ${
+      className={`select-none  ${className} ${
         active ? `${colClass} text-black sm:opacity-100` : "text-blue-500"
       } `}
       onClick={() => playNote(note, "piano")}
+      onTouchStart={(e) => {
+        e.preventDefault();
+        playNote(note, "piano");
+      }}
     >
       {note}
     </div>

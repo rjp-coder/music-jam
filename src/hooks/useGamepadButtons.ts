@@ -25,7 +25,6 @@ export function useGamepadInputs(): GamepadInput[] {
       //   console.log("polling succeeded");
     }
 
-    console.log(gamepads.length);
     const newGamepadInputs: GamepadInput[] = []; //TODO don't make this empty, but
     //do filter it so that pre-existing inputs from this controller are
     //removed .
