@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ConnectedGamepadsContext } from "../App";
+import { ConnectedGamepadsContext } from "../AppContexts";
 import type { GamepadInput } from "../hooks/useGamepadButtons";
 import { getValidNotesInKeySingleOctave } from "../utils/notes";
 import { MusicButton } from "./MusicButton";

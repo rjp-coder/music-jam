@@ -1,5 +1,5 @@
 import { useContext, useEffect, useEffectEvent } from "react";
-import { MusicNoteAnimationsContext } from "../App";
+import { MusicNoteAnimationsContext } from "../AppContexts";
 import { colMap } from "../hooks/useGamepadData";
 import { playNote, type Instruments } from "../utils/audio";
 

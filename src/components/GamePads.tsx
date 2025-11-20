@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ConnectedGamepadsContext } from "../App";
+import { ConnectedGamepadsContext } from "../AppContexts";
 import { GamePad } from "./GamePad";
 
 export const Gamepads = ({ musicKey }) => {
