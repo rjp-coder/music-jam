@@ -3,16 +3,6 @@ import { useEffect, useState } from "react";
 export function useKeyInputs() {
   const [activeKeys, setActiveKeys] = useState([]);
 
-  useEffect(() => {
-    document.addEventListener("keydown", detectKeyDown);
-    document.addEventListener("keyup", detectKeyUp);
-
-    return () => {
-      document.removeEventListener("keydown", detectKeyDown);
-      document.removeEventListener("keyup", detectKeyUp);
-    };
-  });
-
   const detectKeyDown = (e: KeyboardEvent) => {
     if (e.repeat) return;
     const ak = [...activeKeys];
@@ -32,10 +22,19 @@ export function useKeyInputs() {
     );
     console.log(ak);
     setActiveKeys(ak);
-    1;
 
     // console.log(activeKeys);
   };
+
+  useEffect(() => {
+    document.addEventListener("keydown", detectKeyDown);
+    document.addEventListener("keyup", detectKeyUp);
+
+    return () => {
+      document.removeEventListener("keydown", detectKeyDown);
+      document.removeEventListener("keyup", detectKeyUp);
+    };
+  });
 
   return activeKeys;
 }

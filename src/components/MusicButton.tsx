@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useEffectEvent } from "react";
 import { MusicNoteAnimationsContext } from "../App";
 import { colMap } from "../hooks/useGamepadData";
 import { playNote, type Instruments } from "../utils/audio";
@@ -20,15 +20,7 @@ export const MusicButton = ({
     MusicNoteAnimationsContext
   );
 
-  // const debouncedAnim = useDebounce(doMusicNoteAnimation, 200);
-  useEffect(() => {
-    if (active) {
-      doMusicNoteAnimation();
-      playNote(note, instrument);
-    }
-  }, [active]);
-
-  function doMusicNoteAnimation() {
+  const doMusicNoteAnimation = useEffectEvent(() => {
     //generate a unique id
     const id = activationColor;
     //add to music notes queue
@@ -41,7 +33,14 @@ export const MusicButton = ({
         ),
       20
     );
-  }
+  });
+  // const debouncedAnim = useDebounce(doMusicNoteAnimation, 200);
+  useEffect(() => {
+    if (active) {
+      doMusicNoteAnimation();
+      playNote(note, instrument);
+    }
+  }, [active, instrument, note]);
 
   const colClass = colMap[activationColor];
 

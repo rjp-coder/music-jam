@@ -11,11 +11,6 @@ export function useGamepadInputs(): GamepadInput[] {
   const initialGamepadInputs: GamepadInput[] = [];
   const [gamepadInputs, setGamepadInputs] = useState(initialGamepadInputs);
 
-  useEffect(() => {
-    const interval = setInterval(handleInputs, 50);
-    return () => clearInterval(interval);
-  });
-
   function handleInputs() {
     const gamepads = navigator.getGamepads();
     if (!gamepads || !gamepads.length) {
@@ -104,6 +99,11 @@ export function useGamepadInputs(): GamepadInput[] {
     }
     setGamepadInputs(newGamepadInputs);
   }
+
+  useEffect(() => {
+    const interval = setInterval(handleInputs, 50);
+    return () => clearInterval(interval);
+  });
 
   return gamepadInputs;
 }

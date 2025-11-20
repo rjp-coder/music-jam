@@ -1,5 +1,4 @@
 import { colMap } from "../hooks/useGamepadData";
-import useWindowDimensions from "../hooks/useWindowDimensions";
 import { chooseRandom } from "../utils/utils";
 import { MusicNoteSvg } from "./MusicNoteSvg";
 
@@ -17,31 +16,7 @@ But if I do that then the initial state logic breaks completely and
 The notes sort of animate in. Which looks terrible for what I need.  
 */
 
-export const RandomMusicNote = ({ className, color }) => {
-  const { height: windowHeight, width: windowWidth } = useWindowDimensions();
-  const type = chooseRandom(["oneSemitone", "twoSemitones", "threeSemitones"]);
-
-  //@ts-ignore
-  const fill = chooseRandom([
-    "#ff3355",
-    "#e91e63",
-    "#9c27b0",
-    "#673ab7",
-    "#03a9f4",
-    "#00bcd4",
-    "#009688",
-    "#4caf50",
-    "#cddc39",
-    "#ffc107",
-    "#ff9800",
-  ]);
-
-  const gamepadColor = ("var(--color-" + colMap[color] + ")").replace(
-    "bg-",
-    ""
-  );
-  console.log("color in RandomMusicNote:", color, ",", gamepadColor);
-
+export const getRandomParams = (windowHeight, windowWidth) => {
   const left = 80;
   const top = 80;
   const rightPad = 120;
@@ -57,6 +32,33 @@ export const RandomMusicNote = ({ className, color }) => {
   const y = Math.round(
     Math.random() * (windowHeight - top - bottomPad) * windowFactor - top
   );
+
+  return { size, x, y };
+};
+
+export const RandomMusicNote = ({ className, color, x, y, size }) => {
+  const type = chooseRandom(["oneSemitone", "twoSemitones", "threeSemitones"]);
+
+  // //@ts-ignore
+  // const fill = chooseRandom([
+  //   "#ff3355",
+  //   "#e91e63",
+  //   "#9c27b0",
+  //   "#673ab7",
+  //   "#03a9f4",
+  //   "#00bcd4",
+  //   "#009688",
+  //   "#4caf50",
+  //   "#cddc39",
+  //   "#ffc107",
+  //   "#ff9800",
+  // ]);
+
+  const gamepadColor = ("var(--color-" + colMap[color] + ")").replace(
+    "bg-",
+    ""
+  );
+  console.log("color in RandomMusicNote:", color, ",", gamepadColor);
 
   return (
     <MusicNoteSvg
