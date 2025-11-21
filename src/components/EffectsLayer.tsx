@@ -64,7 +64,10 @@ export default function EffectsLayer({ children }) {
   return (
     <FXContext value={{ spawnParticle }}>
       {children}
-      <div ref={layerRef} className="absolute inset-0 overflow-visible"></div>
+      <div
+        ref={layerRef}
+        className="absolute pointer-events-none inset-0 overflow-visible"
+      ></div>
     </FXContext>
   );
 }
