@@ -1,6 +1,6 @@
 import { colMap } from "../hooks/useGamepadData";
 import { chooseRandom } from "../utils/utils";
-import { MusicNoteSvg } from "./MusicNoteSvg";
+import { MusicNoteSvg } from "./MusicNoteSvgVanillaJs";
 
 /* quite a few mysteries here
 
@@ -62,16 +62,14 @@ export const RandomMusicNote = ({ className, color, x, y, size }) => {
   );
   console.log("color in RandomMusicNote:", color, ",", gamepadColor);
 
-  return (
-    <MusicNoteSvg
-      className={className}
-      //@ts-ignore
-      type={type}
-      fill={gamepadColor}
-      height={size + "px"}
-      width={size + "px"}
-      x={x}
-      y={y}
-    />
-  );
+  return MusicNoteSvg({
+    className: className,
+    //@ts-ignore
+    type: type,
+    fill: gamepadColor,
+    height: size + "px",
+    width: size + "px",
+    x: x,
+    y: y,
+  });
 };

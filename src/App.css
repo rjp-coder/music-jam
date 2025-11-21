@@ -42,3 +42,19 @@
 .read-the-docs {
   color: #888;
 }
+
+.effects-layer {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.particle {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

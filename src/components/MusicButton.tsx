@@ -1,5 +1,5 @@
-import { useContext, useEffect, useEffectEvent } from "react";
-import { MusicNoteAnimationsContext } from "../AppContexts";
+import { useEffect } from "react";
+import { useFX } from "../Contexts/EffectsLayerContext";
 import { colMap } from "../hooks/useGamepadData";
 import { playNote, type Instruments } from "../utils/audio";
 
@@ -16,31 +16,14 @@ export const MusicButton = ({
   activationColor: string;
   instrument: keyof Instruments;
 }) => {
-  const [musicNoteAnimations, setMusicNoteAnimations] = useContext(
-    MusicNoteAnimationsContext
-  );
+  const { spawnParticle } = useFX();
 
-  const doMusicNoteAnimation = useEffectEvent(() => {
-    //generate a unique id
-    const id = activationColor;
-    //add to music notes queue
-    setMusicNoteAnimations([...musicNoteAnimations, id]);
-    //remove from music notes queue(triggered immediately but takes some time to animate fade)
-    setTimeout(
-      () =>
-        setMusicNoteAnimations((prev) =>
-          prev.filter((noteId) => noteId !== id)
-        ),
-      20
-    );
-  });
-  // const debouncedAnim = useDebounce(doMusicNoteAnimation, 200);
   useEffect(() => {
     if (active) {
-      doMusicNoteAnimation();
+      spawnParticle(activationColor);
       playNote(note, instrument);
     }
-  }, [active, instrument, note]);
+  }, [spawnParticle, active, instrument, note, activationColor]);
 
   const colClass = colMap[activationColor];
 
