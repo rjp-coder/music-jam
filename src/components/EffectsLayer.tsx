@@ -5,7 +5,7 @@ import { FXContext } from "../Contexts/EffectsLayerContext";
 import {
   getRandomParams,
   RandomMusicNote,
-} from "../animations/RandomMusicNoteVanillaJs";
+} from "../animations/RandomMusicNoteVanillaJEss";
 import { chooseRandom } from "../utils/utils";
 
 export default function EffectsLayer({ children }) {
