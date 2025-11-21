@@ -17,7 +17,7 @@ function App() {
     <div className="flex items-center flex-col">
       <MusicalKeyContext value={[musicKey, setMusicKey]}>
         <ConnectedGamepadsContext value={gamepadContextVal}>
-          <h1 className="bg-linear-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+          <h1 className="text-6xl bg-linear-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
             Music Jam
           </h1>
           <Gamepads musicKey={musicKey} />
