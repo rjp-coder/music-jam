@@ -1,7 +1,11 @@
 import { animate } from "motion";
 import { useRef } from "react";
 import { FXContext } from "../Contexts/EffectsLayerContext";
-import { getRandomParams, RandomMusicNote } from "./RandomMusicNoteVanillaJS";
+import {
+  getRandomParams,
+  RandomMusicNote,
+} from "../animations/RandomMusicNoteVanillaJS";
+import { chooseRandom } from "../utils/utils";
 
 export default function EffectsLayer({ children }) {
   const layerRef = useRef(null);
@@ -17,39 +21,47 @@ export default function EffectsLayer({ children }) {
   const spawnParticle = (mna) => {
     const { windowWidth, windowHeight } = getWindowDimensions();
     const rp = getRandomParams(windowHeight, windowWidth);
+    console.log(rp);
     const props = {
       className: "absolute overflow-visible",
       color: mna,
       ...rp,
     };
-    const el = document.createElement("div");
-    el.className = "particle";
-
-    document.body.appendChild(el);
 
     //Append to layer
     const el2 = RandomMusicNote(props);
-    console.log(el2);
-
-    console.log(layerRef.current);
     layerRef.current.appendChild(el2);
 
     // Example: animate opacity and scale
+    const gravity = 0.5;
+    const direction = chooseRandom([1, -1]);
+    const distance = Math.random() * 150 + 100 * direction;
+    const rotation = Math.floor(Math.random() * 30 + 50) * direction;
+
+    //None of this is mathematically sound and it has been achieved through trial and error
+    //The intent is to throw a note and have it follow a parabolic trajectory and fade out
+    //as it shrinks
     const controls = animate(1, 0, {
-      duration: 0.8,
+      duration: 2,
       ease: "easeOut",
       onUpdate: (v) => {
-        el.style.opacity = v + "";
-        el.style.transform = `scale(${v})`;
+        const w = 1 - v;
+        const x = distance * w;
+        const y = ((5 * (-x) ** 2) / 100 - x * 4) * gravity;
+        el2.style.opacity = v + "";
+        el2.style.transformOrigin = "center";
+        el2.style.transform = ` translateX(${x}px) translateY(${y}px) rotateZ(${
+          w * rotation
+        }deg) scale(${1 - w / 2})`;
       },
-      //onComplete: () => el.remove(),
+      onComplete: () => el2.remove(),
     });
   };
 
   return (
     <FXContext value={{ spawnParticle }}>
       {children}
-      <div ref={layerRef} className="effects-layer"></div>
+      <div ref={layerRef} className="absolute inset-0 overflow-visible"></div>
     </FXContext>
   );
 }

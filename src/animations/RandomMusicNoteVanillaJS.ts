@@ -1,6 +1,6 @@
 import { colMap } from "../hooks/useGamepadData";
 import { chooseRandom } from "../utils/utils";
-import { MusicNoteSvg } from "./MusicNoteSvg";
+import { MusicNoteSvg } from "./MusicNoteSvgVanillaJs";
 
 /* quite a few mysteries here
 
@@ -16,23 +16,19 @@ But if I do that then the initial state logic breaks completely and
 The notes sort of animate in. Which looks terrible for what I need.  
 */
 
-//TODO create vanilla js version of random music note which, given the props returns the svg
-
 export const getRandomParams = (windowHeight, windowWidth) => {
-  const left = 80;
-  const top = 80;
-  const rightPad = 120;
-  const bottomPad = 120;
+  const left = 0;
+  const top = 0;
 
   const windowFactor = 1;
 
   const size = chooseRandom([80, 100, 120, 140, 160, 180, 200]);
 
   const x = Math.round(
-    Math.random() * (windowWidth - left - rightPad) * windowFactor - left
+    Math.random() * (windowWidth - left - size) * windowFactor - left
   );
   const y = Math.round(
-    Math.random() * (windowHeight - top - bottomPad) * windowFactor - top
+    Math.random() * (windowHeight - top - size) * windowFactor - top
   );
 
   return { size, x, y };
@@ -62,16 +58,14 @@ export const RandomMusicNote = ({ className, color, x, y, size }) => {
   );
   console.log("color in RandomMusicNote:", color, ",", gamepadColor);
 
-  return (
-    <MusicNoteSvg
-      className={className}
-      //@ts-ignore
-      type={type}
-      fill={gamepadColor}
-      height={size + "px"}
-      width={size + "px"}
-      x={x}
-      y={y}
-    />
-  );
+  return MusicNoteSvg({
+    className: className,
+    //@ts-ignore
+    type: type,
+    fill: gamepadColor,
+    height: size + "px",
+    width: size + "px",
+    x: x,
+    y: y,
+  });
 };
