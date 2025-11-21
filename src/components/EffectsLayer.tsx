@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { animate } from "motion";
 import { useRef } from "react";
 import { FXContext } from "../Contexts/EffectsLayerContext";
 import {
   getRandomParams,
   RandomMusicNote,
-} from "../animations/RandomMusicNoteVanillaJS";
+} from "../animations/RandomMusicNoteVanillaJs";
 import { chooseRandom } from "../utils/utils";
 
 export default function EffectsLayer({ children }) {
@@ -41,6 +42,8 @@ export default function EffectsLayer({ children }) {
     //None of this is mathematically sound and it has been achieved through trial and error
     //The intent is to throw a note and have it follow a parabolic trajectory and fade out
     //as it shrinks
+
+    //@ts-expect-error I'd rather know from a glance that animate has a return val
     const controls = animate(1, 0, {
       duration: 2,
       ease: "easeOut",

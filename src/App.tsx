@@ -5,7 +5,6 @@ import { KeySelector } from "./components/KeySelector";
 import { MusicKeyboardDisplay } from "./components/MusicKeyDisplay";
 import { useGamepadData } from "./hooks/useGamepadData";
 import { useKeyInputs } from "./hooks/useKeyInput";
-import useWindowDimensions from "./hooks/useWindowDimensions";
 import { hello } from "./utils/audio";
 
 function App() {
