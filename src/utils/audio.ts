@@ -1,6 +1,8 @@
 import * as Tone from "tone";
 import { getValidNotesInKey } from "./notes";
 
+const baseUrl = "https://rjp-coder.github.io/music-jam/noteSamples/";
+
 const piano = new Tone.Sampler({
   urls: {
     C4: "C4.mp3",
@@ -9,10 +11,8 @@ const piano = new Tone.Sampler({
     A4: "A4.mp3",
   },
   release: 1,
-  baseUrl: "https://tonejs.github.io/audio/salamander/",
+  baseUrl: baseUrl,
 }).toDestination();
-
-const baseUrl = "https://rjp-coder.github.io/music-jam/noteSamples/";
 
 const saxophone = new Tone.Sampler({
   urls: {
