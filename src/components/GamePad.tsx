@@ -16,17 +16,20 @@ export const GamePad = ({
   incrementCol: Function;
   incrementInstrument: Function;
 }) => {
-  //   const borderColMap = {
-  //     red: "border-red-500",
-  //     blue: "border-blue-600",
-  //     yellow: "border-yellow-500",
-  //     green: "border-green-500",
-  //     purple: "border-purple-500",
-  //     orange: "border-orange-600",
-  //     pink: "border-pink-400",
-  //     cyan: "border-cyan-400",
-  //     lime: "border-lime-500",
-  //   };
+  //Tailwind still reads this and generates the relevant util classes!
+  //@ts-expect-error Fun fact -- this is true even if the below is commented
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const borderColMap = {
+    red: "border-red-600",
+    blue: "border-blue-600",
+    yellow: "border-yellow-500",
+    green: "border-green-500",
+    purple: "border-purple-500",
+    orange: "border-orange-500",
+    pink: "border-pink-400",
+    cyan: "border-cyan-400",
+    lime: "border-lime-500",
+  };
 
   return (
     <div className={`border border-${colClass.replace("bg-", "")} w-24 h-24`}>
