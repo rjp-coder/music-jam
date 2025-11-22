@@ -9,7 +9,7 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
   const gamepadInputs = useGamepadInputs();
 
   if (gamepadInputs.length) {
-    console.log({ gamepadInputs });
+    // console.log({ gamepadInputs });
   }
 
   const commonProps = {
