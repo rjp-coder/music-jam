@@ -56,12 +56,12 @@ export const Version = () => {
           backgroundSize: "200% 100%", // make the duplicated gradient fit exactly twice
         }}
         animate={{
-          backgroundPositionX: ["109%", "0%"], // move by exactly half the background width
+          backgroundPositionX: ["109%", "0%"], // move by exact amount required to prevent "jumping"
         }}
         transition={{
-          duration: 3, // 1–2 seconds as requested
-          repeat: Infinity, // loop forever
-          ease: "linear", // constant speed
+          duration: 3,
+          repeat: Infinity,
+          ease: "linear",
         }}
       >
         {" ⇒ " + newV + " available"}
