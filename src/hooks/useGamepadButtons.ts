@@ -70,7 +70,7 @@ export function useGamepadInputs(): GamepadInput[] {
         axisButtonsPressed.push(agnosticController.RIGHT_STICK_DOWN);
       }
 
-      for (const index of pressed) {
+      for (const index of [...pressed, ...axisButtonsPressed]) {
         console.log("" + index, " button is pressed");
         const buttonPressed = joyConMappings[index];
         const btn = joyConToAgnosticMappings[buttonPressed];
@@ -93,14 +93,6 @@ export function useGamepadInputs(): GamepadInput[] {
         const gpInput = { btn, gamepadIndex: gp.index } as GamepadInput;
         newGamepadInputs.push(gpInput);
         //}
-      }
-
-      for (let axisBtn of axisButtonsPressed) {
-        const gpInput = {
-          btn: axisBtn,
-          gamepadIndex: gp.index,
-        } as GamepadInput;
-        newGamepadInputs.push(gpInput);
       }
     }
     setGamepadInputs(newGamepadInputs);
