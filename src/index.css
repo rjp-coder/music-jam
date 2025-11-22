@@ -21,3 +21,9 @@
     background-color: #ffffff;
   }
 }
+
+.gradient-text {
+  background: linear-gradient(to right, purple, pink, yellow, purple, pink);
+  background-size: 200% 200%;
+  background-clip: text;
+}

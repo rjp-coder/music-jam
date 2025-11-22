@@ -6,6 +6,7 @@ import { MusicKeyboardDisplay } from "./components/MusicKeyDisplay";
 import { useGamepadData } from "./hooks/useGamepadData";
 import { useKeyInputs } from "./hooks/useKeyInput";
 import { hello } from "./utils/audio";
+import { Version } from "./components/Version";
 
 function App() {
   const [toneStarted, _] = useState(false);
@@ -40,7 +41,7 @@ function App() {
         </ConnectedGamepadsContext>
       </MusicalKeyContext>
       <footer className=" max-md:text-red-700 text-yellow-400 w-auto">
-        tone started {toneStarted}
+        <Version />
       </footer>
     </div>
   );

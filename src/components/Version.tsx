@@ -1,0 +1,71 @@
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+
+export const Version = () => {
+  const [newV, setNewV] = useState(__BUILD_VERSION__);
+
+  useEffect(() => {
+    function showUpdateBanner(newV) {
+      setNewV(__BUILD_VERSION__ + "==>" + newV);
+      const banner = document.createElement("div");
+      banner.textContent =
+        "A new version of this site is available. Click to refresh.";
+      banner.style =
+        "position: fixed; bottom: 0; width: 100%; padding: 12px; background: #333; color: white; text-align: center; cursor: pointer;";
+      banner.onclick = () => {
+        location.reload();
+      };
+      document.body.appendChild(banner);
+    }
+
+    async function checkVersion() {
+      const localVersion = __BUILD_VERSION__;
+      const res = await fetch("version.json", {
+        cache: "no-store",
+      });
+      const text = await res.text();
+      console.log("Raw response:", text);
+      let data;
+
+      try {
+        data = JSON.parse(text);
+        console.log("Parsed JSON:", data);
+      } catch (err) {
+        console.error("JSON parse error:", err);
+        return;
+      }
+
+      console.log({ dataVersion: data.version, localVersion });
+
+      if (data.version !== localVersion) {
+        showUpdateBanner(data.version);
+      }
+    }
+    // Check every 20 seconds
+    setInterval(checkVersion, 20000);
+  }, []);
+  return (
+    <div>
+      <span className="text-sm ">{__BUILD_VERSION__}</span>
+      <motion.span
+        className="text-transparent bg-clip-text font-bold text-sm "
+        style={{
+          // duplicate the rainbow gradient horizontally for seamless looping
+          background:
+            "linear-gradient(90deg, #f0f, #00f, #0ff, #0f0, #ff0, #f00, #f0f, #00f, #0ff, #0f0, #ff0, #f00)",
+          backgroundSize: "200% 100%", // make the duplicated gradient fit exactly twice
+        }}
+        animate={{
+          backgroundPositionX: ["109%", "0%"], // move by exactly half the background width
+        }}
+        transition={{
+          duration: 3, // 1–2 seconds as requested
+          repeat: Infinity, // loop forever
+          ease: "linear", // constant speed
+        }}
+      >
+        {" ⇒ " + newV + " available"}
+      </motion.span>
+    </div>
+  );
+};
