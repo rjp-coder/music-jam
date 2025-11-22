@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 export const Version = () => {
-  const [newV, setNewV] = useState(__BUILD_VERSION__);
+  const [newV, setNewV] = useState("");
 
   useEffect(() => {
     function showUpdateBanner(newV) {
@@ -47,25 +47,27 @@ export const Version = () => {
   return (
     <div>
       <span className="text-sm ">{__BUILD_VERSION__}</span>
-      <motion.span
-        className="text-transparent bg-clip-text font-bold text-sm "
-        style={{
-          // duplicate the rainbow gradient horizontally for seamless looping
-          background:
-            "linear-gradient(90deg, #f0f, #00f, #0ff, #0f0, #ff0, #f00, #f0f, #00f, #0ff, #0f0, #ff0, #f00)",
-          backgroundSize: "200% 100%", // make the duplicated gradient fit exactly twice
-        }}
-        animate={{
-          backgroundPositionX: ["109%", "0%"], // move by exact amount required to prevent "jumping"
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      >
-        {" ⇒ " + newV + " available"}
-      </motion.span>
+      {newV && (
+        <motion.span
+          className="text-transparent bg-clip-text font-bold text-sm "
+          style={{
+            // duplicate the rainbow gradient horizontally for seamless looping
+            background:
+              "linear-gradient(90deg, #f0f, #00f, #0ff, #0f0, #ff0, #f00, #f0f, #00f, #0ff, #0f0, #ff0, #f00)",
+            backgroundSize: "200% 100%", // make the duplicated gradient fit exactly twice
+          }}
+          animate={{
+            backgroundPositionX: ["109%", "0%"], // move by exact amount required to prevent "jumping"
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        >
+          {" ⇒ " + newV + " available"}
+        </motion.span>
+      )}
     </div>
   );
 };
