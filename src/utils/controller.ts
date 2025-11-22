@@ -68,6 +68,12 @@ const agnosticControllerSpiral = {
   RIGHT_STICK_RIGHT: 19,
   SELECT: 20,
   START: 21,
+  L3: 22,
+  R3: 23,
+  MYSTERY_1: 24,
+  MYSTERY_2: 25,
+  MYSTERY_3: 26,
+  MYSTERY_4: 27,
 };
 
 //@ts-ignore
@@ -113,6 +119,12 @@ export const joyConToAgnosticMappings = {
   R: agnosticController.RIGHT_BUMPER,
   MINUS: agnosticController.SELECT,
   PLUS: agnosticController.START,
+  L3: agnosticController.L3,
+  R3: agnosticController.R3,
+  "SL-LEFT": agnosticController.MYSTERY_1,
+  "SR-LEFT": agnosticController.MYSTERY_2,
+  "SL-RIGHT": agnosticController.MYSTERY_3,
+  "SR-RIGHT": agnosticController.MYSTERY_4,
 };
 
 export const xboxControllerMappings = {
