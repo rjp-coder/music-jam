@@ -70,12 +70,18 @@ export function useGamepadInputs(): GamepadInput[] {
         axisButtonsPressed.push(agnosticController.RIGHT_STICK_DOWN);
       }
 
-      for (let index of pressed) {
-        console.log(index, " button is pressed");
+      for (const index of pressed) {
+        console.log("" + index, " button is pressed");
         const buttonPressed = joyConMappings[index];
-        console.log("button pressed: ", buttonPressed);
         const btn = joyConToAgnosticMappings[buttonPressed];
-        console.log("mapped to agnostic button: ", btn);
+        console.log(
+          "mapped to agnostic button: ",
+          btn,
+          ": ",
+          Object.keys(agnosticController).find(
+            (k) => agnosticController[k] == btn
+          )
+        );
         console.assert(
           btn >= 0 && btn < 32,
           "button mapping out of range",

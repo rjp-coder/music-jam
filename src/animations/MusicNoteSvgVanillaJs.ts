@@ -39,7 +39,6 @@ export const MusicNoteSvg = ({
   if (type == "threeSemitones") html = ThreeSemitones();
   if (type == "twoSemitones") html = TwoSemitones();
   if (type == "oneSemitone") html = OneSemitone();
-  console.log(html);
   console.log("SVG HTML:", svg.innerHTML);
   svg.innerHTML = "\n" + html.replace(/\n/g, " ").replace(/\s+/g, " ") + "\n";
   console.log("Created SVG:", svg);
