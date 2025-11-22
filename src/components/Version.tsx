@@ -10,7 +10,7 @@ export const Version = () => {
 
   useEffect(() => {
     function showUpdateBanner(newV) {
-      setNewV(__BUILD_VERSION__ + "==>" + newV);
+      setNewV(newV);
       const banner = document.createElement("div");
       banner.textContent =
         "A new version of this site is available. Click to refresh.";
