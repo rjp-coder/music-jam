@@ -56,7 +56,7 @@ export const RandomMusicNote = ({ className, color, x, y, size }) => {
     "bg-",
     ""
   );
-  console.log("color in RandomMusicNote:", color, ",", gamepadColor);
+  // console.log("color in RandomMusicNote:", color, ",", gamepadColor);
 
   return MusicNoteSvg({
     className: className,
