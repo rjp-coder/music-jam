@@ -71,7 +71,7 @@ export const Version = () => {
             ease: "linear",
           }}
         >
-          {" ⇒ " + "version: " + newV + " available"}
+          {" ⇒ " + "version: " + getShorterTimestamp(newV) + " available"}
         </motion.span>
       )}
     </div>
