@@ -28,12 +28,12 @@ export const Version = () => {
         cache: "no-store",
       });
       const text = await res.text();
-      console.log("Raw response:", text);
+      //   console.log("Raw response:", text);
       let data;
 
       try {
         data = JSON.parse(text);
-        console.log("Parsed JSON:", data);
+        // console.log("Parsed JSON:", data);
       } catch (err) {
         console.error("JSON parse error:", err);
         return;
