@@ -40,7 +40,7 @@ function App() {
           <MusicKeyboardDisplay musicKey={musicKey} activeKeys={activeKeys} />
         </ConnectedGamepadsContext>
       </MusicalKeyContext>
-      <footer className=" max-md:text-red-700 text-yellow-400 w-auto">
+      <footer className=" w-auto">
         <Version />
       </footer>
     </div>
