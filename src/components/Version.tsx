@@ -1,6 +1,10 @@
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
+function getShorterTimestamp(timestampStr) {
+  return timestampStr.substring(0, timestampStr.length - 8);
+}
+
 export const Version = () => {
   const [newV, setNewV] = useState("");
 
@@ -19,7 +23,7 @@ export const Version = () => {
     }
 
     async function checkVersion() {
-      const localVersion = __BUILD_VERSION__;
+      const localVersion = getShorterTimestamp(__BUILD_VERSION__);
       const res = await fetch("version.json", {
         cache: "no-store",
       });
@@ -46,7 +50,9 @@ export const Version = () => {
   }, []);
   return (
     <div>
-      <span className="text-sm ">{__BUILD_VERSION__}</span>
+      <span className="text-sm ">
+        {"version" + getShorterTimestamp(__BUILD_VERSION__)}
+      </span>
       {newV && (
         <motion.span
           className="text-transparent bg-clip-text font-bold text-sm "
