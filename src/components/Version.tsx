@@ -23,7 +23,7 @@ export const Version = () => {
     }
 
     async function checkVersion() {
-      const localVersion = getShorterTimestamp(__BUILD_VERSION__);
+      const localVersion = __BUILD_VERSION__;
       const res = await fetch("version.json", {
         cache: "no-store",
       });
