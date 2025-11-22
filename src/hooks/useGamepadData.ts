@@ -2,16 +2,15 @@ import { instruments } from "../utils/audio";
 import { useGamepad, type GamepadData } from "./useGamepad";
 
 export const colMap = {
-  red: "bg-red-600",
-
-  blue: "bg-blue-600",
-  yellow: "bg-yellow-500",
-  green: "bg-green-500",
-  purple: "bg-purple-500",
-  orange: "bg-orange-500",
-  pink: "bg-pink-400",
-  cyan: "bg-cyan-400",
-  lime: "bg-lime-500",
+  red: { bg: "bg-red-600", border: "border-red-600", color: "red" },
+  blue: { bg: "bg-blue-600", border: "border-blue-600", color: "blue" },
+  yellow: { bg: "bg-yellow-500", border: "border-yellow-500", color: "yellow" },
+  green: { bg: "bg-green-500", border: "border-green-500", color: "green" },
+  purple: { bg: "bg-purple-500", border: "border-purple-500", color: "purple" },
+  orange: { bg: "bg-orange-500", border: "border-orange-500", color: "orange" },
+  pink: { bg: "bg-pink-400", border: "border-pink-400", color: "pink" },
+  cyan: { bg: "bg-cyan-400", border: "border-cyan-400", color: "cyan" },
+  lime: { bg: "bg-lime-500", border: "border-lime-500", color: "lime" },
 };
 
 export type ColMap = typeof colMap;

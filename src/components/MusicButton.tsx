@@ -25,12 +25,12 @@ export const MusicButton = ({
     }
   }, [spawnParticle, active, instrument, note, activationColor]);
 
-  const colClass = colMap[activationColor];
+  const bgcol = colMap[activationColor].bg;
 
   return (
     <div
       className={`select-none  ${className} ${
-        active ? `${colClass} text-black sm:opacity-100` : "text-blue-500"
+        active ? `${bgcol} text-black sm:opacity-100` : "text-blue-500"
       } `}
       onClick={() => playNote(note, "piano")}
       onTouchStart={(e) => {

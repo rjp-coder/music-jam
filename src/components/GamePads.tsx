@@ -8,6 +8,8 @@ export const Gamepads = ({ musicKey }) => {
   //filter unknown gamepads if they share an id
   const legitimateGamePads = connectedGamePads;
   //filterUnknownGamepadDataIfIdSame(connectedGamePads);
+
+  console.log({ colmap: colMap["red"] });
   return (
     <div className="flex flex-row gap-2 mt-2">
       {legitimateGamePads

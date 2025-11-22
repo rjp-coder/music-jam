@@ -21,9 +21,10 @@ export const MusicNoteSvg = ({
   className,
   type = "threeSemitones",
 }: MusicNoteProps) => {
+  // const fillVar = fill ? `var(${fill})` : "";
   const ns = "http://www.w3.org/2000/svg";
   const svg: SVGSVGElement = document.createElementNS(ns, "svg");
-  svg.setAttribute("fill", fill || "");
+  svg.setAttribute("fill", fill);
   svg.setAttribute("class", className || "");
   svg.setAttribute("height", height);
   svg.setAttribute("width", width);
