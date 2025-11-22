@@ -105,5 +105,13 @@ export const playNote = (note: string, instrumentName: keyof Instruments) => {
   const instrument = instruments[instrumentName];
   if (!instrument) console.error(instrumentName);
   const [duration, _clip, volume] = instrumentOptions[instrumentName];
-  instrument.triggerAttackRelease(note, duration, undefined, volume);
+
+  try {
+    instrument.triggerAttackRelease(note, duration, undefined, volume);
+  } catch (e) {
+    console.error(
+      "Tried to play a note before the sound file for the note has loaded"
+    );
+    console.error(e);
+  }
 };
