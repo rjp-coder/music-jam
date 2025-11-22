@@ -22,7 +22,7 @@ export default function EffectsLayer({ children }) {
   const spawnParticle = (mna) => {
     const { windowWidth, windowHeight } = getWindowDimensions();
     const rp = getRandomParams(windowHeight, windowWidth);
-    console.log(rp);
+    // console.log(rp);
     const props = {
       className: "absolute overflow-visible",
       color: mna,
