@@ -66,7 +66,7 @@ export default function EffectsLayer({ children }) {
       {children}
       <div
         ref={layerRef}
-        className="absolute pointer-events-none inset-0 overflow-visible"
+        className="overflow-clip absolute pointer-events-none inset-0"
       ></div>
     </FXContext>
   );
