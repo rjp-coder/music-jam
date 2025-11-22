@@ -55,7 +55,7 @@ export const Version = () => {
       </span>
       {newV && (
         <motion.span
-          onClick={() => window.location.reload}
+          onClick={() => window.location.reload()}
           className="cursor-pointer text-transparent bg-clip-text font-bold text-sm "
           style={{
             // duplicate the rainbow gradient horizontally for seamless looping
