@@ -1,3 +1,5 @@
+import type { GamepadData } from "../hooks/useGamepad";
+
 export const joyConMappings = {
   0: "b",
   1: "a",
@@ -74,6 +76,8 @@ const agnosticControllerSpiral = {
   MYSTERY_2: 25,
   MYSTERY_3: 26,
   MYSTERY_4: 27,
+  HOME: 28,
+  SHARE_OR_CAMERA: 29,
 };
 
 //@ts-ignore
@@ -125,13 +129,35 @@ export const joyConToAgnosticMappings = {
   "SR-LEFT": agnosticController.MYSTERY_2,
   "SL-RIGHT": agnosticController.MYSTERY_3,
   "SR-RIGHT": agnosticController.MYSTERY_4,
+  HOME: agnosticController.HOME,
+  CAMERA: agnosticController.SHARE_OR_CAMERA,
+};
+
+export const xboxToAgnosticMappings = {
+  A: agnosticController.BUTTON_BOTTOM,
+  B: agnosticController.BUTTON_RIGHT,
+  X: agnosticController.BUTTON_LEFT,
+  Y: agnosticController.BUTTON_TOP,
+  LB: agnosticController.LEFT_BUMPER,
+  RB: agnosticController.RIGHT_BUMPER,
+  LT: agnosticController.LEFT_TRIGGER,
+  RT: agnosticController.RIGHT_TRIGGER,
+  VIEW: agnosticController.SELECT,
+  MENU: agnosticController.START,
+  L3: agnosticController.L3,
+  R3: agnosticController.R3,
+  UP: agnosticController.DPAD_UP,
+  DOWN: agnosticController.DPAD_DOWN,
+  LEFT: agnosticController.DPAD_LEFT,
+  RIGHT: agnosticController.DPAD_RIGHT,
+  XBOX: agnosticController.HOME,
 };
 
 export const xboxControllerMappings = {
   0: "A",
   1: "B",
-  2: "Y",
-  3: "X",
+  2: "X",
+  3: "Y",
   4: "LB",
   5: "RB",
   6: "LT",
@@ -140,15 +166,15 @@ export const xboxControllerMappings = {
   9: "MENU",
   10: "L3",
   11: "R3",
-  12: "LEFT",
+  12: "UP",
   13: "DOWN",
-  14: "UP",
+  14: "LEFT",
   15: "RIGHT",
-  16: "HOME",
+  16: "XBOX",
   A: 0,
   B: 1,
-  Y: 2,
-  X: 3,
+  X: 2,
+  Y: 3,
   LB: 4,
   RB: 5,
   LT: 6,
@@ -157,9 +183,81 @@ export const xboxControllerMappings = {
   MENU: 9,
   L3: 10,
   R3: 11,
-  LEFT: 12,
+  LEFT: 14,
   DOWN: 13,
-  UP: 14,
+  UP: 12,
   RIGHT: 15,
-  HOME: 16,
+  XBOX: 16,
 };
+
+export const playstationControllerMappings = {
+  0: "CROSS",
+  1: "CIRCLE",
+  2: "SQUARE",
+  3: "TRIANGLE",
+  4: "L1",
+  5: "R1",
+  6: "L2",
+  7: "R2",
+  8: "SHARE",
+  9: "OPTIONS",
+  10: "L3",
+  11: "R3",
+  12: "UP",
+  13: "DOWN",
+  14: "LEFT",
+  15: "RIGHT",
+  16: "PS",
+  17: "TOUCHPAD",
+  CROSS: 0,
+  CIRCLE: 1,
+  SQUARE: 2,
+  TRIANGLE: 3,
+  L1: 4,
+  R1: 5,
+  L2: 6,
+  R2: 7,
+  SHARE: 8,
+  OPTIONS: 9,
+  L3: 10,
+  R3: 11,
+  UP: 12,
+  DOWN: 13,
+  LEFT: 14,
+  RIGHT: 15,
+  PS: 16,
+  TOUCHPAD: 17,
+};
+
+export const playstationToAgnosticMappings = {
+  CROSS: agnosticController.BUTTON_BOTTOM,
+  CIRCLE: agnosticController.BUTTON_RIGHT,
+  SQUARE: agnosticController.BUTTON_LEFT,
+  TRIANGLE: agnosticController.BUTTON_TOP,
+  L1: agnosticController.LEFT_BUMPER,
+  R1: agnosticController.RIGHT_BUMPER,
+  L2: agnosticController.LEFT_TRIGGER,
+  R2: agnosticController.RIGHT_TRIGGER,
+  SHARE: agnosticController.SHARE_OR_CAMERA,
+  OPTIONS: agnosticController.SELECT,
+  L3: agnosticController.L3,
+  R3: agnosticController.R3,
+  UP: agnosticController.DPAD_UP,
+  DOWN: agnosticController.DPAD_DOWN,
+  LEFT: agnosticController.DPAD_LEFT,
+  RIGHT: agnosticController.DPAD_RIGHT,
+  PS: agnosticController.HOME,
+  TOUCHPAD: agnosticController.SHARE_OR_CAMERA,
+};
+
+export function detectGamepadType(gamepad: Gamepad): GamepadData["type"] {
+  let t: GamepadData["type"] = "unknown";
+  if (gamepad.id.toLowerCase().includes("joy")) {
+    t = "joycon";
+  } else if (gamepad.id.toLowerCase().includes("xbox")) {
+    t = "xbox";
+  } else if (gamepad.id.toLowerCase().includes("playstation")) {
+    t = "playstation";
+  }
+  return t;
+}

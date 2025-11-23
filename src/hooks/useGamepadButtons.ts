@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import {
   agnosticController,
+  detectGamepadType,
   joyConMappings,
   joyConToAgnosticMappings,
+  playstationControllerMappings as psControllerMappings,
+  playstationToAgnosticMappings as psToAgnosticMappings,
+  xboxControllerMappings,
+  xboxToAgnosticMappings,
 } from "../utils/controller";
 
 export type GamepadInput = { btn: number; gamepadIndex: number };
@@ -70,10 +75,21 @@ export function useGamepadInputs(): GamepadInput[] {
         axisButtonsPressed.push(agnosticController.RIGHT_STICK_DOWN);
       }
 
+      const joypadType = detectGamepadType(gp);
+
+      const maps = {
+        joycon: [joyConMappings, joyConToAgnosticMappings],
+        xbox: [xboxControllerMappings, xboxToAgnosticMappings],
+        playstation: [psControllerMappings, psToAgnosticMappings],
+        unknown: [xboxControllerMappings, xboxToAgnosticMappings], //hope for the best
+      };
+
+      const [controllerMapping, toAgnosticMapping] = maps[joypadType];
+
       for (const index of pressed) {
         console.log("" + index, " button is pressed");
-        const buttonPressed = joyConMappings[index];
-        const btn = joyConToAgnosticMappings[buttonPressed];
+        const buttonPressed = controllerMapping[index];
+        const btn = toAgnosticMapping[buttonPressed];
         console.log(
           "mapped to agnostic button: ",
           btn,

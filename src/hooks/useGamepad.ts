@@ -5,6 +5,7 @@ import {
   type ColMap,
 } from "./useGamepadData";
 import type { Instruments } from "../utils/audio";
+import { detectGamepadType } from "../utils/controller";
 
 globalThis.connectedGamepadsCache = [];
 
@@ -44,14 +45,7 @@ export function useGamepad() {
       // Note:
       // gamepad === navigator.getGamepads()[gamepad.index]
 
-      let t: GamepadData["type"] = "unknown";
-      if (eventGamepad.id.toLowerCase().includes("joy")) {
-        t = "joycon";
-      } else if (eventGamepad.id.toLowerCase().includes("xbox")) {
-        t = "xbox";
-      } else if (eventGamepad.id.toLowerCase().includes("playstation")) {
-        t = "playstation";
-      }
+      const t = detectGamepadType(eventGamepad);
 
       const gamepad = {
         index: eventGamepad.index,
