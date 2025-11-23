@@ -20,17 +20,7 @@ export type GamepadHookData = {
   setConnectedGamePads: React.Dispatch<React.SetStateAction<GamepadData[]>>;
   incrementCol: (gamepadIndex: number) => void;
   incrementInstrument: (gamepadIndex: number) => void;
-  colMap: {
-    red: string;
-    blue: string;
-    yellow: string;
-    green: string;
-    purple: string;
-    orange: string;
-    pink: string;
-    cyan: string;
-    lime: string;
-  };
+  colMap: ColMap;
 };
 
 export function useGamepadData(): GamepadHookData {
