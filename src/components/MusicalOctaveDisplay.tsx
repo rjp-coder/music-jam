@@ -83,6 +83,8 @@ export const MusicalOctaveDisplay = ({
 
         const ac = gpArr.map((gp) => gp.col) || ["yellow"];
 
+        const instruments = gpArr.map((gp) => gp.instrument) || ["piano"];
+
         if (ac.length > 1) {
           console.log({
             controllersPressingButton,
@@ -99,7 +101,7 @@ export const MusicalOctaveDisplay = ({
             note={note.toUpperCase()}
             active={isActive}
             activationColor={ac}
-            instrument={gpArr?.[0]?.instrument || "piano"}
+            instruments={instruments}
           />
         );
       })}

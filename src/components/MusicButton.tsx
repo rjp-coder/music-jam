@@ -8,23 +8,27 @@ export const MusicButton = ({
   active,
   className,
   activationColor,
-  instrument,
+  instruments,
 }: {
   note: string;
   active: boolean;
   className: string;
   activationColor: (keyof ColMap)[];
-  instrument: keyof Instruments;
+  instruments: (keyof Instruments)[];
 }) => {
   const { spawnParticle } = useFX();
 
   useEffect(() => {
     if (active) {
       console.log("spawning particle of color ", activationColor[0]);
-      spawnParticle(activationColor[0]);
-      playNote(note, instrument);
+      for (const col of activationColor) {
+        spawnParticle(col);
+      }
+      for (const instrument of instruments) {
+        playNote(note, instrument);
+      }
     }
-  }, [spawnParticle, active, instrument, note, activationColor]);
+  }, [spawnParticle, active, instruments, note, activationColor]);
 
   const bgCol = `${activationColor
     .map((ac) => `var(${colMap[ac]?.color})`)
