@@ -3,11 +3,11 @@ import { ConnectedGamepadsContext, MusicalKeyContext } from "./AppContexts";
 import { Gamepads } from "./components/GamePads";
 import { KeySelector } from "./components/KeySelector";
 import { MusicKeyboardDisplay } from "./components/MusicKeyDisplay";
+import { Version } from "./components/Version";
+import { useAudioUnlock } from "./hooks/useAudioContext";
 import { useGamepadData } from "./hooks/useGamepadData";
 import { useKeyInputs } from "./hooks/useKeyInput";
 import { hello } from "./utils/audio";
-import { Version } from "./components/Version";
-import { useAudioUnlock } from "./hooks/useAudioContext";
 
 function App() {
   const [toneStarted, _] = useState(false);

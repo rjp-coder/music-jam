@@ -15,6 +15,7 @@ export type GamepadData = {
   col: keyof ColMap;
   instrument: keyof Instruments;
   id: "string";
+  timestamp: number;
 };
 
 export function useGamepad() {
@@ -39,6 +40,7 @@ export function useGamepad() {
         event.gamepad.id,
         event.gamepad.buttons?.length,
         event.gamepad.axes?.length,
+        event.gamepad.timestamp,
         connected
       );
       const eventGamepad = event.gamepad;
@@ -53,6 +55,7 @@ export function useGamepad() {
         col: "red",
         instrument: "piano",
         id: eventGamepad.id,
+        timestamp: eventGamepad.timestamp,
       };
 
       setConnectedGamePads((prevState) => {

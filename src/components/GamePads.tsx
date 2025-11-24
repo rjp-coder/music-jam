@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { ConnectedGamepadsContext } from "../AppContexts";
 import { GamePad } from "./GamePad";
+import { useControllerDesync } from "../hooks/useControllerDesync";
 
 export const Gamepads = ({ musicKey }) => {
   const { connectedGamePads, incrementCol, incrementInstrument, colMap } =
     useContext(ConnectedGamepadsContext);
+  useControllerDesync();
   //filter unknown gamepads if they share an id
   const legitimateGamePads = connectedGamePads;
   //filterUnknownGamepadDataIfIdSame(connectedGamePads);
