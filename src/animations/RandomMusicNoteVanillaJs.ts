@@ -52,7 +52,9 @@ export const RandomMusicNote = ({ className, color, x, y, size }) => {
   //   "#ff9800",
   // ]);
 
-  const gamepadColor = colMap[color].color;
+  const gamepadColor = colMap[color]?.color
+    ? `var(${colMap[color].color}) `
+    : "silver";
   // console.log("color in RandomMusicNote:", color, ",", gamepadColor);
 
   return MusicNoteSvg({

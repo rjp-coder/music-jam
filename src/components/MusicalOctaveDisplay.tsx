@@ -69,21 +69,28 @@ export const MusicalOctaveDisplay = ({
         //there might be more than one controller hitting the button but for now
         //just have an array with only the first controller.
 
-        const controllerPressingButton = activeControllerKeys.find(
+        const controllersPressingButton = activeControllerKeys.filter(
           (ack) => controllerActivation == ack.btn
         );
-
-        const controllersPressingButton = controllerPressingButton
-          ? [controllerPressingButton]
-          : [];
 
         const controllerIndicies = controllersPressingButton.map(
           (cpb) => cpb.gamepadIndex
         );
 
-        const gp = connectedGamePads.find((gp) =>
+        const gpArr = connectedGamePads.filter((gp) =>
           controllerIndicies.includes(gp.index)
         );
+
+        const ac = gpArr.map((gp) => gp.col) || ["yellow"];
+
+        if (ac.length > 1) {
+          console.log({
+            controllersPressingButton,
+            controllerIndicies,
+            gpArr,
+            ac,
+          });
+        }
 
         return (
           <MusicButton
@@ -91,8 +98,8 @@ export const MusicalOctaveDisplay = ({
             key={`o${octave}-${note.toUpperCase()}(${i})`}
             note={note.toUpperCase()}
             active={isActive}
-            activationColor={gp?.col || "yellow"}
-            instrument={gp?.instrument || "piano"}
+            activationColor={ac}
+            instrument={gpArr?.[0]?.instrument || "piano"}
           />
         );
       })}

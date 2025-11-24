@@ -2,15 +2,47 @@ import { instruments } from "../utils/audio";
 import { useGamepad, type GamepadData } from "./useGamepad";
 
 export const colMap = {
-  red: { bg: "bg-red-600", border: "border-red-600", color: "red" },
-  blue: { bg: "bg-blue-600", border: "border-blue-600", color: "blue" },
-  yellow: { bg: "bg-yellow-500", border: "border-yellow-500", color: "yellow" },
-  green: { bg: "bg-green-500", border: "border-green-500", color: "green" },
-  purple: { bg: "bg-purple-500", border: "border-purple-500", color: "purple" },
-  orange: { bg: "bg-orange-500", border: "border-orange-500", color: "orange" },
-  pink: { bg: "bg-pink-400", border: "border-pink-400", color: "pink" },
-  cyan: { bg: "bg-cyan-400", border: "border-cyan-400", color: "cyan" },
-  lime: { bg: "bg-lime-500", border: "border-lime-500", color: "lime" },
+  red: { bg: "bg-red-600", border: "border-red-600", color: "--color-red-600" },
+  blue: {
+    bg: "bg-blue-600",
+    border: "border-blue-600",
+    color: "--color-blue-600",
+  },
+  yellow: {
+    bg: "bg-yellow-500",
+    border: "border-yellow-500",
+    color: "--color-yellow-500",
+  },
+  green: {
+    bg: "bg-green-500",
+    border: "border-green-500",
+    color: "--color-green-500",
+  },
+  purple: {
+    bg: "bg-purple-500",
+    border: "border-purple-500",
+    color: "--color-purple-500",
+  },
+  orange: {
+    bg: "bg-orange-500",
+    border: "border-orange-500",
+    color: "--color-orange-500",
+  },
+  pink: {
+    bg: "bg-pink-400",
+    border: "border-pink-400",
+    color: "--color-pink-400",
+  },
+  cyan: {
+    bg: "bg-cyan-400",
+    border: "border-cyan-400",
+    color: "--color-cyan-400",
+  },
+  lime: {
+    bg: "bg-lime-500",
+    border: "border-lime-500",
+    color: "--color-lime-500",
+  },
 };
 
 export type ColMap = typeof colMap;
