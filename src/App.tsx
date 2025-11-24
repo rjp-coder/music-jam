@@ -65,7 +65,6 @@ export default App;
 //TODO ...assets loaded, stable wifi connection
 //TODO add configurable permissions to lock controller functionality and disable some
 //TODO for notes hit twice -- color it in twice! And thrice etc.
-//TODO add functionality to repopulate Gamepads if it is missing. (somewhere in the useGamepadButtons hook)
 //TODO make sustain work on the notes
 //TODO add per-note per-instrument volume dampening/amplification in audio.ts (samples shifted an octave can be too quiet)
 

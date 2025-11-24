@@ -4,7 +4,9 @@ import { detectGamepadType } from "../utils/controller";
 import {
   getNextAvailableColor,
   getNextAvailableInstrument,
+  type ColMap,
 } from "./useGamepadData";
+import type { Instruments } from "../utils/audio";
 
 export function useControllerDesync() {
   const { connectedGamePads: eventConnectedGamepads, setConnectedGamePads } =
@@ -51,12 +53,13 @@ export function useControllerDesync() {
     newState = newState.filter((ecg) => !redundantEgsIds.includes(ecg.index));
 
     //for each gamepad found by navigator.getGamepads
+
     missingNgs.forEach((ng) => {
       const gamepad = {
         index: ng.index,
         type: detectGamepadType(ng),
-        col: "red",
-        instrument: "piano",
+        col: "red" as keyof ColMap,
+        instrument: "piano" as keyof Instruments,
         id: ng.id,
         timestamp: ng.timestamp,
       };
@@ -64,7 +67,6 @@ export function useControllerDesync() {
       gamepad.instrument = getNextAvailableInstrument(newState, ng.index);
       newState.push(gamepad);
     });
-
     setConnectedGamePads(newState);
   }
 

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   agnosticController,
   detectGamepadType,
@@ -9,7 +9,6 @@ import {
   xboxControllerMappings,
   xboxToAgnosticMappings,
 } from "../utils/controller";
-import { ConnectedGamepadsContext } from "../AppContexts";
 
 export type GamepadInput = { btn: number; gamepadIndex: number };
 
