@@ -1,10 +1,4 @@
-import {
-  useRef,
-  useState,
-  useCallback,
-  useEffect,
-  useEffectEvent,
-} from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 
 export function useAudioUnlock() {
   const audioCtxRef = useRef<AudioContext | null>(null);
