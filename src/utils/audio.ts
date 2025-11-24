@@ -1,6 +1,8 @@
 import * as Tone from "tone";
 import { getValidNotesInKey } from "./notes";
 
+export default Tone;
+
 const baseUrl = "https://rjp-coder.github.io/music-jam/noteSamples/";
 
 const piano = new Tone.Sampler({

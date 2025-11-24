@@ -8,6 +8,7 @@ import { useAudioUnlock } from "./hooks/useAudioContext";
 import { useGamepadData } from "./hooks/useGamepadData";
 import { useKeyInputs } from "./hooks/useKeyInput";
 import { hello } from "./utils/audio";
+import Tone from "./utils/audio.ts";
 
 function App() {
   const [toneStarted, _] = useState(false);
@@ -19,7 +20,12 @@ function App() {
   return (
     <div className="flex items-center flex-col">
       {!isAudioUnlocked && (
-        <p className="cursor-pointer">Click here to enable audio</p>
+        <p
+          onClick={() => Tone.getContext().resume()}
+          className="cursor-pointer"
+        >
+          Click here to enable audio
+        </p>
       )}
       <MusicalKeyContext value={[musicKey, setMusicKey]}>
         <ConnectedGamepadsContext value={gamepadContextVal}>
