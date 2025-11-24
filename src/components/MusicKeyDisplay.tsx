@@ -5,6 +5,35 @@ import {
 import { agnosticController } from "../utils/controller";
 import { MusicalOctaveDisplay } from "./MusicalOctaveDisplay";
 
+const ag = agnosticController;
+
+export const agnosticKeysClimbingTheScale = [
+  //base note (top row of keyboard/keydisplay)
+  ag.DPAD_DOWN,
+  ag.DPAD_LEFT,
+  ag.DPAD_UP,
+  ag.DPAD_RIGHT,
+  ag.BUTTON_BOTTOM,
+  ag.BUTTON_LEFT,
+  ag.BUTTON_TOP,
+  //next octave
+  ag.BUTTON_RIGHT,
+  ag.LEFT_BUMPER,
+  ag.LEFT_TRIGGER,
+  ag.RIGHT_BUMPER,
+  ag.RIGHT_TRIGGER,
+  ag.LEFT_STICK_DOWN,
+  ag.LEFT_STICK_LEFT,
+  //next octave,
+  ag.LEFT_STICK_UP,
+  ag.LEFT_STICK_RIGHT,
+  ag.SELECT,
+  ag.START,
+  null,
+  null,
+  null,
+];
+
 export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
   const gamepadInputs = useGamepadInputs();
 
@@ -44,13 +73,7 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
         keyboardMappings={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
         controllerMappings={[
           null,
-          ag.LEFT_STICK_UP,
-          ag.LEFT_STICK_RIGHT,
-          ag.SELECT,
-          ag.START,
-          null,
-          null,
-          null,
+          ...agnosticKeysClimbingTheScale.slice(16, 24),
           null,
         ]}
       />
@@ -61,13 +84,7 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
         keyboardMappings={["q", "w", "e", "r", "t", "y", "u", "i", "o"]}
         controllerMappings={[
           null,
-          ag.BUTTON_RIGHT,
-          ag.LEFT_BUMPER,
-          ag.LEFT_TRIGGER,
-          ag.RIGHT_BUMPER,
-          ag.RIGHT_TRIGGER,
-          ag.LEFT_STICK_DOWN,
-          ag.LEFT_STICK_LEFT,
+          ...agnosticKeysClimbingTheScale.slice(8, 16),
           null,
         ]}
       />
@@ -78,13 +95,7 @@ export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
         keyboardMappings={["a", "s", "d", "f", "g", "h", "j", "k", "l"]}
         controllerMappings={[
           null,
-          ag.DPAD_DOWN,
-          ag.DPAD_LEFT,
-          ag.DPAD_UP,
-          ag.DPAD_RIGHT,
-          ag.BUTTON_BOTTOM,
-          ag.BUTTON_LEFT,
-          ag.BUTTON_TOP,
+          ...agnosticKeysClimbingTheScale.slice(0, 8),
           null,
         ]}
       />

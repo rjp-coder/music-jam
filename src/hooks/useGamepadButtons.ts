@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   agnosticController,
   detectGamepadType,
@@ -9,12 +9,25 @@ import {
   xboxControllerMappings,
   xboxToAgnosticMappings,
 } from "../utils/controller";
+import type { GamepadData } from "./useGamepad";
+import { playNote } from "../utils/audio";
+import { MusicalKeyContext } from "../AppContexts";
+import { agnosticKeysClimbingTheScale } from "../components/MusicKeyDisplay";
+import { getValidNotesInKey } from "../utils/notes";
 
-export type GamepadInput = { btn: number; gamepadIndex: number };
+export type GamepadInput = {
+  nativeBtn: number;
+  nativeLabel?: string;
+  mapping: GamepadData["type"];
+  btn: number;
+  gamepadIndex: number;
+  btnLabel?: string;
+};
 
 export function useGamepadInputs(): GamepadInput[] {
   const initialGamepadInputs: GamepadInput[] = [];
   const [gamepadInputs, setGamepadInputs] = useState(initialGamepadInputs);
+  const musicalKey = useContext(MusicalKeyContext);
 
   function handleInputs() {
     const gamepads = navigator.getGamepads();
@@ -77,57 +90,155 @@ export function useGamepadInputs(): GamepadInput[] {
 
       const joypadType = detectGamepadType(gp);
 
-      const maps = {
-        joycon: [joyConMappings, joyConToAgnosticMappings],
-        xbox: [xboxControllerMappings, xboxToAgnosticMappings],
-        playstation: [psControllerMappings, psToAgnosticMappings],
-        unknown: [xboxControllerMappings, xboxToAgnosticMappings], //hope for the best
-      };
-
-      const [controllerMapping, toAgnosticMapping] = maps[joypadType];
+      const [controllerMapping, toAgnosticMapping] =
+        getControllerMapping(joypadType);
 
       for (const index of pressed) {
-        console.log("" + index, " button is pressed");
         const buttonPressed = controllerMapping[index];
         const btn = toAgnosticMapping[buttonPressed];
-        console.log(
-          "mapped to agnostic button: ",
-          btn,
-          ": ",
-          Object.keys(agnosticController).find(
-            (k) => agnosticController[k] == btn
-          )
-        );
         console.assert(
           btn >= 0 && btn < 32,
           "button mapping out of range",
           btn
         );
-        //const noteToPlay = notesToPlay[btn];
-        //if (noteToPlay) {
-        //playNote(noteToPlay);
-        const gpInput = { btn, gamepadIndex: gp.index } as GamepadInput;
+
+        const gpInput = {
+          nativeBtn: index,
+          mapping: joypadType,
+          btn,
+          gamepadIndex: gp.index,
+        } as GamepadInput;
         newGamepadInputs.push(gpInput);
         //}
       }
       for (const abp of axisButtonsPressed) {
-        console.log("" + abp, " button is pressed");
-        console.log(
-          Object.keys(agnosticController).find(
-            (k) => agnosticController[k] == abp
-          )
-        );
-        const gpInput = { btn: abp, gamepadIndex: gp.index };
+        const gpInput = {
+          btn: abp,
+          nativeBtn: abp,
+          mapping: joypadType,
+          gamepadIndex: gp.index,
+        };
         newGamepadInputs.push(gpInput);
       }
     }
-    setGamepadInputs(newGamepadInputs);
+    if (JSON.stringify(gamepadInputs) != JSON.stringify(newGamepadInputs)) {
+      console.log("NOT EQUAL");
+      // console.log({
+      //   gamepadInputs,
+      //   newGamepadInputs,
+      //   equal:
+      //     JSON.stringify(gamepadInputs) == JSON.stringify(newGamepadInputs),
+      // });
+
+      //determine which inputs are new
+      const newInputs: GamepadInput[] = newGamepadInputs.filter(
+        (ngi) =>
+          !gamepadInputs.find(
+            (gi) => gi.btn === ngi.btn && gi.gamepadIndex === ngi.gamepadIndex
+          )
+      );
+
+      //determine which inputs were stopped
+      const stoppedInputs: GamepadInput[] = gamepadInputs.filter(
+        (gpi) =>
+          !newGamepadInputs.find(
+            (ngi) =>
+              ngi.btn === gpi.btn && ngi.gamepadIndex === gpi.gamepadIndex
+          )
+      );
+
+      //add some labeling data (good for debugging controller mappings)
+      [...newInputs, ...stoppedInputs].forEach((item) => {
+        item.nativeLabel = getNativeControllerBtnLabel(
+          item.mapping,
+          item.nativeBtn
+        );
+        item.btnLabel = getAgnosticControllerBtnLabel(item.btn);
+      });
+
+      console.log(
+        "New Inputs:\n" +
+          newInputs.map(
+            (ni) =>
+              `${ni.mapping}: ${ni.nativeBtn} (${ni.nativeLabel}) => agnostic: ${ni.btn} (${ni.btnLabel})`
+          ) || "<none>"
+      );
+      console.log(
+        "Dropped Inputs:\n" +
+          stoppedInputs.map(
+            (si) =>
+              `${si.mapping}:${si.nativeBtn}(${si.nativeLabel}=> agnostic:${si.btn}(${si.btnLabel})`
+          ) || "<none>"
+      );
+
+      //for each new input, play note
+      for (const ni of newInputs) {
+        playNote(determineNote(musicalKey, ni.btnLabel), determineInstrument());
+      }
+
+      setGamepadInputs(newGamepadInputs);
+    }
   }
 
   useEffect(() => {
     const interval = setInterval(handleInputs, 50);
     return () => clearInterval(interval);
   });
+  return [gamepadInputs];
+}
 
-  return gamepadInputs;
+function getAgnosticControllerBtnLabel(index) {
+  return Object.keys(agnosticController).find(
+    (k) => agnosticController[k] == index
+  );
+}
+
+function getNativeControllerBtnLabel(mapping, index) {
+  const [controllerMapping] = getControllerMapping(mapping);
+  return Object.keys(controllerMapping).find(
+    (k) => controllerMapping[k] == index
+  );
+}
+
+function getControllerMappings() {
+  const maps = {
+    joycon: [joyConMappings, joyConToAgnosticMappings],
+    xbox: [xboxControllerMappings, xboxToAgnosticMappings],
+    playstation: [psControllerMappings, psToAgnosticMappings],
+    unknown: [xboxControllerMappings, xboxToAgnosticMappings], //hope for the best
+  };
+  return maps;
+}
+
+function getControllerMapping(type) {
+  const maps = getControllerMappings();
+  return maps[type];
+}
+
+function determineNote(musicalKey: string, agnosticControllerBtnLabel: string) {
+  //Get button index on agnostic controller -- e.g. DPAD_DOWN  might equal 4
+  const btn = agnosticController[agnosticControllerBtnLabel];
+  //The inputs are placed along a scale -- E.g. DPAD_DOWN might be the first note in the scale
+  //agnosticKeysClimbingTheScale is those inputs [4,7,1,2...] would mean 4(DPAD_DOWN) is the
+  //first note of the scale, followed by 7(DPAD_RIGHT), then 1(LEFT_STICK_LEFT)
+  //is the first note / input in the scale
+
+  //figure out how far up the scale the input corresponds to
+  const scalePosition = agnosticKeysClimbingTheScale.indexOf(btn);
+
+  //starting from the octave below the "middle" 3 -- get all the notes going up
+  //until we run out of controller inputs.
+  const notes = getValidNotesInKey(
+    musicalKey,
+    "natural",
+    0,
+    agnosticKeysClimbingTheScale.length,
+    3
+  );
+
+  return notes[scalePosition];
+}
+
+function determineInstrument() {
+  return "piano";
 }

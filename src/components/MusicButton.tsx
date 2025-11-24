@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useEffectEvent } from "react";
 import { useFX } from "../Contexts/EffectsLayerContext";
 import { playNote, type Instruments } from "../utils/audio";
 import { colMap, type ColMap } from "../hooks/useGamepadData";
@@ -8,7 +8,6 @@ export const MusicButton = ({
   active,
   className,
   activationColor,
-  instruments,
 }: {
   note: string;
   active: boolean;
@@ -17,18 +16,16 @@ export const MusicButton = ({
   instruments: (keyof Instruments)[];
 }) => {
   const { spawnParticle } = useFX();
+  const sp = useEffectEvent(spawnParticle);
 
   useEffect(() => {
     if (active) {
       console.log("spawning particle of color ", activationColor[0]);
       for (const col of activationColor) {
-        spawnParticle(col);
-      }
-      for (const instrument of instruments) {
-        playNote(note, instrument);
+        sp(col);
       }
     }
-  }, [spawnParticle, active, instruments, note, activationColor]);
+  }, [activationColor, active]);
 
   const bgCol = `${activationColor
     .map((ac) => `var(${colMap[ac]?.color})`)

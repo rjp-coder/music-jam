@@ -17,7 +17,6 @@ export function useControllerDesync() {
     const ng = navigatorGamepads.filter((g) => g && g.connected);
     if (!ng || !ng.length) return;
     const ecg = eventConnectedGamepads.filter((g) => g);
-    console.log({ ng, ecg });
     // a desync happens if the event connected gamepads is missing an index that can be found by navigator.getGamepads
     // or if connected gamepads has an extra index that canno be found by navigator.getGamepads
 
@@ -67,7 +66,9 @@ export function useControllerDesync() {
       gamepad.instrument = getNextAvailableInstrument(newState, ng.index);
       newState.push(gamepad);
     });
-    setConnectedGamePads(newState);
+    if (JSON.stringify(newState) !== JSON.stringify(ecg)) {
+      setConnectedGamePads(newState);
+    }
   }
 
   useEffect(() => {

@@ -80,32 +80,6 @@ const agnosticControllerSpiral = {
   SHARE_OR_CAMERA: 29,
 };
 
-//@ts-ignore
-const agnosticControllerInterlacedSpiral = {
-  LEFT_STICK_DOWN: 0,
-  LEFT_STICK_LEFT: 2,
-  LEFT_STICK_UP: 4,
-  LEFT_STICK_RIGHT: 6,
-  DPAD_DOWN: 8,
-  DPAD_LEFT: 10,
-  DPAD_UP: 12,
-  DPAD_RIGHT: 14,
-  BUTTON_BOTTOM: 9,
-  BUTTON_LEFT: 11,
-  BUTTON_TOP: 13,
-  BUTTON_RIGHT: 15,
-  LEFT_BUMPER: 16,
-  LEFT_TRIGGER: 18,
-  RIGHT_BUMPER: 17,
-  RIGHT_TRIGGER: 19,
-  RIGHT_STICK_DOWN: 1,
-  RIGHT_STICK_LEFT: 3,
-  RIGHT_STICK_UP: 5,
-  RIGHT_STICK_RIGHT: 7,
-  SELECT: 20,
-  START: 21,
-};
-
 export const agnosticController = agnosticControllerSpiral;
 
 export const joyConToAgnosticMappings = {
