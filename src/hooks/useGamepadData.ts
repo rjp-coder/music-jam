@@ -88,9 +88,9 @@ export function getNextAvailableColor(
   while (usedIndicies.includes(colIndex)) {
     colIndex = (colIndex + 1) % colorKeys.length;
   }
-  console.log(colIndex);
+  // console.log(colIndex);
   const newCol = colorKeys[colIndex];
-  console.log("newColor is ", newCol);
+  // console.log("newColor is ", newCol);
   return newCol;
 }
 
@@ -125,7 +125,6 @@ export function getNextAvailableInstrument(
   }
   const newState = JSON.parse(JSON.stringify(connectedGamePads));
   const gp = newState.find((cgp) => cgp.index === gamepadIndex);
-  if (!gp) console.log("Setting instrumnet for gamepad before initialisation");
   const oldInstrumentIndex = gp
     ? Object.keys(instruments).findIndex(
         (instrumentKey) => instrumentKey === gp.col

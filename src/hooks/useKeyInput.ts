@@ -17,9 +17,12 @@ export function useKeyInputs() {
     const ak = [...activeKeys];
     ak.push(e.key);
     console.log(ak);
-    playNote(determineNote(musicalKey, e.key), theInstrumentForTheKeyboard);
-    spawnParticle(theColorForTheKeyboard);
-    setActiveKeys(ak);
+    const note = determineNote(musicalKey, e.key);
+    if (note) {
+      playNote(note, theInstrumentForTheKeyboard);
+      spawnParticle(theColorForTheKeyboard);
+    }
+    setActiveKeys(ak); //still setActive keys or otherwise the keyrelease event will look strange
   };
 
   const detectKeyUp = (e: KeyboardEvent) => {

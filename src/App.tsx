@@ -63,6 +63,7 @@ export default App;
 
 //OPTIONAL TODOS
 //TODO PWA -- make the whole thing saved and workable offline
+//TODO detect "half of a switch controller"
 //TODO status -- show audio context loaded, controllers connected, correct browser,
 //TODO ...assets loaded, stable wifi connection
 //TODO add configurable permissions to lock controller functionality and disable some

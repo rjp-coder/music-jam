@@ -179,8 +179,26 @@ export function useGamepadInputs(): GamepadInput[] {
         const gp = getGamepad(ni.gamepadIndex, connectedGamePads);
         const note = determineNote(musicalKey, ni.btnLabel);
         if (note === null) continue; //E.g. L3 has been pressed or the home key
-        playNote(note, gp.instrument);
-        spawnParticle(gp.col);
+        if (gp) {
+          playNote(note, gp.instrument);
+          spawnParticle(gp.col);
+        } else {
+          console.log(`👻 Congratulations you found a ghost controller.
+             I.e. a button was pressed on a controller before the 
+             "controller connected" web api event fired. Will deliberately 
+             delay playing the note audio by about 200ms and hope that by then
+             the controller that played the note has connected`);
+          setTimeout(() => {
+            const gp = getGamepad(ni.gamepadIndex, connectedGamePads);
+            if (gp) {
+              playNote(note, gp.instrument);
+              spawnParticle(gp.col);
+            } else {
+              console.log(` Wow, even when delayed the controller hasn't connected.
+                  I guess this will have to be a 'ghost note' then 😂 `);
+            }
+          }, 1200);
+        }
         //make music note
       }
 
