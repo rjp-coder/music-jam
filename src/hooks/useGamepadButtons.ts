@@ -177,7 +177,9 @@ export function useGamepadInputs(): GamepadInput[] {
       //for each new input, play note
       for (const ni of newInputs) {
         const gp = getGamepad(ni.gamepadIndex, connectedGamePads);
-        playNote(determineNote(musicalKey, ni.btnLabel), gp.instrument);
+        const note = determineNote(musicalKey, ni.btnLabel);
+        if (note === null) continue; //E.g. L3 has been pressed or the home key
+        playNote(note, gp.instrument);
         spawnParticle(gp.col);
         //make music note
       }
@@ -232,6 +234,8 @@ function determineNote(musicalKey: string, agnosticControllerBtnLabel: string) {
 
   //figure out how far up the scale the input corresponds to
   const scalePosition = agnosticKeysClimbingTheScale.indexOf(btn);
+
+  if (scalePosition === -1) return null;
 
   //starting from the octave below the "middle" 3 -- get all the notes going up
   //until we run out of controller inputs.
