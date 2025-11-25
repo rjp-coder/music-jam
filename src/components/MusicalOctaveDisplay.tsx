@@ -85,15 +85,6 @@ export const MusicalOctaveDisplay = ({
 
         const instruments = gpArr.map((gp) => gp.instrument) || ["piano"];
 
-        if (ac.length > 1) {
-          console.log({
-            controllersPressingButton,
-            controllerIndicies,
-            gpArr,
-            ac,
-          });
-        }
-
         return (
           <MusicButton
             className={className}

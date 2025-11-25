@@ -126,14 +126,6 @@ export function useGamepadInputs(): GamepadInput[] {
       }
     }
     if (JSON.stringify(gamepadInputs) != JSON.stringify(newGamepadInputs)) {
-      console.log("NOT EQUAL");
-      // console.log({
-      //   gamepadInputs,
-      //   newGamepadInputs,
-      //   equal:
-      //     JSON.stringify(gamepadInputs) == JSON.stringify(newGamepadInputs),
-      // });
-
       //determine which inputs are new
       const newInputs: GamepadInput[] = newGamepadInputs.filter(
         (ngi) =>
@@ -160,20 +152,28 @@ export function useGamepadInputs(): GamepadInput[] {
         item.btnLabel = getAgnosticControllerBtnLabel(item.btn);
       });
 
-      console.log(
-        "New Inputs:\n" +
-          newInputs.map(
-            (ni) =>
-              `${ni.mapping}: ${ni.nativeBtn} (${ni.nativeLabel}) => agnostic: ${ni.btn} (${ni.btnLabel})`
-          ) || "<none>"
-      );
-      console.log(
-        "Dropped Inputs:\n" +
-          stoppedInputs.map(
-            (si) =>
-              `${si.mapping}:${si.nativeBtn}(${si.nativeLabel}=> agnostic:${si.btn}(${si.btnLabel})`
-          ) || "<none>"
-      );
+      const buttonPressedString = newInputs
+        .map(
+          (ni) =>
+            `${ni.mapping}: ${ni.nativeBtn} (${ni.nativeLabel}) => agnostic: ${ni.btn} (${ni.btnLabel})`
+        )
+        .join(", ")
+        .trim();
+
+      const buttonReleasedString = stoppedInputs
+        .map(
+          (si) =>
+            `${si.mapping}: ${si.nativeBtn} (${si.nativeLabel}) => agnostic: ${si.btn} (${si.btnLabel})`
+        )
+        .join(", ")
+        .trim();
+
+      if (buttonPressedString) {
+        console.log("Button(s) pressed: " + buttonPressedString);
+      }
+      if (buttonReleasedString) {
+        console.log("Button(s) released: " + buttonReleasedString);
+      }
 
       //for each new input, play note
       for (const ni of newInputs) {

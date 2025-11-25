@@ -71,7 +71,7 @@ export function getNextAvailableColor(
   const usedIndicies = gamepadColorsInUse.map((col) =>
     Object.keys(gamepadColors).findIndex((colMapKey) => colMapKey === col)
   );
-  console.log(usedIndicies);
+
   const colorKeys = Object.keys(
     gamepadColors
   ) as (keyof typeof gamepadColors)[];
@@ -81,7 +81,6 @@ export function getNextAvailableColor(
   }
   const newState = JSON.parse(JSON.stringify(connectedGamePads));
   const gp = newState.find((cgp) => cgp.index === gamepadIndex);
-  if (!gp) console.log("Setting colour for gamepad before initialisation");
   const oldColIndex = gp
     ? Object.keys(gamepadColors).findIndex((colMapKey) => colMapKey === gp.col)
     : 0; //if this gamepad is not initialised, there is no currentColor to index. So give it the index of -1 (i.e. non-existant but will increment to 0) and grab the next one
@@ -117,7 +116,6 @@ export function getNextAvailableInstrument(
       (instrumentKey) => instrumentKey === instrument
     )
   );
-  console.log(usedIndicies);
   const instrumentKeys = Object.keys(
     instruments
   ) as (keyof typeof instruments)[];
@@ -139,7 +137,6 @@ export function getNextAvailableInstrument(
   }
   console.log(instrumentIndex);
   const newInstrument = instrumentKeys[instrumentIndex];
-  console.log("newInstrument is ", newInstrument);
   return newInstrument;
 }
 
