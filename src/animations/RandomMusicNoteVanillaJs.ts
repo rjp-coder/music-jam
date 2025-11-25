@@ -35,7 +35,12 @@ export const getRandomParams = (windowHeight, windowWidth) => {
 };
 
 export const RandomMusicNote = ({ className, color, x, y, size }) => {
-  const type = chooseRandom(["oneSemitone", "twoSemitones", "threeSemitones"]);
+  const possibleTypes: ("oneSemitone" | "twoSemitones" | "threeSemitones")[] = [
+    "oneSemitone",
+    "twoSemitones",
+    "threeSemitones",
+  ];
+  const type = chooseRandom<(typeof possibleTypes)[number]>(possibleTypes);
 
   // //@ts-ignore
   // const fill = chooseRandom([
@@ -59,7 +64,6 @@ export const RandomMusicNote = ({ className, color, x, y, size }) => {
 
   return MusicNoteSvg({
     className: className,
-    //@ts-ignore
     type: type,
     fill: gamepadColor,
     height: size + "px",

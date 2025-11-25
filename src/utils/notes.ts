@@ -97,7 +97,7 @@ const addSemitone = (initialNote: string, number: number = 1) => {
   let noteRegister = initialNote.match(/[0-9]+/g)?.[0] || "4";
   const n = convertNoteToNumber(noteNoRegister);
   const m = n + number;
-  let note = convertNumberToNote(m % 12);
+  const note = convertNumberToNote(m % 12);
   //if the initial note is before c and the note after is after c
   //it is crossing the c threshold and the register should increment.
   const crossingOverCThreshold = (n <= 3 && m >= 4) || (n > 4 && m >= 16); //"a,"a#","b"

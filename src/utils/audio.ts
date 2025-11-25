@@ -109,7 +109,7 @@ export const playNote = (note: string, instrumentName: keyof Instruments) => {
   }
   const instrument = instruments[instrumentName];
   if (!instrument) console.error(instrumentName);
-  const [duration, _clip, volume] = instrumentOptions[instrumentName];
+  const [duration, , volume] = instrumentOptions[instrumentName];
 
   try {
     instrument.triggerAttackRelease(note, duration, undefined, volume);

@@ -1,4 +1,8 @@
 import { useContext, useEffect, useState } from "react";
+import { ConnectedGamepadsContext, MusicalKeyContext } from "../AppContexts";
+import { agnosticKeysClimbingTheScale } from "../utils/controller";
+import { useFX } from "../Contexts/EffectsLayerContext";
+import { playNote } from "../utils/audio";
 import {
   agnosticController,
   detectGamepadType,
@@ -9,13 +13,8 @@ import {
   xboxControllerMappings,
   xboxToAgnosticMappings,
 } from "../utils/controller";
-import type { GamepadData } from "./useGamepad";
-import { playNote, type Instruments } from "../utils/audio";
-import { MusicalKeyContext } from "../AppContexts";
-import { agnosticKeysClimbingTheScale } from "../components/MusicKeyDisplay";
 import { getValidNotesInKey } from "../utils/notes";
-import { ConnectedGamepadsContext } from "../AppContexts";
-import { useFX } from "../Contexts/EffectsLayerContext";
+import type { GamepadData } from "./useGamepad";
 
 export type GamepadInput = {
   nativeBtn?: number;

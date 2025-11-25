@@ -235,3 +235,32 @@ export function detectGamepadType(gamepad: Gamepad): GamepadData["type"] {
   }
   return t;
 }
+
+const ag = agnosticController;
+
+export const agnosticKeysClimbingTheScale = [
+  //base note (top row of keyboard/keydisplay)
+  ag.DPAD_DOWN,
+  ag.DPAD_LEFT,
+  ag.DPAD_UP,
+  ag.DPAD_RIGHT,
+  ag.BUTTON_BOTTOM,
+  ag.BUTTON_LEFT,
+  ag.BUTTON_TOP,
+  //next octave
+  ag.BUTTON_RIGHT,
+  ag.LEFT_BUMPER,
+  ag.LEFT_TRIGGER,
+  ag.RIGHT_BUMPER,
+  ag.RIGHT_TRIGGER,
+  ag.LEFT_STICK_DOWN,
+  ag.LEFT_STICK_LEFT,
+  //next octave,
+  ag.LEFT_STICK_UP,
+  ag.LEFT_STICK_RIGHT,
+  ag.SELECT,
+  ag.START,
+  null,
+  null,
+  null,
+];

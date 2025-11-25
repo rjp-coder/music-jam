@@ -1,6 +1,7 @@
 import type { GamepadColors } from "../utils/gamepadColors.ts";
 import type { Instruments } from "../utils/audio.ts";
 import { ImgWithBackupText } from "./ImgWithBackupText.tsx";
+import type { GamepadData } from "../hooks/useGamepad.ts";
 
 const typeMap = {
   joycon: "bg-[url(/joycon.svg)]",
@@ -28,15 +29,15 @@ export const GamePad = ({
 }: {
   id: string;
   index: number;
-  type: "xbox" | "joycon" | "playstation";
+  type: GamepadData["type"];
   colClass: GamepadColors[keyof GamepadColors];
   instrument: keyof Instruments;
-  incrementCol: Function;
-  incrementInstrument: Function;
+  incrementCol: () => void;
+  incrementInstrument: () => void;
 }) => {
   return (
     <div
-      onClick={(e) => {
+      onClick={() => {
         incrementInstrument();
       }}
       className={`border ${colClass.border} rounded-xl w-24 h-24 mt-8 ${typeMap[type]}`}

@@ -10,7 +10,7 @@ import { hello } from "./utils/audio";
 import Tone from "./utils/audio.ts";
 
 function App() {
-  const [toneStarted, _] = useState(false);
+  const [toneStarted] = useState(false);
   const [musicKey, setMusicKey] = useState("C");
   const gamepadContextVal = useGamepadData();
   const { isAudioUnlocked } = useAudioUnlock();

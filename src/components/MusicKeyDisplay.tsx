@@ -3,37 +3,8 @@ import {
   type GamepadInput,
 } from "../hooks/useGamepadButtons";
 import { useKeyInputs } from "../hooks/useKeyInput";
-import { agnosticController } from "../utils/controller";
+import { agnosticKeysClimbingTheScale } from "../utils/controller";
 import { MusicalOctaveDisplay } from "./MusicalOctaveDisplay";
-
-const ag = agnosticController;
-
-export const agnosticKeysClimbingTheScale = [
-  //base note (top row of keyboard/keydisplay)
-  ag.DPAD_DOWN,
-  ag.DPAD_LEFT,
-  ag.DPAD_UP,
-  ag.DPAD_RIGHT,
-  ag.BUTTON_BOTTOM,
-  ag.BUTTON_LEFT,
-  ag.BUTTON_TOP,
-  //next octave
-  ag.BUTTON_RIGHT,
-  ag.LEFT_BUMPER,
-  ag.LEFT_TRIGGER,
-  ag.RIGHT_BUMPER,
-  ag.RIGHT_TRIGGER,
-  ag.LEFT_STICK_DOWN,
-  ag.LEFT_STICK_LEFT,
-  //next octave,
-  ag.LEFT_STICK_UP,
-  ag.LEFT_STICK_RIGHT,
-  ag.SELECT,
-  ag.START,
-  null,
-  null,
-  null,
-];
 
 export const MusicKeyboardDisplay = ({ musicKey }) => {
   const gamepadInputs = useGamepadInputs();
@@ -62,8 +33,6 @@ export const MusicKeyboardDisplay = ({ musicKey }) => {
   const topClass = `" max-sm:rotate-y-60 max-sm:-ml-4 sm:rotate-x-60 sm:mt-2 sm:-mb-2 opacity-10 hover:opacity-100 active:opacity-100"`;
   const standardClass = ` p-1 border-white border-2 rounded-2xl min-w-16 max-w-16 max-h-10 cursor-pointer hover:bg-yellow-300 hover:text-black active:bg-yellow-500`;
   const bottomClass = `max-sm:-rotate-y-60 max-sm:-mr-4 sm:-rotate-x-60 sm:-mt-2 sm:mb-2 opacity-10 hover:opacity-100 active:opacity-100`;
-
-  const ag = agnosticController;
 
   return (
     <div className="max-sm:flex max-sm:flex-row-reverse max-sm:flex-nowrap max-sm:mt-6 ">
