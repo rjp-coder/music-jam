@@ -27,7 +27,7 @@ export type GamepadInput = {
 export function useGamepadInputs(): GamepadInput[] {
   const initialGamepadInputs: GamepadInput[] = [];
   const [gamepadInputs, setGamepadInputs] = useState(initialGamepadInputs);
-  const musicalKey = useContext(MusicalKeyContext);
+  const [musicalKey] = useContext(MusicalKeyContext);
 
   function handleInputs() {
     const gamepads = navigator.getGamepads();
