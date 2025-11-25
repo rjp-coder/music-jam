@@ -1,15 +1,25 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MusicalKeyContext } from "../AppContexts";
+import { useFX } from "../Contexts/EffectsLayerContext";
+import { playNote } from "../utils/audio";
+import { getValidNotesInKey } from "../utils/notes";
+
+export const theInstrumentForTheKeyboard = "piano";
+export const theColorForTheKeyboard = "yellow";
 
 export function useKeyInputs() {
   const [activeKeys, setActiveKeys] = useState([]);
+  const [musicalKey] = useContext(MusicalKeyContext);
+  const { spawnParticle } = useFX();
 
   const detectKeyDown = (e: KeyboardEvent) => {
     if (e.repeat) return;
     const ak = [...activeKeys];
     ak.push(e.key);
     console.log(ak);
+    playNote(determineNote(musicalKey, e.key), theInstrumentForTheKeyboard);
+    spawnParticle(theColorForTheKeyboard);
     setActiveKeys(ak);
-    // console.log("clicked key: ", e.key);
   };
 
   const detectKeyUp = (e: KeyboardEvent) => {
@@ -77,3 +87,9 @@ export const keyIndexMap = {
   "8": 34,
   "9": 35,
 };
+
+function determineNote(mk, keypressed) {
+  const notes = getValidNotesInKey(mk, "natural", 0, 35, 3);
+  const i = keyIndexMap[keypressed];
+  return notes[i];
+}

@@ -1,6 +1,4 @@
-import { useEffect, useEffectEvent } from "react";
-import { useFX } from "../Contexts/EffectsLayerContext";
-import { playNote, type Instruments } from "../utils/audio";
+import { playNote } from "../utils/audio";
 import { gamepadColors, type GamepadColors } from "../utils/gamepadColors";
 
 export const MusicButton = ({
@@ -13,7 +11,6 @@ export const MusicButton = ({
   active: boolean;
   className: string;
   activationColor: (keyof GamepadColors)[];
-  instruments: (keyof Instruments)[];
 }) => {
   const bgCol = `${activationColor
     .map((ac) => `var(${gamepadColors[ac]?.color})`)

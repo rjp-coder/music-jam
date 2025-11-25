@@ -2,6 +2,7 @@ import {
   useGamepadInputs,
   type GamepadInput,
 } from "../hooks/useGamepadButtons";
+import { useKeyInputs } from "../hooks/useKeyInput";
 import { agnosticController } from "../utils/controller";
 import { MusicalOctaveDisplay } from "./MusicalOctaveDisplay";
 
@@ -34,8 +35,9 @@ export const agnosticKeysClimbingTheScale = [
   null,
 ];
 
-export const MusicKeyboardDisplay = ({ musicKey, activeKeys }) => {
+export const MusicKeyboardDisplay = ({ musicKey }) => {
   const gamepadInputs = useGamepadInputs();
+  const activeKeys = useKeyInputs();
 
   if (gamepadInputs.length) {
     // console.log({ gamepadInputs });

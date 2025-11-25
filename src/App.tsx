@@ -6,13 +6,11 @@ import { MusicKeyboardDisplay } from "./components/MusicKeyDisplay";
 import { Version } from "./components/Version";
 import { useAudioUnlock } from "./hooks/useAudioContext";
 import { useGamepadData } from "./hooks/useGamepadData";
-import { useKeyInputs } from "./hooks/useKeyInput";
 import { hello } from "./utils/audio";
 import Tone from "./utils/audio.ts";
 
 function App() {
   const [toneStarted, _] = useState(false);
-  const activeKeys = useKeyInputs();
   const [musicKey, setMusicKey] = useState("C");
   const gamepadContextVal = useGamepadData();
   const { isAudioUnlocked } = useAudioUnlock();
@@ -48,7 +46,7 @@ function App() {
             musicKey={musicKey}
             setMusicKey={setMusicKey}
           ></KeySelector>
-          <MusicKeyboardDisplay musicKey={musicKey} activeKeys={activeKeys} />
+          <MusicKeyboardDisplay musicKey={musicKey} />
         </ConnectedGamepadsContext>
       </MusicalKeyContext>
       <footer className=" w-auto">

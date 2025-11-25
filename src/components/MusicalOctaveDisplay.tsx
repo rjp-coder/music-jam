@@ -3,6 +3,7 @@ import { ConnectedGamepadsContext } from "../AppContexts";
 import type { GamepadInput } from "../hooks/useGamepadButtons";
 import { getValidNotesInKeySingleOctave } from "../utils/notes";
 import { MusicButton } from "./MusicButton";
+import { theColorForTheKeyboard } from "../hooks/useKeyInput";
 
 type MusicalOctaveDisplayProps = {
   className;
@@ -82,8 +83,8 @@ export const MusicalOctaveDisplay = ({
         );
 
         const ac = gpArr.map((gp) => gp.col) || ["yellow"];
-
-        const instruments = gpArr.map((gp) => gp.instrument) || ["piano"];
+        if (activeKeys.includes(keyboardActivation))
+          ac.push(theColorForTheKeyboard);
 
         return (
           <MusicButton
@@ -92,7 +93,6 @@ export const MusicalOctaveDisplay = ({
             note={note.toUpperCase()}
             active={isActive}
             activationColor={ac}
-            instruments={instruments}
           />
         );
       })}
