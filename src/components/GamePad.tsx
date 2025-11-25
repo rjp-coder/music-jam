@@ -40,7 +40,7 @@ export const GamePad = ({
       onClick={() => {
         incrementInstrument();
       }}
-      className={`border ${colClass.border} rounded-xl w-24 h-24 mt-8 ${typeMap[type]}`}
+      className={`border ${colClass.border} cursor-pointer rounded-xl w-24 h-24 mt-8 ${typeMap[type]}`}
     >
       {type}
       <div
