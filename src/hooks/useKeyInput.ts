@@ -88,8 +88,52 @@ export const keyIndexMap = {
   "9": 35,
 };
 
+//I resent having to do this .... but it seems the simplest.
+//Keys map to button indexes, but some buttons play the same key
+//Therefore you can't just use the numbers to get the position
+//In the scale, but you need to be aware of which keys share the same note.
+//Easiest solution is to just map them all.
+const keyScaleMap = {
+  z: 0, //This is the note before the base note of the octave
+  x: 1, //This is the root note
+  c: 2,
+  v: 3,
+  b: 4,
+  n: 5,
+  m: 6,
+  ",": 7, //This is the last note (7th) in the octave
+  ".": 8, //This is the beginning of the next octave, accessible from the end of the previous octave's row on the keyboard
+  a: 7, //This is the next row up on the keyboard, and the note before the base note of the octave
+  s: 8, //This is the root note of the next octave on its row
+  d: 9,
+  f: 10,
+  g: 11,
+  h: 12,
+  j: 13,
+  k: 14, //this is the 7th note in the octave E.g. in the key of C, this it the B at the end
+  l: 15, //this is the start of the next octave, accessible on the same row on the keyboard
+  q: 14, //this is the next row on the keyboard which starts a note below the octave
+  w: 15, //this is the start of the next octave, but on its row
+  e: 16,
+  r: 17,
+  t: 18,
+  y: 19,
+  u: 20,
+  i: 21, //This is the 7th note
+  o: 22, //Start of next octave, accessible on this row
+  "1": 21, //Next keyboard row
+  "2": 22, //Next octave, on the next keyboard row
+  "3": 23,
+  "4": 24,
+  "5": 25,
+  "6": 26,
+  "7": 27,
+  "8": 28,
+  "9": 29,
+};
+
 function determineNote(mk, keypressed) {
-  const notes = getValidNotesInKey(mk, "natural", 0, 35, 3);
-  const i = keyIndexMap[keypressed];
+  const notes = getValidNotesInKey(mk, "natural", -1, 30, 3);
+  const i = keyScaleMap[keypressed];
   return notes[i];
 }
