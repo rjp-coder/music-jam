@@ -88,11 +88,19 @@ export const keyIndexMap = {
   "9": 35,
 };
 
-//I resent having to do this .... but it seems the simplest.
-//Keys map to button indexes, but some buttons play the same key
-//Therefore you can't just use the numbers to get the position
-//In the scale, but you need to be aware of which keys share the same note.
-//Easiest solution is to just map them all.
+/* I resent having to do this .... but it seems the simplest.
+
+ Letters on the keyboard map to flashing buttons on the keyboard display,
+ but some buttons on the keyboard display play the same note. E.g. There
+ Is a C3 on the bottom right and a C3 on the second button on the next row.
+ Therefore you can't just use keyIndexMap (keys on the keyboard) to get the
+ expected position in the musical scale. This requires separate logic.
+
+ E.g. the full stop "." corresponds to the 8th button on the display which is
+ coincidentally the 8th note in the scale C3. But the "s" key on the keyboard 
+ corresponds to the 10th button in the display, but still only the 8th note 
+ in the scale which is C3, therefore "s" would map to 8 in here rather than 10.
+*/
 const keyScaleMap = {
   z: 0, //This is the note before the base note of the octave
   x: 1, //This is the root note
