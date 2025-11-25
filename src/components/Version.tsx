@@ -39,7 +39,7 @@ export const Version = () => {
         return;
       }
 
-      console.log({ dataVersion: data.version, localVersion });
+      // console.log({ dataVersion: data.version, localVersion });
 
       if (data.version !== localVersion) {
         showUpdateBanner(data.version);
