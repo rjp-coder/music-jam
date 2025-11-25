@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import {
   getNextAvailableInstrument,
   getNextAvailableColor,
-  type ColMap,
 } from "./useGamepadData";
 import type { Instruments } from "../utils/audio";
 import { detectGamepadType } from "../utils/controller";
+import type { GamepadColors } from "../utils/gamepadColors";
 
 globalThis.connectedGamepadsCache = [];
 
 export type GamepadData = {
   index: number;
   type: "joycon" | "xbox" | "playstation" | "unknown";
-  col: keyof ColMap;
+  col: keyof GamepadColors;
   instrument: keyof Instruments;
   id: "string";
   timestamp: number;

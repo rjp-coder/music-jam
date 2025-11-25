@@ -1,58 +1,14 @@
 import { instruments } from "../utils/audio";
+import type { GamepadColors } from "../utils/gamepadColors";
+import { gamepadColors } from "../utils/gamepadColors";
 import { useGamepad, type GamepadData } from "./useGamepad";
-
-export const colMap = {
-  red: { bg: "bg-red-600", border: "border-red-600", color: "--color-red-600" },
-  blue: {
-    bg: "bg-blue-600",
-    border: "border-blue-600",
-    color: "--color-blue-600",
-  },
-  yellow: {
-    bg: "bg-yellow-500",
-    border: "border-yellow-500",
-    color: "--color-yellow-500",
-  },
-  green: {
-    bg: "bg-green-500",
-    border: "border-green-500",
-    color: "--color-green-500",
-  },
-  purple: {
-    bg: "bg-purple-500",
-    border: "border-purple-500",
-    color: "--color-purple-500",
-  },
-  orange: {
-    bg: "bg-orange-500",
-    border: "border-orange-500",
-    color: "--color-orange-500",
-  },
-  pink: {
-    bg: "bg-pink-400",
-    border: "border-pink-400",
-    color: "--color-pink-400",
-  },
-  cyan: {
-    bg: "bg-cyan-400",
-    border: "border-cyan-400",
-    color: "--color-cyan-400",
-  },
-  lime: {
-    bg: "bg-lime-500",
-    border: "border-lime-500",
-    color: "--color-lime-500",
-  },
-};
-
-export type ColMap = typeof colMap;
 
 export type GamepadHookData = {
   connectedGamePads: GamepadData[];
   setConnectedGamePads: React.Dispatch<React.SetStateAction<GamepadData[]>>;
   incrementCol: (gamepadIndex: number) => void;
   incrementInstrument: (gamepadIndex: number) => void;
-  colMap: ColMap;
+  gamepadColors: GamepadColors;
 };
 
 export function useGamepadData(): GamepadHookData {
@@ -91,7 +47,7 @@ export function useGamepadData(): GamepadHookData {
     setConnectedGamePads,
     incrementCol,
     incrementInstrument,
-    colMap,
+    gamepadColors,
   };
 }
 
@@ -109,14 +65,16 @@ export function useGamepadData(): GamepadHookData {
 export function getNextAvailableColor(
   connectedGamePads: GamepadData[],
   gamepadIndex: number
-): keyof typeof colMap {
+): keyof typeof gamepadColors {
   if (!connectedGamePads.length) return "red";
   const gamepadColorsInUse = connectedGamePads.map((c) => c.col);
   const usedIndicies = gamepadColorsInUse.map((col) =>
-    Object.keys(colMap).findIndex((colMapKey) => colMapKey === col)
+    Object.keys(gamepadColors).findIndex((colMapKey) => colMapKey === col)
   );
   console.log(usedIndicies);
-  const colorKeys = Object.keys(colMap) as (keyof typeof colMap)[];
+  const colorKeys = Object.keys(
+    gamepadColors
+  ) as (keyof typeof gamepadColors)[];
   if (colorKeys.length === gamepadColorsInUse.length) {
     console.warn("no colours to choose from!");
     return;
@@ -125,7 +83,7 @@ export function getNextAvailableColor(
   const gp = newState.find((cgp) => cgp.index === gamepadIndex);
   if (!gp) console.log("Setting colour for gamepad before initialisation");
   const oldColIndex = gp
-    ? Object.keys(colMap).findIndex((colMapKey) => colMapKey === gp.col)
+    ? Object.keys(gamepadColors).findIndex((colMapKey) => colMapKey === gp.col)
     : 0; //if this gamepad is not initialised, there is no currentColor to index. So give it the index of -1 (i.e. non-existant but will increment to 0) and grab the next one
   let colIndex = oldColIndex;
   while (usedIndicies.includes(colIndex)) {

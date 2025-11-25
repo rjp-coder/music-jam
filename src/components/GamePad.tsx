@@ -1,4 +1,4 @@
-import type { ColMap } from "../hooks/useGamepadData.ts";
+import type { GamepadColors } from "../utils/gamepadColors.ts";
 import type { Instruments } from "../utils/audio.ts";
 import { ImgWithBackupText } from "./ImgWithBackupText.tsx";
 
@@ -29,7 +29,7 @@ export const GamePad = ({
   id: string;
   index: number;
   type: "xbox" | "joycon" | "playstation";
-  colClass: ColMap[keyof ColMap];
+  colClass: GamepadColors[keyof GamepadColors];
   instrument: keyof Instruments;
   incrementCol: Function;
   incrementInstrument: Function;

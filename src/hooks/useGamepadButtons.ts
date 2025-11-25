@@ -15,6 +15,7 @@ import { MusicalKeyContext } from "../AppContexts";
 import { agnosticKeysClimbingTheScale } from "../components/MusicKeyDisplay";
 import { getValidNotesInKey } from "../utils/notes";
 import { ConnectedGamepadsContext } from "../AppContexts";
+import { useFX } from "../Contexts/EffectsLayerContext";
 
 export type GamepadInput = {
   nativeBtn?: number;
@@ -30,6 +31,7 @@ export function useGamepadInputs(): GamepadInput[] {
   const [gamepadInputs, setGamepadInputs] = useState(initialGamepadInputs);
   const [musicalKey] = useContext(MusicalKeyContext);
   const { connectedGamePads } = useContext(ConnectedGamepadsContext);
+  const { spawnParticle } = useFX();
 
   function handleInputs() {
     const gamepads = navigator.getGamepads();
@@ -175,10 +177,10 @@ export function useGamepadInputs(): GamepadInput[] {
 
       //for each new input, play note
       for (const ni of newInputs) {
-        playNote(
-          determineNote(musicalKey, ni.btnLabel),
-          determineInstrument(ni.gamepadIndex, connectedGamePads)
-        );
+        const gp = getGamepad(ni.gamepadIndex, connectedGamePads);
+        playNote(determineNote(musicalKey, ni.btnLabel), gp.instrument);
+        spawnParticle(gp.col);
+        //make music note
       }
 
       setGamepadInputs(newGamepadInputs);
@@ -245,12 +247,9 @@ function determineNote(musicalKey: string, agnosticControllerBtnLabel: string) {
   return notes[scalePosition];
 }
 
-function determineInstrument(
-  gamepadIndex: number,
-  connectedGamePads
-): keyof Instruments {
-  const eventConnectedGamepads: GamepadData = connectedGamePads.find(
+function getGamepad(gamepadIndex: number, connectedGamePads): GamepadData {
+  const gamepad: GamepadData = connectedGamePads.find(
     (gp) => gp.index === gamepadIndex
   );
-  return eventConnectedGamepads.instrument;
+  return gamepad;
 }

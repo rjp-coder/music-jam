@@ -1,7 +1,7 @@
 import { useEffect, useEffectEvent } from "react";
 import { useFX } from "../Contexts/EffectsLayerContext";
 import { playNote, type Instruments } from "../utils/audio";
-import { colMap, type ColMap } from "../hooks/useGamepadData";
+import { gamepadColors, type GamepadColors } from "../utils/gamepadColors";
 
 export const MusicButton = ({
   note,
@@ -12,23 +12,11 @@ export const MusicButton = ({
   note: string;
   active: boolean;
   className: string;
-  activationColor: (keyof ColMap)[];
+  activationColor: (keyof GamepadColors)[];
   instruments: (keyof Instruments)[];
 }) => {
-  const { spawnParticle } = useFX();
-  const sp = useEffectEvent(spawnParticle);
-
-  useEffect(() => {
-    if (active) {
-      console.log("spawning particle of color ", activationColor[0]);
-      for (const col of activationColor) {
-        sp(col);
-      }
-    }
-  }, [activationColor, active]);
-
   const bgCol = `${activationColor
-    .map((ac) => `var(${colMap[ac]?.color})`)
+    .map((ac) => `var(${gamepadColors[ac]?.color})`)
     .join(", ")}`;
 
   return (
@@ -45,7 +33,7 @@ export const MusicButton = ({
         active ? ` text-black sm:opacity-100` : "text-blue-500"
       } ${
         active && activationColor.length == 1
-          ? colMap[activationColor[0]].bg
+          ? gamepadColors[activationColor[0]].bg
           : ""
       } `}
       onClick={() => playNote(note, "piano")}

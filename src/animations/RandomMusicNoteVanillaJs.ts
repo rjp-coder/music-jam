@@ -1,4 +1,4 @@
-import { colMap } from "../hooks/useGamepadData";
+import { gamepadColors } from "../utils/gamepadColors";
 import { chooseRandom } from "../utils/utils";
 import { MusicNoteSvg } from "./MusicNoteSvgVanillaJs";
 
@@ -52,8 +52,8 @@ export const RandomMusicNote = ({ className, color, x, y, size }) => {
   //   "#ff9800",
   // ]);
 
-  const gamepadColor = colMap[color]?.color
-    ? `var(${colMap[color].color}) `
+  const gamepadColor = gamepadColors[color]?.color
+    ? `var(${gamepadColors[color].color}) `
     : "silver";
   // console.log("color in RandomMusicNote:", color, ",", gamepadColor);
 

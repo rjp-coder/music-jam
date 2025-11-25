@@ -4,8 +4,8 @@ import { detectGamepadType } from "../utils/controller";
 import {
   getNextAvailableColor,
   getNextAvailableInstrument,
-  type ColMap,
 } from "./useGamepadData";
+import type { GamepadColors } from "../utils/gamepadColors";
 import type { Instruments } from "../utils/audio";
 
 export function useControllerDesync() {
@@ -57,7 +57,7 @@ export function useControllerDesync() {
       const gamepad = {
         index: ng.index,
         type: detectGamepadType(ng),
-        col: "red" as keyof ColMap,
+        col: "red" as keyof GamepadColors,
         instrument: "piano" as keyof Instruments,
         id: ng.id,
         timestamp: ng.timestamp,

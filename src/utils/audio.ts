@@ -68,6 +68,9 @@ export const instruments = {
 };
 
 export type Instruments = typeof instruments;
+
+export type InstrumentName = keyof Instruments;
+
 const instrumentOptions = {
   piano: [4, 0, 0.4],
   saxophone: [0.4, 0, 0.4],

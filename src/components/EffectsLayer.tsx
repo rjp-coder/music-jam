@@ -8,6 +8,8 @@ import {
 } from "../animations/RandomMusicNoteVanillaJs";
 import { chooseRandom } from "../utils/utils";
 
+export type SpawnParticle = (colorOfMusicNote: string) => void;
+
 export default function EffectsLayer({ children }) {
   const layerRef = useRef(null);
 
@@ -19,13 +21,13 @@ export default function EffectsLayer({ children }) {
     };
   }
 
-  const spawnParticle = (mna) => {
+  const spawnParticle = (musicNoteColor: string) => {
     const { windowWidth, windowHeight } = getWindowDimensions();
     const rp = getRandomParams(windowHeight, windowWidth);
     // console.log(rp);
     const props = {
       className: "absolute overflow-visible",
-      color: mna,
+      color: musicNoteColor,
       ...rp,
     };
 
