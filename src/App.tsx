@@ -30,7 +30,7 @@ function App() {
           <h1 className="text-6xl bg-linear-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
             Music Jam
           </h1>
-          <Gamepads musicKey={musicKey} />
+          <Gamepads />
           {toneStarted && <span>🎶🎵🎵</span>}
           {toneStarted && (
             <button
