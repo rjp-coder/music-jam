@@ -39,12 +39,23 @@ export const MusicKeyboardDisplay = ({ musicKey }) => {
       {/* "flex flex-row flex-wrap md:flex-none md:flex-nowrap md:grid md:grid-rows-4 md:grid-cols-9 md:-mt-18 mb-auto" */}
       <MusicalOctaveDisplay
         className={standardClass + " " + topClass}
-        octave={5}
+        octave={6}
         {...commonProps}
         keyboardMappings={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
         controllerMappings={[
           null,
-          ...agnosticKeysClimbingTheScale.slice(16, 24),
+          ...agnosticKeysClimbingTheScale.slice(14, 21),
+          null,
+        ]}
+      />
+      <MusicalOctaveDisplay
+        className={standardClass}
+        octave={5}
+        {...commonProps}
+        keyboardMappings={["q", "w", "e", "r", "t", "y", "u", "i", "o"]}
+        controllerMappings={[
+          null,
+          ...agnosticKeysClimbingTheScale.slice(7, 14),
           null,
         ]}
       />
@@ -52,27 +63,16 @@ export const MusicKeyboardDisplay = ({ musicKey }) => {
         className={standardClass}
         octave={4}
         {...commonProps}
-        keyboardMappings={["q", "w", "e", "r", "t", "y", "u", "i", "o"]}
-        controllerMappings={[
-          null,
-          ...agnosticKeysClimbingTheScale.slice(8, 16),
-          null,
-        ]}
-      />
-      <MusicalOctaveDisplay
-        className={standardClass}
-        octave={3}
-        {...commonProps}
         keyboardMappings={["a", "s", "d", "f", "g", "h", "j", "k", "l"]}
         controllerMappings={[
           null,
-          ...agnosticKeysClimbingTheScale.slice(0, 8),
+          ...agnosticKeysClimbingTheScale.slice(0, 7),
           null,
         ]}
       />
       <MusicalOctaveDisplay
         className={standardClass + " " + bottomClass}
-        octave={2}
+        octave={3}
         {...commonProps}
         keyboardMappings={["z", "x", "c", "v", "b", "n", "m", ",", "."]}
         controllerMappings={[
