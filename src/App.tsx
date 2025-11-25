@@ -60,16 +60,14 @@ export default App;
 
 //TODOS
 //TODO add option to disable controller
-//TODO run some sort of event loop for controller inputs (100ms set interval is not acceptable)
 
 //OPTIONAL TODOS
-//TODO show the controller button pressed
 //TODO PWA -- make the whole thing saved and workable offline
 //TODO status -- show audio context loaded, controllers connected, correct browser,
 //TODO ...assets loaded, stable wifi connection
 //TODO add configurable permissions to lock controller functionality and disable some
-//TODO for notes hit twice -- color it in twice! And thrice etc.
 //TODO make sustain work on the notes
 //TODO add per-note per-instrument volume dampening/amplification in audio.ts (samples shifted an octave can be too quiet)
-
+//TODO Make the mouse and keyboard instrument and colour both configurable
+//TODO rainbow outline on keys, particle effect on keypress
 //TODO allow gamepad to be able to change its own instrument and colour using the right stick.
