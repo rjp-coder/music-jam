@@ -10,15 +10,16 @@ import {
   xboxToAgnosticMappings,
 } from "../utils/controller";
 import type { GamepadData } from "./useGamepad";
-import { playNote } from "../utils/audio";
+import { playNote, type Instruments } from "../utils/audio";
 import { MusicalKeyContext } from "../AppContexts";
 import { agnosticKeysClimbingTheScale } from "../components/MusicKeyDisplay";
 import { getValidNotesInKey } from "../utils/notes";
+import { ConnectedGamepadsContext } from "../AppContexts";
 
 export type GamepadInput = {
-  nativeBtn: number;
+  nativeBtn?: number;
   nativeLabel?: string;
-  mapping: GamepadData["type"];
+  mapping?: GamepadData["type"];
   btn: number;
   gamepadIndex: number;
   btnLabel?: string;
@@ -28,6 +29,7 @@ export function useGamepadInputs(): GamepadInput[] {
   const initialGamepadInputs: GamepadInput[] = [];
   const [gamepadInputs, setGamepadInputs] = useState(initialGamepadInputs);
   const [musicalKey] = useContext(MusicalKeyContext);
+  const { connectedGamePads } = useContext(ConnectedGamepadsContext);
 
   function handleInputs() {
     const gamepads = navigator.getGamepads();
@@ -173,7 +175,10 @@ export function useGamepadInputs(): GamepadInput[] {
 
       //for each new input, play note
       for (const ni of newInputs) {
-        playNote(determineNote(musicalKey, ni.btnLabel), determineInstrument());
+        playNote(
+          determineNote(musicalKey, ni.btnLabel),
+          determineInstrument(ni.gamepadIndex, connectedGamePads)
+        );
       }
 
       setGamepadInputs(newGamepadInputs);
@@ -184,7 +189,8 @@ export function useGamepadInputs(): GamepadInput[] {
     const interval = setInterval(handleInputs, 50);
     return () => clearInterval(interval);
   });
-  return [gamepadInputs];
+
+  return gamepadInputs;
 }
 
 function getAgnosticControllerBtnLabel(index) {
@@ -239,6 +245,12 @@ function determineNote(musicalKey: string, agnosticControllerBtnLabel: string) {
   return notes[scalePosition];
 }
 
-function determineInstrument() {
-  return "piano";
+function determineInstrument(
+  gamepadIndex: number,
+  connectedGamePads
+): keyof Instruments {
+  const eventConnectedGamepads: GamepadData = connectedGamePads.find(
+    (gp) => gp.index === gamepadIndex
+  );
+  return eventConnectedGamepads.instrument;
 }
