@@ -16,7 +16,7 @@ export const MusicKeyboardDisplay = ({ musicKey }) => {
 
   const commonProps = {
     musicKey: musicKey,
-    minorType: "melodic",
+    minorType: "natural",
     leftPad: 1,
     rightPad: 1,
     activeKeys: activeKeys || [],
