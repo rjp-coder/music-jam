@@ -3,7 +3,7 @@ export const getAllNotes = () => {
 };
 
 export const getAllMusicalKeys = () => {
-  return "a am a# a#m b bm c cm c# c#m d dm d# d#m e e#m f fm f# f#m g gm g# g#m".split(
+  return "a am a# a#m b bm c cm c# c#m d dm d# d#m e em f fm f# f#m g gm g# g#m".split(
     " "
   );
 };
