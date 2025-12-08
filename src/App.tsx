@@ -8,6 +8,7 @@ import { useAudioUnlock } from "./hooks/useAudioContext";
 import { useGamepadData } from "./hooks/useGamepadData";
 import { hello } from "./utils/audio";
 import Tone from "./utils/audio.ts";
+import { BrowserCheck } from "./components/BrowserCheck.tsx";
 
 function App() {
   const [toneStarted] = useState(false);
@@ -30,6 +31,7 @@ function App() {
           <h1 className="text-6xl bg-linear-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
             Music Jam
           </h1>
+          <BrowserCheck />
           <Gamepads />
           {toneStarted && <span>🎶🎵🎵</span>}
           {toneStarted && (
@@ -64,8 +66,7 @@ export default App;
 //OPTIONAL TODOS
 //TODO PWA -- make the whole thing saved and workable offline
 //TODO detect "half of a switch controller"
-//TODO status -- show audio context loaded, controllers connected, correct browser,
-//TODO ...assets loaded, stable wifi connection
+//TODO show status ...assets loaded, stable wifi connection
 //TODO add configurable permissions to lock controller functionality and disable some
 //TODO make sustain work on the notes
 //TODO add per-note per-instrument volume dampening/amplification in audio.ts (samples shifted an octave can be too quiet)
