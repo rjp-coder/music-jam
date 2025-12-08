@@ -9,12 +9,16 @@ import { useGamepadData } from "./hooks/useGamepadData";
 import { hello } from "./utils/audio";
 import Tone from "./utils/audio.ts";
 import { BrowserCheck } from "./components/BrowserCheck.tsx";
+import { useIsOnline } from "./hooks/useIsOnline.ts";
 
 function App() {
   const [toneStarted] = useState(false);
   const [musicKey, setMusicKey] = useState("C");
   const gamepadContextVal = useGamepadData();
   const { isAudioUnlocked } = useAudioUnlock();
+  const { isOnline, effectiveNetworkType } = useIsOnline();
+
+  const isSlow = ["slow-2g", "2g", "3g"].includes(effectiveNetworkType);
 
   return (
     <div className="flex items-center flex-col">
@@ -28,10 +32,17 @@ function App() {
       )}
       <MusicalKeyContext value={[musicKey, setMusicKey]}>
         <ConnectedGamepadsContext value={gamepadContextVal}>
-          <h1 className="text-6xl bg-linear-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
+          <h1 className="text-6xl bg-linear-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text mb-4">
             Music Jam
           </h1>
           <BrowserCheck />
+          {!isOnline && <p>(You are offline)</p>}
+          {isOnline && isSlow && (
+            <p>
+              (Your connection is slow. Instrument sounds may take some time to
+              load)
+            </p>
+          )}
           <Gamepads />
           {toneStarted && <span>🎶🎵🎵</span>}
           {toneStarted && (

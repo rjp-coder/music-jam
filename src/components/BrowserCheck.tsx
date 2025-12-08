@@ -14,7 +14,7 @@ export const BrowserCheck = () => {
   if (browserType == "chrome") return;
 
   return (
-    <div className="bg-amber-300 border-2 border-black text-black rounded-sm p-2 mt-4">
+    <div className="bg-amber-300 border-2 border-black text-black rounded-sm p-2 mb-2">
       <p>
         {`It looks like you are using ${
           browserType ? titleCase(browserType) : " an unknown browser"
