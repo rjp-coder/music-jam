@@ -1,3 +1,4 @@
+import { useFX } from "../Contexts/EffectsLayerContext";
 import { playNote } from "../utils/audio";
 import { gamepadColors, type GamepadColors } from "../utils/gamepadColors";
 
@@ -15,6 +16,7 @@ export const MusicButton = ({
   const bgCol = `${activationColor
     .map((ac) => `var(${gamepadColors[ac]?.color})`)
     .join(", ")}`;
+  const { spawnParticle } = useFX();
 
   return (
     <div
@@ -37,6 +39,10 @@ export const MusicButton = ({
       onTouchStart={(e) => {
         e.preventDefault();
         playNote(note, "piano");
+        spawnParticle("yellow");
+      }}
+      onTouchEnd={(e) => {
+        e.preventDefault();
       }}
     >
       {note}
