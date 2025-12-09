@@ -28,7 +28,7 @@ export const MusicButton = ({
             }
           : {}
       }
-      className={`h-14 md:h-9 select-none  ${className} ${
+      className={`h-14 touch-none md:h-9 select-none  ${className} ${
         active ? ` text-black sm:opacity-100` : "text-blue-500"
       } ${
         active && activationColor.length == 1
@@ -38,11 +38,19 @@ export const MusicButton = ({
       onClick={() => playNote(note, "piano")}
       onTouchStart={(e) => {
         e.preventDefault();
+        const inputTarget = e.target as HTMLDivElement;
+        const cssVariables = window.getComputedStyle(document.body);
+        const yellow = cssVariables.getPropertyValue(
+          gamepadColors.yellow.color
+        );
+        inputTarget.style.backgroundColor = `${yellow}`;
         playNote(note, "piano");
         spawnParticle("yellow");
       }}
       onTouchEnd={(e) => {
         e.preventDefault();
+        const inputTarget = e.target as HTMLDivElement;
+        inputTarget.style.backgroundColor = "";
       }}
     >
       {note}
