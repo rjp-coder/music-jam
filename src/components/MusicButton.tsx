@@ -28,7 +28,7 @@ export const MusicButton = ({
             }
           : {}
       }
-      className={`select-none  ${className} ${
+      className={`h-14 md:h-9 select-none  ${className} ${
         active ? ` text-black sm:opacity-100` : "text-blue-500"
       } ${
         active && activationColor.length == 1
