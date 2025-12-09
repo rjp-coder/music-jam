@@ -21,8 +21,8 @@ export function useIsOnline() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (navigator.connection && navigator.connection.effectiveType) {
-        setEffectiveNetworkType(navigator.connection.effectiveType);
+      if (navigator?.connection && navigator?.connection?.effectiveType) {
+        setEffectiveNetworkType(navigator?.connection?.effectiveType);
       }
     }, 1000);
 

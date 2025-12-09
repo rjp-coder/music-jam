@@ -80,6 +80,14 @@ const instrumentOptions = {
   flute: [1, 0, 1],
 };
 
+export const checkInstrumentsLoaded = () => {
+  const status = {};
+  for (const key in instruments) {
+    status[key] = instruments[key].loaded;
+  }
+  return status;
+};
+
 export const hello = () => {
   //create a synth and connect it to the main output (your speakers)
   //   const synth = new Tone.Synth().toDestination();

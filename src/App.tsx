@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { ConnectedGamepadsContext, MusicalKeyContext } from "./AppContexts";
+import { BrowserCheck } from "./components/BrowserCheck.tsx";
 import { Gamepads } from "./components/GamePads";
+import { InstrumentsLoading } from "./components/InstrumentsLoading.tsx";
 import { KeySelector } from "./components/KeySelector";
 import { MusicKeyboardDisplay } from "./components/MusicKeyDisplay";
 import { Version } from "./components/Version";
 import { useAudioUnlock } from "./hooks/useAudioContext";
 import { useGamepadData } from "./hooks/useGamepadData";
+import { useIsOnline } from "./hooks/useIsOnline.ts";
 import { hello } from "./utils/audio";
 import Tone from "./utils/audio.ts";
-import { BrowserCheck } from "./components/BrowserCheck.tsx";
-import { useIsOnline } from "./hooks/useIsOnline.ts";
 
 function App() {
   const [toneStarted] = useState(false);
@@ -20,6 +21,13 @@ function App() {
 
   const isSlow = ["slow-2g", "2g", "3g"].includes(effectiveNetworkType);
 
+  const offlineInternetFooter = <span className="text-red-600">Offline</span>;
+  const slowInternetFooter = (
+    <span className="text-amber-400">{effectiveNetworkType}</span>
+  );
+  const fastInternetFooter = (
+    <span className="text-green-600">{effectiveNetworkType || "Online"}</span>
+  );
   return (
     <div className="flex items-center flex-col">
       {!isAudioUnlocked && (
@@ -30,19 +38,14 @@ function App() {
           Click here to enable audio
         </p>
       )}
+
       <MusicalKeyContext value={[musicKey, setMusicKey]}>
         <ConnectedGamepadsContext value={gamepadContextVal}>
           <h1 className="text-6xl bg-linear-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text mb-4">
             Music Jam
           </h1>
           <BrowserCheck />
-          {!isOnline && <p>(You are offline)</p>}
-          {isOnline && isSlow && (
-            <p>
-              (Your connection is slow. Instrument sounds may take some time to
-              load)
-            </p>
-          )}
+          <InstrumentsLoading />
           <Gamepads />
           {toneStarted && <span>🎶🎵🎵</span>}
           {toneStarted && (
@@ -62,7 +65,17 @@ function App() {
           <MusicKeyboardDisplay musicKey={musicKey} />
         </ConnectedGamepadsContext>
       </MusicalKeyContext>
-      <footer className=" w-auto">
+      <footer className=" w-auto text-sm">
+        {
+          <p>
+            Internet Connection{" "}
+            {isOnline
+              ? isSlow
+                ? slowInternetFooter
+                : fastInternetFooter
+              : offlineInternetFooter}
+          </p>
+        }
         <Version />
       </footer>
     </div>
