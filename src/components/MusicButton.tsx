@@ -37,7 +37,6 @@ export const MusicButton = ({
       } `}
       onClick={() => playNote(note, "piano")}
       onTouchStart={(e) => {
-        e.preventDefault();
         const inputTarget = e.target as HTMLDivElement;
         const cssVariables = window.getComputedStyle(document.body);
         const yellow = cssVariables.getPropertyValue(
