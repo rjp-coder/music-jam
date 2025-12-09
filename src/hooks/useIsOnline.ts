@@ -8,7 +8,7 @@ type ChromiumNavigator = Navigator & { connection?: { effectiveType: string } };
 export function useIsOnline() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [effectiveNetworkType, setEffectiveNetworkType] = useState(
-    (navigator as ChromiumNavigator).connection!.effectiveType
+    (navigator as ChromiumNavigator).connection?.effectiveType
   );
 
   useEffect(() => {

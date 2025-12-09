@@ -65,7 +65,7 @@ function App() {
           <MusicKeyboardDisplay musicKey={musicKey} />
         </ConnectedGamepadsContext>
       </MusicalKeyContext>
-      <footer className=" w-auto text-sm">
+      <footer className=" w-auto text-sm mt-4 ">
         {
           <p>
             Internet Connection{" "}
@@ -85,12 +85,14 @@ function App() {
 export default App;
 
 //TODOS
-//TODO add option to disable controller
+//FIXME Mobile viewport notes stay at top left of window, but should follow viewport.
+//FIXME dragging the finger across on a mobile device should ideally hit all the keys
+//TODO Make the Browser banner dismissable
 
 //OPTIONAL TODOS
+//TODO add option to disable controller
 //TODO PWA -- make the whole thing saved and workable offline
 //TODO detect "half of a switch controller"
-//TODO show status ...assets loaded, stable wifi connection
 //TODO add configurable permissions to lock controller functionality and disable some
 //TODO make sustain work on the notes
 //TODO add per-note per-instrument volume dampening/amplification in audio.ts (samples shifted an octave can be too quiet)
