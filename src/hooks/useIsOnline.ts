@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 
+/**
+ * Only Chromium browsers support a navigator object with a connection.
+ */
+type ChromiumNavigator = Navigator & { connection?: { effectiveType: string } };
+
 export function useIsOnline() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [effectiveNetworkType, setEffectiveNetworkType] = useState(
-    navigator?.connection?.effectiveType
+    (navigator as ChromiumNavigator).connection!.effectiveType
   );
 
   useEffect(() => {
@@ -20,9 +25,13 @@ export function useIsOnline() {
   }, []);
 
   useEffect(() => {
+    const chromiumNavigator = navigator as ChromiumNavigator;
     const intervalId = setInterval(() => {
-      if (navigator?.connection && navigator?.connection?.effectiveType) {
-        setEffectiveNetworkType(navigator?.connection?.effectiveType);
+      if (
+        chromiumNavigator.connection &&
+        chromiumNavigator.connection?.effectiveType
+      ) {
+        setEffectiveNetworkType(chromiumNavigator.connection?.effectiveType);
       }
     }, 1000);
 
