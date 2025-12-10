@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+// https://vike.dev/onRenderHtml
+
+export { onRenderHtml };
+
+import { escapeInject } from "vike/server";
+
+async function onRenderHtml() {
+  return escapeInject`
+  <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,6 +16,6 @@
   </head>
   <body class="m-0 flex place-items-center min-w-xs min-h-lvh">
     <div id="root" class="my-0 mx-auto p-8 text-center max-w-7xl"></div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
-</html>
+</html>`;
+}
