@@ -1,6 +1,10 @@
 //import * as Tone from "tone";
 
-export default {};
+export default {
+  getContext: () => {
+    return { state: "running", resume: () => {} };
+  },
+};
 
 export const instruments = {
   piano: "piano",
@@ -23,6 +27,8 @@ const instrumentOptions = {
   guitar: [2, 0, 0.5],
   flute: [1, 0, 1],
 };
+
+console.log(instrumentOptions);
 
 export const checkInstrumentsLoaded = () => {
   return { piano: true, xylophone: false };

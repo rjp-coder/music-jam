@@ -22,6 +22,16 @@ export default defineConfig({
   define: {
     __BUILD_VERSION__: JSON.stringify(new Date().toISOString()),
   },
-  plugins: [react(), tailwindcss(), visualizer(), versionPlugin(), vike()],
+  ssr: {
+    // Add problematic npm package here:
+    noExternal: ["tone"],
+  },
+  plugins: [
+    react(),
+    tailwindcss(),
+    visualizer(),
+    versionPlugin(),
+    vike({ prerender: true }),
+  ],
   // test: { include: ["./src/**/*.test.tsx?"] },
 });

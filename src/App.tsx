@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { ConnectedGamepadsContext, MusicalKeyContext } from "./AppContexts";
+import { ConnectedGamepadsContext, MusicalKeyContext } from "./AppContexts.ts";
 import { BrowserCheck } from "./components/BrowserCheck.tsx";
-import { Gamepads } from "./components/GamePads";
+import { Gamepads } from "./components/GamePads.tsx";
 import { InstrumentsLoading } from "./components/InstrumentsLoading.tsx";
-import { KeySelector } from "./components/KeySelector";
-import { MusicKeyboardDisplay } from "./components/MusicKeyDisplay";
-import { Version } from "./components/Version";
-import { useAudioUnlock } from "./hooks/useAudioContext";
-import { useGamepadData } from "./hooks/useGamepadData";
+import { KeySelector } from "./components/KeySelector.tsx";
+import { MusicKeyboardDisplay } from "./components/MusicKeyDisplay.tsx";
+import { Version } from "./components/Version.tsx";
+import { useAudioUnlock } from "./hooks/useAudioContext.ts";
+import { useGamepadData } from "./hooks/useGamepadData.ts";
 import { useIsOnline } from "./hooks/useIsOnline.ts";
-import { hello } from "./utils/audio";
 import Tone from "./utils/audio.ts";
 
 function App() {
@@ -48,15 +47,6 @@ function App() {
           <InstrumentsLoading />
           <Gamepads />
           {toneStarted && <span>🎶🎵🎵</span>}
-          {toneStarted && (
-            <button
-              onClick={() => {
-                hello();
-              }}
-            >
-              Play Note
-            </button>
-          )}
 
           <KeySelector
             musicKey={musicKey}

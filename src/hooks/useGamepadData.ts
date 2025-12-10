@@ -1,4 +1,4 @@
-import { instruments } from "../utils/audio";
+import { instruments } from "../utils/audio.ts";
 import type { GamepadColors } from "../utils/gamepadColors";
 import { gamepadColors } from "../utils/gamepadColors";
 import { useGamepad, type GamepadData } from "./useGamepad";
