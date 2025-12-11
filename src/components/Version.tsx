@@ -51,7 +51,7 @@ export const Version = () => {
   return (
     <div>
       <span className="text-sm ">
-        {"version: " + getShorterTimestamp(__BUILD_VERSION__)}
+        {"Version: " + getShorterTimestamp(__BUILD_VERSION__)}
       </span>
       {newV && (
         <motion.span
@@ -72,7 +72,7 @@ export const Version = () => {
             ease: "linear",
           }}
         >
-          {" ⇒ " + "version: " + getShorterTimestamp(newV) + " available"}
+          {" ⇒ " + "Version: " + getShorterTimestamp(newV) + " available"}
         </motion.span>
       )}
     </div>

@@ -1,7 +1,9 @@
 import { useInstrumentsLoaded } from "../hooks/useInstrumentsLoaded";
 
-export const InstrumentsLoading = () => {
+export const LoadingProgress = () => {
   const { instruments, getProgress, isLoading } = useInstrumentsLoaded();
+  const thisIsABrowser = globalThis.window;
+  if (!thisIsABrowser) return <p>Loading (javascript) </p>;
   if (!isLoading()) return;
   const { loaded, total } = getProgress();
   return (

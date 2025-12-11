@@ -1,5 +1,6 @@
 export const BrowserCheck = () => {
   const browser = navigator.userAgent.toLowerCase();
+  const thisIsABrowser = globalThis.window;
   let browserType = "";
   if (browser.includes("firefox")) {
     browserType = "firefox";
@@ -11,6 +12,7 @@ export const BrowserCheck = () => {
     browserType = "safari";
   }
 
+  if (!thisIsABrowser) return;
   if (browserType == "chrome") return;
 
   return (

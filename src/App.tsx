@@ -2,34 +2,25 @@ import { useState } from "react";
 import { ConnectedGamepadsContext, MusicalKeyContext } from "./AppContexts.ts";
 import { BrowserCheck } from "./components/BrowserCheck.tsx";
 import { Gamepads } from "./components/GamePads.tsx";
-import { InstrumentsLoading } from "./components/InstrumentsLoading.tsx";
+import { LoadingProgress } from "./components/InstrumentsLoading.tsx";
 import { KeySelector } from "./components/KeySelector.tsx";
 import { MusicKeyboardDisplay } from "./components/MusicKeyDisplay.tsx";
 import { Version } from "./components/Version.tsx";
 import { useAudioUnlock } from "./hooks/useAudioContext.ts";
 import { useGamepadData } from "./hooks/useGamepadData.ts";
-import { useIsOnline } from "./hooks/useIsOnline.ts";
 import Tone from "./utils/audio.ts";
+import { NetworkStatus } from "./components/NetworkStatus.tsx";
 
 function App() {
   const [toneStarted] = useState(false);
   const [musicKey, setMusicKey] = useState("C");
   const gamepadContextVal = useGamepadData();
   const { isAudioUnlocked } = useAudioUnlock();
-  const { isOnline, effectiveNetworkType } = useIsOnline();
+  const thisIsABrowser = globalThis.window;
 
-  const isSlow = ["slow-2g", "2g", "3g"].includes(effectiveNetworkType);
-
-  const offlineInternetFooter = <span className="text-red-600">Offline</span>;
-  const slowInternetFooter = (
-    <span className="text-amber-400">{effectiveNetworkType}</span>
-  );
-  const fastInternetFooter = (
-    <span className="text-green-600">{effectiveNetworkType || "Online"}</span>
-  );
   return (
     <div className="flex items-center flex-col">
-      {!isAudioUnlocked && (
+      {!isAudioUnlocked && thisIsABrowser && (
         <p
           onClick={() => Tone.getContext().resume()}
           className="cursor-pointer"
@@ -44,7 +35,7 @@ function App() {
             Music Jam
           </h1>
           <BrowserCheck />
-          <InstrumentsLoading />
+          <LoadingProgress />
           <Gamepads />
           {toneStarted && <span>🎶🎵🎵</span>}
 
@@ -56,16 +47,7 @@ function App() {
         </ConnectedGamepadsContext>
       </MusicalKeyContext>
       <footer className=" w-auto text-sm mt-4 ">
-        {
-          <p>
-            Internet Connection{" "}
-            {isOnline
-              ? isSlow
-                ? slowInternetFooter
-                : fastInternetFooter
-              : offlineInternetFooter}
-          </p>
-        }
+        <NetworkStatus />
         <Version />
       </footer>
     </div>
