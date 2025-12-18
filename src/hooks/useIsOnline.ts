@@ -44,7 +44,5 @@ export function useIsOnline() {
       clearInterval(intervalId);
     };
   }, []);
-
-  console.log(isOnline);
   return { isOnline, effectiveNetworkType };
 }
