@@ -4,12 +4,14 @@ export const LoadingProgress = () => {
   const { instruments, getProgress, isLoading } = useInstrumentsLoaded();
   const thisIsABrowser = globalThis.window;
   if (!thisIsABrowser)
-    return <p className="text-orange-400 text-xl">Loading (javascript) </p>;
+    return (
+      <p className="text-orange-400 text-xl -mt-4">Loading (javascript) </p>
+    );
   const { loaded, total } = getProgress();
   return (
     <details>
       <summary
-        className={`text-xl ${!isLoading() && "invisible"}`}
+        className={`text-xl -mt-4 ${!isLoading() && "invisible"}`}
       >{`Loading instruments (${loaded}/${total})`}</summary>
       <ul>
         {Object.entries(instruments).map((il) => {
