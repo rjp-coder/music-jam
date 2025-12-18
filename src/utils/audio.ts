@@ -1,44 +1,41 @@
-//import * as Tone from "tone";
+import type Tone from "../utils/audio.client.ts";
 
-export default {
-  getContext: () => {
-    return { state: "running", resume: () => {} };
-  },
+let toneJs;
+// let audio;
+let instruments, checkInstrumentsLoaded, playNote;
+
+type InstrumentName =
+  | "piano"
+  | "saxophone"
+  | "xylophone"
+  | "harp"
+  | "guitar"
+  | "flute";
+
+type Instruments = {
+  [index in InstrumentName]: Tone.Sampler;
 };
 
-export const instruments = {
-  piano: "piano",
-  saxophone: "saxophone",
-  xylophone: "xylophone",
-  harp: "harp",
-  guitar: "guitar",
-  flute: "flute",
-};
+if (import.meta.env.SSR) {
+  // Imports server-stub
+  toneJs = (await import("../utils/audio.server.ts")).default;
+  // audio = await import("../utils/audio.server.ts");
+  instruments = (await import("../utils/audio.server.ts")).instruments;
+  checkInstrumentsLoaded = (await import("../utils/audio.server.ts"))
+    .checkInstrumentsLoaded;
+  playNote = (await import("../utils/audio.server.ts")).playNote;
+} else {
+  // Imports actual client version
+  toneJs = (await import("../utils/audio.client.ts")).default;
+  // audio = await import("../utils/audio.client.ts");
+  instruments = (await import("../utils/audio.client.ts")).instruments;
+  checkInstrumentsLoaded = (await import("../utils/audio.client.ts"))
+    .checkInstrumentsLoaded;
+  playNote = (await import("../utils/audio.client.ts")).playNote;
+}
 
-export type Instruments = typeof instruments;
+export { instruments, checkInstrumentsLoaded, playNote };
 
-export type InstrumentName = keyof Instruments;
+export type { InstrumentName, Instruments };
 
-const instrumentOptions = {
-  piano: [4, 0, 0.4],
-  saxophone: [0.4, 0, 0.4],
-  xylophone: [2, 1, 4],
-  harp: [2, 0.4, 1],
-  guitar: [2, 0, 0.5],
-  flute: [1, 0, 1],
-};
-
-console.log(instrumentOptions);
-
-export const checkInstrumentsLoaded = () => {
-  return { piano: true, xylophone: false };
-};
-
-export const hello = () => {
-  console.log("Hello function called");
-};
-
-export const playNote = (note: string, instrumentName: keyof Instruments) => {
-  note = note.toUpperCase();
-  console.log("playing note " + note + "with instrument " + instrumentName);
-};
+export default toneJs;

@@ -1,5 +1,5 @@
 import * as Tone from "tone";
-import { getValidNotesInKey } from "./notes";
+import type { Instruments } from "./audio";
 
 export default Tone;
 
@@ -58,7 +58,7 @@ const flute = new Tone.Sampler({
   baseUrl: baseUrl,
 }).toDestination();
 
-export const instruments = {
+export const instruments: Instruments = {
   piano,
   saxophone,
   xylophone,
@@ -66,10 +66,6 @@ export const instruments = {
   guitar,
   flute,
 };
-
-export type Instruments = typeof instruments;
-
-export type InstrumentName = keyof Instruments;
 
 const instrumentOptions = {
   piano: [4, 0, 0.4],
@@ -86,28 +82,6 @@ export const checkInstrumentsLoaded = () => {
     status[key] = instruments[key].loaded;
   }
   return status;
-};
-
-export const hello = () => {
-  //create a synth and connect it to the main output (your speakers)
-  //   const synth = new Tone.Synth().toDestination();
-
-  //play a middle 'C' for the duration of an 8th note
-  //synth.triggerAttackRelease("C4", "8n");
-
-  console.log("clicked play note");
-  const musicalKey = "F#m";
-  const notes = getValidNotesInKey(musicalKey);
-  console.log("Valid notes in key " + musicalKey + ": " + notes);
-
-  piano.triggerAttackRelease(
-    [
-      notes[1].toUpperCase() + "4",
-      notes[5].toUpperCase() + "4",
-      notes[3].toUpperCase() + "4",
-    ],
-    4
-  );
 };
 
 export const playNote = (note: string, instrumentName: keyof Instruments) => {

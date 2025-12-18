@@ -1,7 +1,12 @@
-import { instruments } from "../utils/audio.ts";
+import {
+  instruments as untypedInstruments,
+  type Instruments,
+} from "../utils/audio.ts";
 import type { GamepadColors } from "../utils/gamepadColors";
 import { gamepadColors } from "../utils/gamepadColors";
 import { useGamepad, type GamepadData } from "./useGamepad";
+
+const instruments = untypedInstruments as Instruments;
 
 export type GamepadHookData = {
   connectedGamePads: GamepadData[];
@@ -96,10 +101,14 @@ export function getNextAvailableColor(
 
 /**
  * Each gamepad can have an assigned instrument but there are limited
- * colours available.
+ * instruments available.
  *
  * This function finds the next "free" instrument to use: that is to
  * say the next instrument that is not occupied by another gamepad.
+ *
+ * It might be fine to have two controllers playing the same instrument,
+ * but the intention is that, upon joining, they are given a different
+ * instrument by default.
  *
  * @param connectedGamePads All connected gamepads
  * @param gamepadIndex The id of the gamepad whose instrument we want to alter
