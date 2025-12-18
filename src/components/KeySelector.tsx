@@ -2,7 +2,7 @@ import { getAllMusicalKeys } from "../utils/utils";
 
 export const KeySelector = ({ musicKey, setMusicKey }) => {
   return (
-    <div className="mt-8 text-center -ml-20 text-2xl mb-4">
+    <div className="text-center -ml-20 text-2xl mb-4">
       <span>Key</span>
       <div className="text-center   absolute -mt-10 ml-15 pt-2.5    ">
         <span
