@@ -24,7 +24,7 @@ export const KeySelector = ({ musicKey, setMusicKey }) => {
           e.target.blur();
           setMusicKey(e.target?.value);
         }}
-        className="bg-transparent absolute text-center rounded-full z-2 w-12 h-12 ml-2.5 -mt-1 border-2 border-white capitalize text-transparent "
+        className="select-none bg-transparent absolute text-center rounded-full z-2 w-12 h-12 ml-2.5 -mt-1 border-2 border-white capitalize text-transparent "
       >
         {getAllMusicalKeys().map((note) => (
           <option className="bg-gray-900 text-white" value={note} key={note}>
