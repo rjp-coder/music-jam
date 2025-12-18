@@ -35,7 +35,10 @@ export const MusicButton = ({
           ? gamepadColors[activationColor[0]].bg
           : ""
       } `}
-      onClick={() => playNote(note, "piano")}
+      onClick={() => {
+        playNote(note, "piano");
+        spawnParticle("yellow");
+      }}
       onTouchStart={(e) => {
         const inputTarget = e.target as HTMLDivElement;
         const cssVariables = window.getComputedStyle(document.body);
