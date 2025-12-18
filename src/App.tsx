@@ -19,14 +19,16 @@ function App() {
   const thisIsABrowser = globalThis.window;
 
   return (
-    <div className="flex items-center flex-col">
+    <div className="flex items-center flex-col ">
       {!isAudioUnlocked && thisIsABrowser && (
-        <p
-          onClick={() => Tone.getContext().resume()}
-          className="cursor-pointer"
-        >
-          Click here to enable audio
-        </p>
+        <div className="absolute">
+          <p
+            onClick={() => Tone.getContext().resume()}
+            className="cursor-pointer -mt-4"
+          >
+            Click here to enable audio
+          </p>
+        </div>
       )}
 
       <MusicalKeyContext value={[musicKey, setMusicKey]}>
