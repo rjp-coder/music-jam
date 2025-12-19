@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { useInstrumentsLoaded } from "../hooks/useInstrumentsLoaded";
 
 export const LoadingProgress = () => {
@@ -10,10 +11,27 @@ export const LoadingProgress = () => {
   const { loaded, total } = getProgress();
   return (
     <details>
-      <summary
-        className={`text-xl -mt-4 ${!isLoading() && "invisible"}`}
-      >{`Loading instruments (${loaded}/${total})`}</summary>
-      <ul>
+      <motion.summary
+        className={`text-xl -mt-4 ${!isLoading() && "visible"}`}
+        animate={isLoading() ? {} : { opacity: 0 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.5,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
+        {isLoading()
+          ? `Loading instruments (${loaded}/${total})`
+          : `Instruments Loaded!`}
+      </motion.summary>
+      <motion.ul
+        transition={{
+          duration: 0.8,
+          delay: 0.5,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+        animate={isLoading() ? {} : { opacity: 0, display: "none" }}
+      >
         {Object.entries(instruments).map((il) => {
           const [k, v] = il;
           return (
@@ -22,7 +40,7 @@ export const LoadingProgress = () => {
             </li>
           );
         })}
-      </ul>
+      </motion.ul>
     </details>
   );
 };
