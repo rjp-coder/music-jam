@@ -29,9 +29,9 @@ export const MusicKeyboardDisplay = ({ musicKey }) => {
       }) || [],
   };
 
-  const topClass = `" max-sm:rotate-y-60 max-sm:-ml-4 sm:rotate-x-60 sm:mt-2 sm:-mb-2 opacity-10 hover:opacity-100 active:opacity-100"`;
-  const standardClass = ` p-1 border-white border-2 rounded-2xl min-w-16 max-w-16 max-h-10 cursor-pointer hover:bg-yellow-300 hover:text-black active:bg-yellow-500`;
-  const bottomClass = `max-sm:-rotate-y-60 max-sm:-mr-4 sm:-rotate-x-60 sm:-mt-2 sm:mb-2 opacity-10 hover:opacity-100 active:opacity-100`;
+  const topClass = `" max-sm:rotate-y-60 max-sm:-ml-4 sm:rotate-x-60 sm:mt-2 sm:-mb-2 opacity-20 hover:opacity-100 active:opacity-100"`;
+  const standardClass = ` p-1 dark:border-white border-gray-500 border-2 rounded-2xl min-w-16 max-w-16 max-h-10 cursor-pointer hover:bg-yellow-300 hover:text-black active:bg-yellow-500`;
+  const bottomClass = `max-sm:-rotate-y-60 max-sm:-mr-4 sm:-rotate-x-60 sm:-mt-2 sm:mb-2 opacity-20 hover:opacity-100 active:opacity-100`;
 
   return (
     <div className="max-sm:flex max-sm:flex-row-reverse max-sm:flex-nowrap max-sm:mt-6 ">
