@@ -7,6 +7,8 @@ import { escapeInject, dangerouslySkipEscape } from "vike/server";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
+const ROOT_URL = import.meta.env.BASE_URL;
+
 async function onRenderHtml(pageContext: PageContextServer) {
   const { Page, data } = pageContext;
   const pageHtml = await renderToStaticMarkup(createElement(Page, data));
@@ -15,7 +17,7 @@ async function onRenderHtml(pageContext: PageContextServer) {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="${ROOT_URL}/manifest.json">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>music-jam</title>
   </head>

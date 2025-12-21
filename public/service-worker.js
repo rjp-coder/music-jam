@@ -4,15 +4,17 @@ This is just an example for caching. It is not necessary to make a pwa but it he
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open("my-cache").then((cache) => {
-      return cache.addAll([
-        "/",
-        "/index.html",
-        "/Page.css",
-        "/scripts.js",
-        // Add any other assets you want to cache
-      ]);
-    })
+    caches
+      .open("my-cache")
+      .then((cache) => {
+        return cache.addAll([
+          "/",
+          "/index.html",
+          // "/Page.css",
+          // Add any other assets you want to cache
+        ]);
+      })
+      .catch((e) => console.error(e))
   );
 });
 
