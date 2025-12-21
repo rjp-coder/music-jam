@@ -2,7 +2,10 @@ export const BrowserCheck = () => {
   const browser = navigator.userAgent.toLowerCase();
   const thisIsABrowser = globalThis.window;
   let browserType = "";
-  if (browser.includes("firefox")) {
+  if (browser.includes("edg")) {
+    //Not a typo -- this is geniunely what the user agent for edge calls itself (after spamming the other browser names first to obfuscate that it is edge. )
+    browserType = "edge";
+  } else if (browser.includes("firefox")) {
     browserType = "firefox";
   } else if (browser.includes("chrome")) {
     browserType = "chrome";
