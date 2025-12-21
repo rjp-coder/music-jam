@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 export const BrowserCheck = () => {
+  const [isDismissed, setIsDismissed] = useState(false);
   const browser = navigator.userAgent.toLowerCase();
   const thisIsABrowser = globalThis.window;
   let browserType = "";
@@ -17,14 +20,21 @@ export const BrowserCheck = () => {
 
   if (!thisIsABrowser) return;
   if (browserType == "chrome") return;
+  if (isDismissed) return;
 
   return (
-    <div className="bg-amber-300 border-2 border-black text-black rounded-sm p-2 mb-2">
-      <p>
+    <div className="relative bg-amber-300 border-2 border-black text-black rounded-sm p-2 mb-2 pr-4">
+      <p className="text-left">
         {`It looks like you are using ${
           browserType ? titleCase(browserType) : " an unknown browser"
         }. Chrome is recommended when using Gamepads and the Gamepad API.`}
       </p>
+      <button
+        className="absolute right-1 top-1 cursor-pointer hover:bg-gray-800 hover:text-white p-1"
+        onClick={() => setIsDismissed(true)}
+      >
+        X
+      </button>
     </div>
   );
 };
