@@ -4,11 +4,11 @@
   "description": "An App for simulating playing instruments by using your connected gamepads.",
   "start_url": "/music-jam",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "#00ffcc",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "/piano-icon.png",
+      "src": "/music-jam/piano-icon.png",
       "sizes": "128x128",
       "type": "image/png"
     }

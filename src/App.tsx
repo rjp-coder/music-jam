@@ -10,6 +10,7 @@ import { useAudioUnlock } from "./hooks/useAudioContext.ts";
 import { useGamepadData } from "./hooks/useGamepadData.ts";
 import Tone from "./utils/audio.ts";
 import { NetworkStatus } from "./components/NetworkStatus.tsx";
+import { InstallButton } from "./components/InstallButton.tsx";
 
 function App() {
   const [toneStarted] = useState(false);
@@ -51,6 +52,7 @@ function App() {
       <footer className=" w-auto text-sm mt-4 ">
         <NetworkStatus />
         <Version />
+        <InstallButton className="text-white bg-blue-500 rounded-md border-gray-800 border-2 pl-1 pr-1 mt-1 text-lg dark:border-white" />
       </footer>
     </div>
   );
