@@ -1,18 +1,22 @@
 import { getAllMusicalKeys } from "../utils/utils";
 
 export const KeySelector = ({ musicKey, setMusicKey }) => {
+  const alignmentTweak =
+    musicKey.replace("m", "").length == 2 ? "-ml-1" : "ml-1";
+
+  const alignmentTweakForWordMinor =
+    musicKey.replace("m", "").length == 2 ? "ml-2" : "ml-4";
+
   return (
     <div className="text-center -ml-20 text-2xl mb-4">
       <span>Key</span>
       <div className="text-center absolute -mt-10 ml-15 pt-2.5    ">
         <span
-          className={`text-center  dark:text-white text-gray-800 pt-2.5  ${
-            musicKey.replace("m", "").length == 1 ? "ml-1" : ""
-          } `}
+          className={`text-center  dark:text-white text-gray-800 pt-2.5  ${alignmentTweak} `}
         >
           {musicKey.replace("m", "").toUpperCase()}
         </span>
-        <span className="text-center  ml-6 p-2   ">
+        <span className={`text-center p-2 ${alignmentTweakForWordMinor}`}>
           {musicKey.includes("m") ? "minor" : ""}
         </span>
       </div>
