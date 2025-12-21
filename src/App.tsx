@@ -52,7 +52,7 @@ function App() {
       <footer className=" w-auto text-sm mt-4 ">
         <NetworkStatus />
         <Version />
-        <InstallButton className="text-white bg-blue-500 rounded-md border-gray-800 border-2 pl-1 pr-1 mt-1 text-lg dark:border-white" />
+        <InstallButton className="cursor-pointer text-white bg-blue-500 hover:bg-blue-700 active:bg-blue-900 rounded-md border-gray-800 border-2 pl-1 pr-1 mt-1 text-lg dark:border-white" />
       </footer>
     </div>
   );
