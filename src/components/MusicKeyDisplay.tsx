@@ -20,7 +20,6 @@ export const MusicKeyboardDisplay = ({ musicKey }) => {
     leftPad: 1,
     rightPad: 1,
     activeKeys: activeKeys || [],
-    //The plus 4 here is kind of a hack -- saves messing with the agnostic button mapping and helps centre the octave for nintendo switch at least . . .
     activeControllerKeys:
       gamepadInputs.map((gi) => {
         return {
@@ -36,7 +35,6 @@ export const MusicKeyboardDisplay = ({ musicKey }) => {
 
   return (
     <div className="max-sm:flex max-sm:flex-row-reverse max-sm:flex-nowrap max-sm:mt-6 ">
-      {/* "flex flex-row flex-wrap md:flex-none md:flex-nowrap md:grid md:grid-rows-4 md:grid-cols-9 md:-mt-18 mb-auto" */}
       <MusicalOctaveDisplay
         className={standardClass + " " + topClass}
         octave={6}

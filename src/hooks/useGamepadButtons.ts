@@ -252,7 +252,7 @@ function determineNote(musicalKey: string, agnosticControllerBtnLabel: string) {
     "natural",
     0,
     agnosticKeysClimbingTheScale.length,
-    3
+    4
   );
 
   return notes[scalePosition];
