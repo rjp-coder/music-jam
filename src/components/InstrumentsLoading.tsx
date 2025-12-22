@@ -1,8 +1,10 @@
 import { motion } from "motion/react";
 import { useInstrumentsLoaded } from "../hooks/useInstrumentsLoaded";
+import { useState } from "react";
 
 export const LoadingProgress = () => {
   const { instruments, getProgress, isLoading } = useInstrumentsLoaded();
+  const [animationComplete, setAnimationComplete] = useState(false);
   const thisIsABrowser = globalThis.window;
   if (!thisIsABrowser)
     return (
@@ -19,8 +21,11 @@ export const LoadingProgress = () => {
           delay: 0.5,
           ease: [0, 0.71, 0.2, 1.01],
         }}
+        onAnimationComplete={() => setAnimationComplete(true)}
       >
-        {isLoading()
+        {animationComplete
+          ? ""
+          : isLoading()
           ? `Loading instruments (${loaded}/${total})`
           : `Instruments Loaded!`}
       </motion.summary>

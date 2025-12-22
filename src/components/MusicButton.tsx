@@ -19,7 +19,7 @@ export const MusicButton = ({
   const { spawnParticle } = useFX();
 
   return (
-    <div
+    <button
       style={
         active && activationColor.length > 1
           ? {
@@ -29,7 +29,9 @@ export const MusicButton = ({
           : {}
       }
       className={`h-14 touch-none md:h-9 select-none ${className} ${
-        active ? ` text-black sm:opacity-100` : "text-blue-500"
+        active
+          ? ` text-black sm:opacity-100`
+          : "text-blue-700 dark:text-blue-400"
       } ${
         active && activationColor.length == 1
           ? gamepadColors[activationColor[0]].bg
@@ -56,6 +58,6 @@ export const MusicButton = ({
       }}
     >
       {note}
-    </div>
+    </button>
   );
 };

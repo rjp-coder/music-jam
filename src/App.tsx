@@ -22,31 +22,35 @@ function App() {
   return (
     <div className="flex items-center flex-col ">
       {!isAudioUnlocked && thisIsABrowser && (
-        <div className="absolute">
-          <p
+        <div className="absolute -mt-4">
+          <button
             onClick={() => Tone.getContext().resume()}
-            className="cursor-pointer -mt-4"
+            className="cursor-pointer"
           >
             Click here to enable audio
-          </p>
+          </button>
         </div>
       )}
 
       <MusicalKeyContext value={[musicKey, setMusicKey]}>
         <ConnectedGamepadsContext value={gamepadContextVal}>
-          <h1 className="text-6xl bg-linear-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text mb-4">
-            Music Jam
-          </h1>
-          <BrowserCheck />
-          <LoadingProgress />
-          <Gamepads />
-          {toneStarted && <span>🎶🎵🎵</span>}
+          <header>
+            <h1 className="text-6xl bg-linear-to-r from-red-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text mb-4">
+              Music Jam
+            </h1>
+          </header>
+          <main className="flex items-center flex-col">
+            <BrowserCheck />
+            <LoadingProgress />
+            <Gamepads />
+            {toneStarted && <span>🎶🎵🎵</span>}
 
-          <KeySelector
-            musicKey={musicKey}
-            setMusicKey={setMusicKey}
-          ></KeySelector>
-          <MusicKeyboardDisplay musicKey={musicKey} />
+            <KeySelector
+              musicKey={musicKey}
+              setMusicKey={setMusicKey}
+            ></KeySelector>
+            <MusicKeyboardDisplay musicKey={musicKey} />
+          </main>
         </ConnectedGamepadsContext>
       </MusicalKeyContext>
       <footer className=" w-auto text-sm mt-4 ">

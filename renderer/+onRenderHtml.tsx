@@ -23,7 +23,7 @@ async function onRenderHtml(pageContext: PageContextServer) {
     <title>music-jam</title>
   </head>
   <body class="m-0 flex place-items-center min-w-xs min-h-lvh">
-    <div id="root" class="my-0 mx-auto p-8 text-center max-w-7xl">${dangerouslySkipEscape(
+    <div id="root" role="presentation" class="my-0 mx-auto p-8 text-center max-w-7xl">${dangerouslySkipEscape(
       pageHtml
     )}</div>
   </body>
