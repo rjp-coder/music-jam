@@ -6,7 +6,6 @@ export const InstallButton = ({ className }) => {
   useEffect(() => {
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
-      alert("YAY");
       setDeferredPrompt(e);
     });
   });
