@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ConnectedGamepadsContext, MusicalKeyContext } from "./AppContexts.ts";
 import { BrowserCheck } from "./components/BrowserCheck.tsx";
 import { Gamepads } from "./components/GamePads.tsx";
@@ -18,6 +18,13 @@ function App() {
   const gamepadContextVal = useGamepadData();
   const { isAudioUnlocked } = useAudioUnlock();
   const thisIsABrowser = globalThis.window;
+
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.rel = "manifest";
+    link.href = `${import.meta.env.BASE_URL}manifest.json`;
+    document.head.appendChild(link);
+  });
 
   return (
     <div className="flex items-center flex-col ">
@@ -53,7 +60,7 @@ function App() {
           </main>
         </ConnectedGamepadsContext>
       </MusicalKeyContext>
-      <footer className=" w-auto text-sm mt-4 ">
+      <footer className="min-w-120 max-w-120 text-sm mt-4 min-h-24 pl-8 pr-8">
         <NetworkStatus />
         <Version />
         <InstallButton className="cursor-pointer text-white bg-blue-500 hover:bg-blue-700 active:bg-blue-900 rounded-md border-gray-800 border-2 pl-1 pr-1 mt-1 text-lg dark:border-white" />

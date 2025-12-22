@@ -11,7 +11,7 @@ function Page() {
     <StrictMode>
       <EffectsLayer>
         <App />
-        <noscript className="text-sm text-yellow-500">
+        <noscript className="text-sm text-yellow-700 dark:text-yellow-400">
           This page requires javascript to run
         </noscript>
       </EffectsLayer>

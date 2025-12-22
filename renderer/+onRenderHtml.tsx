@@ -17,7 +17,6 @@ async function onRenderHtml(pageContext: PageContextServer) {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="manifest" href="${ROOT_URL}manifest.json">
     <link rel="icon" type="image/x-icon" href="${ROOT_URL}piano-icon-48x48.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Website/ Progressive Web App for playing instruments using game controllers " />

@@ -8,13 +8,15 @@ export const LoadingProgress = () => {
   const thisIsABrowser = globalThis.window;
   if (!thisIsABrowser)
     return (
-      <p className="text-orange-400 text-xl -mt-4">Loading (javascript) </p>
+      <p className="text-orange-400 text-xl -mt-4 min-w-80">
+        Loading (javascript){" "}
+      </p>
     );
   const { loaded, total } = getProgress();
   return (
     <details>
       <motion.summary
-        className={`text-xl -mt-4 ${!isLoading() && "visible"}`}
+        className={`text-xl -mt-4 min-w-80 ${!isLoading() && "visible"}`}
         animate={isLoading() ? {} : { opacity: 0 }}
         transition={{
           duration: 0.8,
@@ -27,7 +29,7 @@ export const LoadingProgress = () => {
           ? ""
           : isLoading()
           ? `Loading instruments (${loaded}/${total})`
-          : `Instruments Loaded!`}
+          : `All Instruments Loaded!`}
       </motion.summary>
       <motion.ul
         transition={{
