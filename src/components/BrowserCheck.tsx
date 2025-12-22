@@ -30,7 +30,7 @@ export const BrowserCheck = () => {
         }. Chrome is recommended when using Gamepads and the Gamepad API.`}
       </p>
       <button
-        className="absolute right-1 top-1 cursor-pointer hover:bg-gray-800 hover:text-white p-1"
+        className="absolute right-0 top-0 cursor-pointer hover:bg-gray-800 hover:text-white leading-4 p-1"
         onClick={() => setIsDismissed(true)}
       >
         X
