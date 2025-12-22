@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 export const InstallButton = ({ className }) => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
+  const handleEvent = (e) => {
+    //   e.preventDefault();
+    setDeferredPrompt(e);
+  };
+
   useEffect(() => {
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    });
-  });
+    window.addEventListener("beforeinstallprompt", handleEvent);
+    return window.removeEventListener("beforeinstallprompt", handleEvent);
+  }, []);
 
   const handleAppInstall = () => {
     if (deferredPrompt) {
