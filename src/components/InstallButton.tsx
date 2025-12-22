@@ -4,7 +4,7 @@ export const InstallButton = ({ className }) => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
   const handleEvent = (e) => {
-    //   e.preventDefault();
+    e.preventDefault();
     setDeferredPrompt(e);
   };
 
