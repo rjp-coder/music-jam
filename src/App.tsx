@@ -74,11 +74,12 @@ export default App;
 //TODOS
 //FIXME Mobile viewport notes stay at top left of window, but should follow viewport.
 //FIXME dragging the finger across on a mobile device should ideally hit all the keys
-//TODO Make the Browser banner dismissable
+//TODO investigate lighthouse performance score. Appears manifest or service-worker is still slowing things down.
 
 //OPTIONAL TODOS
+//TODO add more caching for PWA
+//TODO add PWA detection and disable the Install App button
 //TODO add option to disable controller
-//TODO PWA -- make the whole thing saved and workable offline
 //TODO detect "half of a switch controller"
 //TODO add configurable permissions to lock controller functionality and disable some
 //TODO make sustain work on the notes
