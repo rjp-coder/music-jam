@@ -10,8 +10,8 @@ export const InstallButton = ({ className }) => {
 
   useEffect(() => {
     window.addEventListener("beforeinstallprompt", handleEvent);
-    return window.removeEventListener("beforeinstallprompt", handleEvent);
-  }, []);
+    // return window.removeEventListener("beforeinstallprompt", handleEvent);
+  });
 
   const handleAppInstall = () => {
     if (deferredPrompt) {
