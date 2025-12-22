@@ -23,9 +23,19 @@ export const InstallButton = ({ className }) => {
       });
     }
   };
+
+  /*
+    The beforeinstallprompt event is mostly just supported by chrome. 
+  */
+  if (!deferredPrompt)
+    return (
+      <p className="text-xs">
+        This website is available as a desktop app and can work fully offline.
+        The instructions for doing depend on your browser.
+      </p>
+    );
   return (
     <>
-      <p>{"deferredPromptExists:" + !!deferredPrompt}</p>
       <button className={className} onClick={() => handleAppInstall()}>
         Install as App
       </button>
