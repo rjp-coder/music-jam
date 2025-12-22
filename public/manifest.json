@@ -14,17 +14,20 @@
     }
   ],
   "form_factor": "any",
-
   "screenshots": [
     {
-      "src": "music-jam/screenshots/screenshot602x869.png",
+      "src": "screenshots/screenshot602x869.png",
       "type": "image/png",
-      "sizes": "602x869"
+      "sizes": "602x869",
+      "form_factor": "narrow",
+      "label": "music-jam mobile"
     },
     {
       "src": "screenshots/screenshot1400x850.png",
       "type": "image/png",
-      "sizes": "1400x850"
+      "sizes": "1400x850",
+      "form_factor": "wide",
+      "label": "music-jam desktop"
     }
   ]
 }
