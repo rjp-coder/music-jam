@@ -52,7 +52,7 @@ export default defineConfig({
         ],
       },
       registerType: "autoUpdate",
-      injectRegister: "script",
+      injectRegister: "auto",
       devOptions: { enabled: false },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
