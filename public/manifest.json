@@ -29,5 +29,6 @@
       "form_factor": "wide",
       "label": "music-jam desktop"
     }
-  ]
+  ],
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json"
 }

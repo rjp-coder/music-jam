@@ -6,6 +6,7 @@ import react from "@vitejs/plugin-react-swc";
 import { visualizer } from "rollup-plugin-visualizer";
 import versionPlugin from "./vitePlugins/version";
 import vike from "vike/plugin";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -30,6 +31,33 @@ export default defineConfig({
     react(),
     tailwindcss(),
     visualizer(),
+    VitePWA({
+      includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
+      manifest: {
+        name: "My Awesome App",
+        short_name: "MyApp",
+        description: "My Awesome App description",
+        theme_color: "#ffffff",
+        icons: [
+          {
+            src: "pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      },
+      registerType: "autoUpdate",
+      injectRegister: "script",
+      devOptions: { enabled: false },
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+      },
+    }),
     versionPlugin(),
     vike({ prerender: true }),
   ],

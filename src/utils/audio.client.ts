@@ -3,7 +3,7 @@ import type { Instruments } from "./audio";
 
 export default Tone;
 
-const baseUrl = "https://rjp-coder.github.io/music-jam/noteSamples/";
+const baseUrl = "/music-jam/noteSamples/";
 
 const piano = new Tone.Sampler({
   urls: {

@@ -77,6 +77,7 @@ export default App;
 //TODO investigate lighthouse performance score. Appears manifest or service-worker is still slowing things down.
 
 //OPTIONAL TODOS
+//TODO If offline and become online, retry the instrument loading
 //TODO add more caching for PWA
 //TODO add PWA detection and disable the Install App button
 //TODO add option to disable controller
