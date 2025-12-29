@@ -30,8 +30,8 @@ importers:
         specifier: ^0.4.247
         version: 0.4.247(react-streaming@0.4.13(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1))
       vite-plugin-pwa:
-        specifier: ^1.2.0
-        version: 1.2.0(@vite-pwa/assets-generator@1.0.2)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@7.4.0)
+        specifier: ~1.1.0
+        version: 1.1.0(@vite-pwa/assets-generator@1.0.2)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@7.4.0)
     devDependencies:
       '@eslint/js':
         specifier: ^9.39.1
@@ -2920,14 +2920,14 @@ packages:
       vite:
         optional: true
 
-  vite-plugin-pwa@1.2.0:
-    resolution: {integrity: sha512-a2xld+SJshT9Lgcv8Ji4+srFJL4k/1bVbd1x06JIkvecpQkwkvCncD1+gSzcdm3s+owWLpMJerG3aN5jupJEVw==}
+  vite-plugin-pwa@1.1.0:
+    resolution: {integrity: sha512-VsSpdubPzXhHWVINcSx6uHRMpOHVHQcHsef1QgkOlEoaIDAlssFEW88LBq1a59BuokAhsh2kUDJbaX1bZv4Bjw==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       '@vite-pwa/assets-generator': ^1.0.0
       vite: ^3.1.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
-      workbox-build: ^7.4.0
-      workbox-window: ^7.4.0
+      workbox-build: ^7.3.0
+      workbox-window: ^7.3.0
     peerDependenciesMeta:
       '@vite-pwa/assets-generator':
         optional: true
@@ -6118,7 +6118,7 @@ snapshots:
       react-streaming: 0.4.13(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       vite: 7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1)
 
-  vite-plugin-pwa@1.2.0(@vite-pwa/assets-generator@1.0.2)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@7.4.0):
+  vite-plugin-pwa@1.1.0(@vite-pwa/assets-generator@1.0.2)(vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.1))(workbox-build@7.4.0)(workbox-window@7.4.0):
     dependencies:
       debug: 4.4.3
       pretty-bytes: 6.1.1

@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     const link = document.createElement("link");
     link.rel = "manifest";
-    link.href = `${import.meta.env.BASE_URL}manifest.json`;
+    link.href = `${import.meta.env.BASE_URL}manifest.webmanifest`;
     document.head.appendChild(link);
   });
 
@@ -75,6 +75,7 @@ export default App;
 //FIXME Mobile viewport notes stay at top left of window, but should follow viewport.
 //FIXME dragging the finger across on a mobile device should ideally hit all the keys
 //TODO investigate lighthouse performance score. Appears manifest or service-worker is still slowing things down.
+//TODO get vite-pwa working with the app -- it currently won't register a service worker! Grrrrr
 
 //OPTIONAL TODOS
 //TODO If offline and become online, retry the instrument loading
