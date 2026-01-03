@@ -21,6 +21,7 @@ async function onRenderHtml(pageContext: PageContextServer) {
     <meta name="description" content="Website/ Progressive Web App for playing instruments using game controllers " />
     <title>music-jam</title>
     <link rel="icon" href="/music-jam/favicon.ico">
+    <link rel="manifest" href="/music-jam/manifest.webmanifest">
     <link rel="apple-touch-icon" href="/music-jam/apple-touch-icon-180x180.png" sizes="180x180">
     <link rel="mask-icon" href="/music-jam/maskable-icon-512x512.png" color="#FFFFFF">
     <meta name="theme-color" content="#ffffff">
