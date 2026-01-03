@@ -11,6 +11,7 @@ import { useGamepadData } from "./hooks/useGamepadData.ts";
 import Tone from "./utils/audio.ts";
 import { NetworkStatus } from "./components/NetworkStatus.tsx";
 import { InstallButton } from "./components/InstallButton.tsx";
+import PWABadge from "./components/PWABadge.tsx";
 
 function App() {
   const [toneStarted] = useState(false);
@@ -64,6 +65,7 @@ function App() {
         <NetworkStatus />
         <Version />
         <InstallButton className="cursor-pointer text-white bg-blue-500 hover:bg-blue-700 active:bg-blue-900 rounded-md border-gray-800 border-2 pl-1 pr-1 mt-1 text-lg dark:border-white" />
+        <PWABadge />
       </footer>
     </div>
   );
