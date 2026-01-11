@@ -57,7 +57,7 @@ export const MusicalOctaveDisplay = ({
 
   // console.log({ expandedOctave });
   return (
-    <div className="flex flex-row flex-wrap sm:flex-none sm:flex-nowrap max-sm:inline-block">
+    <div className="flex flex-col sm:flex-none sm:block ">
       {expandedOctave.map((note, i) => {
         const keyboardActivation = keyboardMappings[i];
         const controllerActivation = controllerMappings[i];
